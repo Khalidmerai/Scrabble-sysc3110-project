@@ -17,20 +17,39 @@ public class Tile {
         this.value = value;
     }
 
+    /*
+    This method gets the letter from the HashMap letterVal
+    @returns the letter
+     */
     public char getLetter() {
         return this.letter;
     }
-
+    /*
+    This method gets the value of letter from the HashMap letterVal
+    @returns the value of the letter
+     */
     public int getValue() {
         return this.value;
     }
 
+    /*
+    This method returns the tile with the selected letter and value.
+    @return the tile with the selected letter and value
+     */
     @Override
     public String toString() {
-        return super.toString();
+        return "Tile{" +
+                "letter=" + letter +
+                ", value=" + value +
+                '}';
     }
 
-
+    /*
+    This method checks whether the object is equal to the tile
+    @returns True if both letters are equal to each other
+    @returns false if object is instance of the Tile
+    @returns false if both letters are not equal to each other
+     */
     public boolean equals(Object obj) {
         Tile x;
         if(!(obj instanceof Tile)){
