@@ -46,17 +46,29 @@ public class GameBoard {
         //Triple Word Squares
         for (int i = 0; i < numRows; i++){
             if (i == 0 || i == 14){
-                squares[i][0] = new TripleLetterSquare(0, 0);
-                squares[i][7] = new TripleLetterSquare(0, 7);
-                squares[i][14] = new TripleLetterSquare(0, 14);
+                squares[i][0] = new TripleLetterSquare(i, 0);
+                squares[i][7] = new TripleLetterSquare(i, 7);
+                squares[i][14] = new TripleLetterSquare(i, 14);
             }
             if (i == 7){
-                squares[7][0] = new TripleLetterSquare(7, 0);
-                squares[7][14] = new TripleLetterSquare(7, 14);
+                squares[i][0] = new TripleLetterSquare(i, 0);
+                squares[i][14] = new TripleLetterSquare(i, 14);
             }
         }
 
-        //Implement the rest of the squares here
+        //Triple Letter Squares
+        for (int i = 0; i < numRows; i++){
+            if (i == 1 || i == 13){
+                squares[i][0] = new TripleLetterSquare(i, 5);
+                squares[i][7] = new TripleLetterSquare(i, 9);
+            }
+            if (i == 5 || i == 9){
+                squares[i][0] = new TripleLetterSquare(i, 1);
+                squares[i][14] = new TripleLetterSquare(i, 5);
+                squares[i][0] = new TripleLetterSquare(i, 9);
+                squares[i][7] = new TripleLetterSquare(i, 13);
+            }
+        }
 
     }
 
