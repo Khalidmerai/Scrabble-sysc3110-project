@@ -28,26 +28,47 @@ public class GameBoard {
     public void printGameBoard(){
         System.out.println("\tA | B | C | D | E | F | G | H | I | J | K | L | M | N | O");
         System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
-        for (int i = 0; i <= 15; i++){
-            if (i > 10){
-                System.out.println(i + "    +   +   +   +   +   +   +   +   +   +   +   +   +   +   ");
-                System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
-            }else {
-                System.out.println(i + "     +   +   +   +   +   +   +   +   +   +   +   +   +   +   ");
-                System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
+        for (int i = 0; i < numRows; i++){
+            System.out.print(i + " ");
+            for (int j = 0; j < numColumns; j++){ //prints value of square
+                System.out.print(squares[i][j] + " ");
             }
+            System.out.println();
+            System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
         }
     }
 
+    /** TODO
+     * Populates the board with squares of Scrabble such as the
+     * DLS, TLS, DWS, TWS, and regular squares.
+     */
+    private void buildSquares() {
+        //Triple Word Squares
+        for (int i = 0; i < numRows; i++){
+            if (i == 0 || i == 14){
+                squares[i][0] = new TripleLetterSquare(0, 0);
+                squares[i][7] = new TripleLetterSquare(0, 7);
+                squares[i][14] = new TripleLetterSquare(0, 14);
+            }
+            if (i == 7){
+                squares[7][0] = new TripleLetterSquare(7, 0);
+                squares[7][14] = new TripleLetterSquare(7, 14);
+            }
+        }
+
+        //Implement the rest of the squares here
+
+    }
+
     public static void main(String[] args) {
-        //GameBoard game = new GameBoard();
-        //game.printGameBoard();
+        GameBoard game = new GameBoard();
+        game.printGameBoard();
         int[][] squares = new int[3][3];
         squares[0][0] = 1;
         squares[0][1] = 1;
         squares[0][2] = 1;
-        for(int i = 0; i<3;i++){
-            for (int j = 0; j < 3; j++){
+        for(int i = 0; i<3;i++) {
+            for (int j = 0; j < 3; j++) {
                 System.out.println(squares[i][j]);
             }
         }

@@ -18,8 +18,8 @@ public abstract class Square
     /**
      * The square's row and column number.
      */
-    private int rowNum;
-    private int columnNum;
+    private int rowNum; //x position
+    private int columnNum; //y position
 
     protected boolean isFilled;
     /**
@@ -107,9 +107,4 @@ public abstract class Square
             return "_ ";
         }
     }
-
-    /**
-     * to be implemented later when the player class is created
-     */
-    //public abstract void landedOn(Player p);
 }

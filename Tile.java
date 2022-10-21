@@ -12,7 +12,7 @@ public class Tile {
     char letter;
     int value;
     static HashMap<Character, Integer> letterVal ;
-    public Tile(char letter, int value){
+    public Tile(char letter){
         this.letter = letter;
 
         switch(letter) {
@@ -20,12 +20,12 @@ public class Tile {
             case 'A':
             case 'E':
             case 'I':
-            case 'O':
-            case 'N':
-            case 'R':
-            case 'T':
             case 'L':
+            case 'N':
+            case 'O':
+            case 'R':
             case 'S':
+            case 'T':
             case 'U':
                 this.value = 1;
                 break;
