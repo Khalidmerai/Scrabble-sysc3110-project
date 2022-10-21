@@ -7,9 +7,9 @@
 public abstract class Square
 {
     /**
-     * The letter to be placed in square.
+     * The tile to be placed in square.
      */
-    private char letter;
+    private Tile tile;
     /**
      * The square's name.
      */
@@ -37,31 +37,12 @@ public abstract class Square
     }
 
     /**
-     * Returns the description of this square.
-     *
-     * @return A string containing the name of this square.
-     */
-    public String toString()
-    {
-        return this.name;
-    }
-
-    /**
-     * Places letter in square
-     *
-     * @param letter to be placed
-     */
-    public void placeLetter(char letter){
-        this.letter = letter;
-    }
-
-    /**
      * Gets letter in square
      *
      * @return letter in square
      */
     public char getLetter(){
-        return this.letter;
+        return this.tile.getLetter();
     }
 
     /**
@@ -85,12 +66,23 @@ public abstract class Square
     }
 
     /**
-     * Fills the square
+     * Fills the square with tile
      *
      * @return The square's number column.
      */
-    public void fillSquare(){
+    public void placeTile(Tile tile){
         this.isFilled = true;
+        this.tile = tile;
+    }
+
+    /**
+     * Removes the tile from square
+     *
+     * @return The square's number column.
+     */
+    public void removeTile(){
+        this.isFilled = false;
+        this.tile = null;
     }
 
     /**
@@ -100,6 +92,20 @@ public abstract class Square
      */
     public boolean isFilled(){
         return this.isFilled;
+    }
+
+    /**
+     * Returns the description of this square.
+     *
+     * @return A string containing the name of this square.
+     */
+    public String toString(){
+        if (isFilled){
+            return this.tile.toString() + " ";
+        }
+        else{
+            return "_ ";
+        }
     }
 
     /**
