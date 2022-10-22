@@ -16,6 +16,10 @@ public class Tile {
         this.letter = letter;
 
         switch(letter) {
+            // 0 point letters
+            case '_':
+                this.value = 0;
+                break;
             //1 point letters
             case 'A':
             case 'E':
