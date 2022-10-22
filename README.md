@@ -1,5 +1,8 @@
-# Scrabble-sysc3110-project
-This is an implementation of the Scrabble Game for our SYSC3110 Project Group 8.
+AUTHORS AND ACKNOWLEDGEMENT  
+This program reproduces a simplified version of the board game Scrabble.
+This program was made for the SYSC 3110 team project, by group 8, which consists of Khalid Merai, Scharara Islam, Marina Latif and Saad Eid.
+
+RULES OF SCRABBLE 
 
 Scrabble is a word game in which two to four players score points by placing tiles, each bearing a single letter, onto a game board divided into a 15×15 grid of squares.
 
@@ -12,3 +15,8 @@ For more information on the scrabble game it can be found in the link below.
 
 https://en.wikipedia.org/wiki/Scrabble
 
+BREAK DOWN OF TASKS FOR MILESTONE 1
+Player.java and UML : Marina
+Dictionary.java : Scharara
+Tile.java : Khaled
+DoubleLetterSquare, DoubleWordSquare
