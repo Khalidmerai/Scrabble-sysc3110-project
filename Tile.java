@@ -151,6 +151,7 @@ public class Tile {
         letterVal.put('X',8);
         letterVal.put('Y',4);
         letterVal.put('Z',10);
+        letterVal.put('_',0);
         System.out.println("Value: "+ letterVal);
     }
 }
