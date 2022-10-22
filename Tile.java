@@ -12,9 +12,64 @@ public class Tile {
     char letter;
     int value;
     static HashMap<Character, Integer> letterVal ;
-    public Tile(char letter, int value){
+    public Tile(char letter){
         this.letter = letter;
-        this.value = value;
+
+        switch(letter) {
+            //1 point letters
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'L':
+            case 'N':
+            case 'O':
+            case 'R':
+            case 'S':
+            case 'T':
+            case 'U':
+                this.value = 1;
+                break;
+
+            //2 point letters
+            case 'D':
+            case 'G':
+                this.value = 2;
+                break;
+
+            //3 point letters
+            case 'B':
+            case 'C':
+            case 'M':
+            case 'P':
+                this.value = 3;
+                break;
+
+            //4 point letters
+            case 'F':
+            case 'H':
+            case 'V':
+            case 'W':
+            case 'Y':
+                this.value = 4;
+                break;
+
+            //5 point letters
+            case 'K':
+                this.value = 5;
+                break;
+
+            //8 points letters
+            case 'J':
+            case 'X':
+                this.value = 8;
+                break;
+
+            //10 points letters
+            case 'Q':
+            case 'Z':
+                this.value = 10;
+                break;
+        }
     }
 
     /*
