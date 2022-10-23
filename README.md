@@ -17,8 +17,11 @@ https://en.wikipedia.org/wiki/Scrabble
 
 BREAK DOWN OF TASKS FOR MILESTONE 1
 Player.java and UML : Marina
+
 Dictionary.java, bag.java : Scharara
+
 Tile.java, bag.java and readme file : Khalid
+
 DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, Square.java and gameBoard.java - Saad 
 
 Left for MileStone 1 is the scrabble class to initialize all components of the game in the class and start to play the game.
