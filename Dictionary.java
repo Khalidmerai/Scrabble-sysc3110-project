@@ -23,12 +23,12 @@ public class Dictionary {
         }
         char[] chars = wordContain.toCharArray();
         Arrays.sort(chars);
-        String wordC = "";
+        String playerword = "";
         for(int index = 0; index<chars.length; index++){
-            wordC += chars[index];
+            playerword += chars[index];
         }
-        ArrayList<String> list = new ArrayList<String>();
-        list = dictionaryList.get(wordC);
+        String list;
+        list = dictionaryList.get(Integer.parseInt(playerword));
 
         if(list == null){
             return false;
