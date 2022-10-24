@@ -47,8 +47,15 @@ public class Bag {
         return letter.size();
     }
 
-   public Tile getNextTile(){
-        return Tile.remove(0);
+   public ArrayList<Tile> getNextTile(int nextTile){
+        ArrayList<Tile> newTile = new ArrayList<Tile>();
+        for(int i = 0; i<nextTile; i++){
+            newTile.add(letter.get(nextTile));
+            letter.remove(0);
+
+        }
+        return newTile;
+
     }
 
 
