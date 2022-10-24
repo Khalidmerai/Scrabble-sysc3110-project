@@ -22,6 +22,6 @@ Dictionary.java, bag.java : Scharara
 
 Tile.java, bag.java and readme file : Khalid
 
-DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, Square.java and gameBoard.java - Saad 
+DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java and gameBoard.java. Also assisted in bag and tile - Saad 
 
 Left for MileStone 1 is the scrabble class to initialize all components of the game in the class and start to play the game.
