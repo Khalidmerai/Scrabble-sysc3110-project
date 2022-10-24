@@ -11,6 +11,10 @@ public abstract class Square
      */
     private Tile tile;
     /**
+     * This tile will act as a placeholder
+     */
+    private  Tile emptyTile = new Tile(' ');
+    /**
      * The square's name.
      */
     private String name;
@@ -34,6 +38,7 @@ public abstract class Square
         this.name = name;
         this.rowNum = rowNum;
         this.columnNum = columnNum;
+        this.tile = emptyTile;
     }
 
     /**
@@ -101,10 +106,10 @@ public abstract class Square
      */
     public String toString(){
         if (isFilled){
-            return this.tile.toString() + " ";
+            return " " + this.tile.toString() + " ";
         }
         else{
-            return "_ ";
+            return " _ ";
         }
     }
 }
