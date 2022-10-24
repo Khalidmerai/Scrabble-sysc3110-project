@@ -9,7 +9,7 @@ public class Dictionary {
 
     private static final String wordList = "wordlist.10000.txt";
 //construct the dictionary and import text file
-    public Dictionary() throws FileNotFoundException {
+    public Dictionary() {
         Scanner filename = null;
         boolean verified;
         try {
