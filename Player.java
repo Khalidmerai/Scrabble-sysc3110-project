@@ -94,12 +94,4 @@ public class Player  {
             rack.add();
         }
     }
-
-
-
-
-
-
-
-
 }
