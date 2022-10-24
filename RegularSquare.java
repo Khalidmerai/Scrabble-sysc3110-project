@@ -1,3 +1,8 @@
+/**
+ * Represents the regular square on the Scrabble game board.
+ *
+ * @author Saad Eid
+ */
 public class RegularSquare extends Square{
     /**
      * The name of the square

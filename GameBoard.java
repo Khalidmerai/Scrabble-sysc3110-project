@@ -49,10 +49,11 @@ public class GameBoard {
     }
 
     /**
-     * Assigns the squares of Scrabble such as the
-     * DLS, TLS, DWS, TWS, and regular squares in the correct order
+     * Populates the board with squares of Scrabble such as the
+     * DLS, TLS, DWS, TWS, starting square, and regular squares.
      */
     private void buildSquares() {
+
         //Triple Word Squares
         for (int i = 0; i < numRows; i++){
             if (i == 0 || i == 14){
@@ -69,10 +70,16 @@ public class GameBoard {
         //Triple Letter Squares
         for (int i = 0; i < numRows; i++){
             if (i == 1 || i == 13){
+                squares[i][0] = new TripleLetterSquare(i, 5);
+                squares[i][7] = new TripleLetterSquare(i, 9);
                 squares[i][5] = new TripleLetterSquare(i, 5);
                 squares[i][9] = new TripleLetterSquare(i, 9);
             }
             if (i == 5 || i == 9){
+                squares[i][0] = new TripleLetterSquare(i, 1);
+                squares[i][14] = new TripleLetterSquare(i, 5);
+                squares[i][0] = new TripleLetterSquare(i, 9);
+                squares[i][7] = new TripleLetterSquare(i, 13);
                 squares[i][1] = new TripleLetterSquare(i, 1);
                 squares[i][5] = new TripleLetterSquare(i, 5);
                 squares[i][9] = new TripleLetterSquare(i, 9);
@@ -226,7 +233,7 @@ public class GameBoard {
                 squares[i][4] = new RegularSquare(i, 4);
                 squares[i][5] = new RegularSquare(i, 5);
                 squares[i][6] = new RegularSquare(i, 6);
-                squares[i][7] = new RegularSquare(i, 7);
+                squares[i][7] = new StartingSquare();
                 squares[i][8] = new RegularSquare(i, 8);
                 squares[i][9] = new RegularSquare(i, 9);
                 squares[i][10] = new RegularSquare(i, 10);
@@ -239,6 +246,5 @@ public class GameBoard {
     public static void main(String[] args) {
         GameBoard game = new GameBoard();
         game.printGameBoard();
-
     }
 }

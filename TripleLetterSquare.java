@@ -1,3 +1,8 @@
+/**
+ * Represents the triple letter square on the Scrabble game board.
+ *
+ * @author Saad Eid
+ */
 public class TripleLetterSquare extends Square{
     /**
      * The name of the square

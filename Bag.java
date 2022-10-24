@@ -7,33 +7,33 @@ Scharara Islam 101149731
 public class Bag {
     public ArrayList<Tile> letter; //  initial words
     public Bag(){
-        Tile a = new Tile('A', 1);
-        Tile b = new Tile('B', 3);
-        Tile c = new Tile('C', 3);
-        Tile d = new Tile('D', 2);
-        Tile e = new Tile('E', 1);
-        Tile f = new Tile('F', 4);
-        Tile g = new Tile('G', 2);
-        Tile h = new Tile('H', 4);
-        Tile i = new Tile('I', 1);
-        Tile j = new Tile('J', 8);
-        Tile k = new Tile('K', 5);
-        Tile l = new Tile('L', 1);
-        Tile m = new Tile('M', 3);
-        Tile n = new Tile('N', 1);
-        Tile o = new Tile('O', 1);
-        Tile p = new Tile('P', 3);
-        Tile q = new Tile('Q', 10);
-        Tile r = new Tile('R', 1);
-        Tile s = new Tile('S', 1);
-        Tile t = new Tile('T', 1);
-        Tile u = new Tile('U', 1);
-        Tile v = new Tile('V', 4);
-        Tile w = new Tile('W', 4);
-        Tile x = new Tile('X', 8);
-        Tile y = new Tile('Y', 4);
-        Tile z = new Tile('Z', 10);
-        Tile blank = new Tile('_', 0);
+        Tile a = new Tile('A');
+        Tile b = new Tile('B');
+        Tile c = new Tile('C');
+        Tile d = new Tile('D');
+        Tile e = new Tile('E');
+        Tile f = new Tile('F');
+        Tile g = new Tile('G');
+        Tile h = new Tile('H');
+        Tile i = new Tile('I');
+        Tile j = new Tile('J');
+        Tile k = new Tile('K');
+        Tile l = new Tile('L');
+        Tile m = new Tile('M');
+        Tile n = new Tile('N');
+        Tile o = new Tile('O');
+        Tile p = new Tile('P');
+        Tile q = new Tile('Q');
+        Tile r = new Tile('R');
+        Tile s = new Tile('S');
+        Tile t = new Tile('T');
+        Tile u = new Tile('U');
+        Tile v = new Tile('V');
+        Tile w = new Tile('W');
+        Tile x = new Tile('X');
+        Tile y = new Tile('Y');
+        Tile z = new Tile('Z');
+        Tile blank = new Tile('_');
 
         letter = new ArrayList<>(100);
         letter.add(a);letter.add(b);letter.add(c);letter.add(d);letter.add(e);
@@ -46,9 +46,11 @@ public class Bag {
     public int size(){
         return letter.size();
     }
+
     public Tile getNextTile(){
         return Tile.remove(0);
     }
+
     public Tile drag(){
         int tileSize = letter.size() - 1;
         Random rand = new Random();
@@ -62,7 +64,5 @@ public class Bag {
         } else{
             return letter.size();
         }
-
     }
-
 }

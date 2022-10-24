@@ -1,3 +1,8 @@
+/**
+ * Represents the double letter square on the Scrabble game board.
+ *
+ * @author Saad Eid
+ */
 public class DoubleLetterSquare extends Square{
     /**
      * The name of the square
