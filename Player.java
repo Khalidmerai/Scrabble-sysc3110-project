@@ -91,11 +91,14 @@ public class Player  {
     }
     public final boolean addTile(Bag bag){
     boolean dragTile = rack.add(bag.drag());
-    return dragTile;}
-    
-    public void addTileToRack(){
-        for(int i =0; i< rack.size();i++){
-            rack.add();
-        }
+    return dragTile;
+    }
+    //add a specific tile to the rack
+    public boolean  addTileToRack(Tile t){
+      return rack.add(t);
+    }
+    //Remove tile from the rack
+    public boolean  removeTileFromRack(Tile t){
+        return rack.remove(t);
     }
 }
