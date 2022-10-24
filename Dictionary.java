@@ -9,13 +9,21 @@ public class Dictionary {
 
     private static final String wordList = "wordlist.10000.txt";
 //construct the dictionary and import text file
-    public Dictionary() throws IOException, FileNotFoundException{
-        try (Scanner fileScanner = new Scanner(new File(getClass().getResource(wordList).getFile()))) {
-            while (fileScanner.hasNext()) {
-                dictionaryList.add(fileScanner.next());
-            }
+    public Dictionary() throws FileNotFoundException {
+        Scanner filename = null;
+        boolean verified;
+        try {
+            filename = new Scanner(new File(wordList));
+            verified = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            verified = false;
+        }
+        while (filename.hasNext()) {
+            dictionaryList.add(filename.next());
         }
     }
+
 //checks if the word contains the list that is provided
     public boolean checkWord(String wordContain){
         if (wordContain.length() == 1){
