@@ -47,9 +47,13 @@ public class Bag {
         return letter.size();
     }
 
-    public Tile getNextTile(){
+   public Tile getNextTile(){
         return Tile.remove(0);
     }
+
+
+
+
 
     public Tile drag(){
         int tileSize = letter.size() - 1;
