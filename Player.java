@@ -89,6 +89,10 @@ public class Player  {
     public void setRack( ArrayList<Tile> list) {
         rack = list;
     }
+    public final boolean addTile(Bag bag){
+    boolean dragTile = rack.add(bag.drag());
+    return dragTile;}
+    
     public void addTileToRack(){
         for(int i =0; i< rack.size();i++){
             rack.add();
