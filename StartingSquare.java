@@ -27,4 +27,18 @@ public class StartingSquare extends Square{
         super(name, rowNum, columnNum);
         super.isFilled = false;
     }
+
+    /**
+     * Returns the description of this square.
+     *
+     * @return A string containing the name of the staring square.
+     */
+    public String toString(){
+        if (isFilled){
+            return " " + this.toString() + " ";
+        }
+        else{
+            return " X ";
+        }
+    }
 }

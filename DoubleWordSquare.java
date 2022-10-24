@@ -7,7 +7,7 @@ public class DoubleWordSquare extends Square {
     /**
      * The name of the square
      */
-    private final static String name = "Triple Word Square";
+    private final static String name = "Double Word Square";
     /**
      * Points multiplied by word if filled
      */
