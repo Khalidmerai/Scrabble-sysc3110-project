@@ -89,8 +89,8 @@ public class Scrabble {
 
     public static void main(String[] args){
         Scrabble game = new Scrabble();
+        game.addPlayer("Player 1", game.bag);
+        game.addPlayer("Player 2", game.bag);
         game.startGame();
     }
-
-
 }
