@@ -20,7 +20,7 @@ Player.java and UML : Marina
 
 Dictionary.java, bag.java : Scharara
 
-Tile.java, bag.java and readme file. Assisted in class Dictionary : Khalid
+Tile.java, bag.java and readme file. Assisted in class Dictionary : Khalid (Macbook)
 
 DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java and gameBoard.java. Also assisted in bag and tile - Saad 
 
