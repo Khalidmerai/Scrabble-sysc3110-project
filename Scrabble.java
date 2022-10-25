@@ -14,18 +14,15 @@ public class Scrabble {
     private ArrayList<Player> players;
     private int MaxPlayers = 4;
 
-
+    /**
+     * Constructor for Scrabble
+     */
     public Scrabble(){
         bag = new Bag();
         board =new GameBoard();
-
         players = new ArrayList<Player>();
-        // try and catch for initializing the Dictionary
-        try{
-            this.dictionary = new Dictionary();
-        }catch (FileNotFoundException e){
-            //we need to initialize it
-        }
+        dictionary = new Dictionary();
+
     }
 
     /**
