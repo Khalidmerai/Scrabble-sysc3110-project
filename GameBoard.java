@@ -46,6 +46,7 @@ public class GameBoard {
                 System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
             }
         }
+        System.out.println();
     }
 
     /**
@@ -243,8 +244,17 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Places the tile on the square of the gameboard
+     */
+    public void setTileOnSquare(Tile tile, int rowNumber, int columnNumber) {
+        squares[rowNumber][columnNumber].placeTile(tile);
+    }
     public static void main(String[] args) {
         GameBoard game = new GameBoard();
+        game.printGameBoard();
+        Tile tile = new Tile('A');
+        game.setTileOnSquare(tile, 7,7);
         game.printGameBoard();
     }
 }
