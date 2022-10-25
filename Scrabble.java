@@ -20,12 +20,12 @@ public class Scrabble {
         board =new GameBoard();
 
         players = new ArrayList<Player>();
-//        // try and catch for initializing the Dictionary
-//        try{
-//            this.dictionary = new Dictionary();
-//        }catch (FileNotFoundException e){
-//            //we need to initialize it
-//        }
+        // try and catch for initializing the Dictionary
+        try{
+            this.dictionary = new Dictionary();
+        }catch (FileNotFoundException e){
+            //we need to initialize it
+        }
     }
 
     /**
