@@ -12,7 +12,6 @@ public class Scrabble {
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
-    private int MaxPlayers = 4;
 
     /**
      * Constructor for Scrabble
@@ -22,7 +21,6 @@ public class Scrabble {
         board =new GameBoard();
         players = new ArrayList<Player>();
         dictionary = new Dictionary();
-
     }
 
     /**
@@ -33,12 +31,6 @@ public class Scrabble {
      */
     public void addPlayer(String name, Bag bag)
     {
-//        ArrayList<String> players = new ArrayList<String>();
-//        for(int i = 1; i <= MaxPlayers; i++) {
-//            System.out.println("\nPlayer " + i + ", Player Name: ");
-//            // add to array
-//            players.add(name);
-//        }
         players.add(new Player(name, bag));
     }
 
@@ -47,6 +39,9 @@ public class Scrabble {
         this.board = board;
     }
 
+    /**TODO: print letters in the players' rack
+     * Prints the letters and scores of the players
+     */
     public void printPlayerLettersAndScore(){
         for(Player player : players) {
             System.out.println(player.getName());
@@ -57,7 +52,7 @@ public class Scrabble {
 
     public void startGame(){
         boolean gameFinished = false;
-        int player = 0;
+        int player = 0; //keeps track of which player is playing at the moment
         String letter = "";
         boolean firstTurn = true;
         int columnNumber, rowNumber;
@@ -65,16 +60,26 @@ public class Scrabble {
         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
             board.printGameBoard();
-            System.out.println("Which character would you like to place?");
+            System.out.print("Which character would you like to place? ");
             letter = scan.next();
+
+            //Switching players when the player enters the word "pass"
+            if(letter.equals("pass")){
+                if (player == 0){
+                    player = 1;
+                }else{
+                    player = 0;
+                }
+            }
+
             letter = letter.toUpperCase();
-            System.out.println("Which row would you like to place that letter?");
+            System.out.print("Which row would you like to place that letter? ");
             rowNumber = scan.nextInt();
-            System.out.println("Which row would you like to place that letter?");
+            System.out.print("Which column would you like to place that letter? ");
             columnNumber = scan.nextInt();
 
             Tile tile = new Tile(letter.charAt(0));
-            board.setTileOnSquare(tile,rowNumber, columnNumber);
+            board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
             board.printGameBoard();
             /*Scoring will be implemented later
             Square squareType;
@@ -92,6 +97,7 @@ public class Scrabble {
         Scrabble game = new Scrabble();
         game.addPlayer("Player 1", game.bag);
         game.addPlayer("Player 2", game.bag);
+        game.printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
         game.startGame();
     }
 }

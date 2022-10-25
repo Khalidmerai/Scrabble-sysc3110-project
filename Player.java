@@ -17,8 +17,6 @@ public class Player  {
      */
     private boolean turn;
 
-
-
     /**
      * Contsructor of player requiring their name and letter bag
      * @param name The player's name.
@@ -34,7 +32,6 @@ public class Player  {
         }
     }
 
-
     /**
      * Getter method for Player's name
      * @return a string of the players name
@@ -42,6 +39,7 @@ public class Player  {
     public String getName(){
         return name;
     }
+
     /**
      * This method adds the word score to the players score
      * @param s  an integer of the word score
@@ -49,6 +47,7 @@ public class Player  {
     public void addScore(int s){
         score+= s;
     }
+
     /**
      * Getter method for Player's score
      * @return an integer of the player's score
@@ -56,6 +55,7 @@ public class Player  {
     public int getScore(){
         return score;
     }
+
     /**
      * Setter method for Player's turn
      *Sets boolean to true if it's the player's turn
@@ -63,6 +63,7 @@ public class Player  {
     public void setTurn(){
         turn = true;
     }
+
     /**
      * This method ends the player's turn
      */
@@ -89,6 +90,7 @@ public class Player  {
     public void setRack( ArrayList<Tile> list) {
         rack = list;
     }
+
     public final boolean addTile(Bag bag){
         boolean dragTile = rack.add(bag.drag());
         return dragTile;
