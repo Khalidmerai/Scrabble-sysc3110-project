@@ -1,12 +1,16 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Scrabble {
     private Player player;
+    Scanner scan = new Scanner(System.in);
     private Bag bag;
     private int turn = 0;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
+    private int MaxPlayers = 4;
 
 
     public Scrabble(){
@@ -25,11 +29,20 @@ public class Scrabble {
      */
     public void addPlayer(String name, Bag bag)
     {
-        players.add(new Player(name, bag));
+        ArrayList<String> players = new ArrayList<String>();
+        for(int i = 1; i <= MaxPlayers; i++) {
+            System.out.println("\nPlayer " + i + ", Player Name: ");
+            // add to array
+            players.add(name);
+        }
     }
 
     public static void main(String[] args){
         Scrabble game = new Scrabble();
+
+
+
+
     }
 
 
