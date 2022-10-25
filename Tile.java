@@ -97,10 +97,8 @@ public class Tile {
      */
     @Override
     public String toString() {
-        return "Tile{" +
-                "letter=" + letter +
-                ", value=" + value +
-                '}';
+        String s = "" + this.letter;
+        return s;
     }
 
     /*

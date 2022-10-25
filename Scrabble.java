@@ -23,13 +23,9 @@ public class Scrabble {
         // try and catch for initializing the Dictionary
         try{
             this.dictionary = new Dictionary();
-        } catch (FileNotFoundException e){
+        }catch (FileNotFoundException e){
             //we need to initialize it
         }
-
-
-
-
     }
 
     /**
@@ -53,11 +49,37 @@ public class Scrabble {
         this.board = board;
     }
 
+    public void printPlayerLettersAndScore(){
+        for(Player player : players) {
+            System.out.println(player.getName());
+            System.out.println("Letters: " ); //need to print all letters
+            System.out.println("Score: " + player.getScore());
+        }
+    }
 
+    public void startGame(){
+        boolean gameFinished = false;
+        int player = 0;
+        String letter = "";
+        boolean firstTurn = true;
+        int columnNumber, rowNumber;
+
+         while(!gameFinished){
+            printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
+            board.printGameBoard();
+            System.out.println("Which character would you like to place?");
+            letter = scan.next();
+            System.out.println("Which row would you like to place that letter?");
+            rowNumber = scan.nextInt();
+            System.out.println("Which row would you like to place that letter?");
+            columnNumber = scan.nextInt();
+
+            board.setTileOnSquare(new Tile(letter.charAt(0)),rowNumber, columnNumber);
+         }
+    }
 
     public static void main(String[] args){
         Scrabble game = new Scrabble();
-
     }
 
 
