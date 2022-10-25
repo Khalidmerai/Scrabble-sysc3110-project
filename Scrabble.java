@@ -14,18 +14,15 @@ public class Scrabble {
     private ArrayList<Player> players;
     private int MaxPlayers = 4;
 
-
+    /**
+     * Constructor for Scrabble
+     */
     public Scrabble(){
         bag = new Bag();
         board =new GameBoard();
-
         players = new ArrayList<Player>();
-        // try and catch for initializing the Dictionary
-        try{
-            this.dictionary = new Dictionary();
-        }catch (FileNotFoundException e){
-            //we need to initialize it
-        }
+        dictionary = new Dictionary();
+
     }
 
     /**
@@ -36,13 +33,12 @@ public class Scrabble {
      */
     public void addPlayer(String name, Bag bag)
     {
-//        ArrayList<String> players = new ArrayList<String>();
-//        for(int i = 1; i <= MaxPlayers; i++) {
-//            System.out.println("\nPlayer " + i + ", Player Name: ");
-//            // add to array
-//            players.add(name);
-//        }
-        players.add(new Player(name, bag));
+        ArrayList<String> players = new ArrayList<String>();
+        for(int i = 1; i <= MaxPlayers; i++) {
+            System.out.println("\nPlayer " + i + ", Player Name: ");
+            // add to array
+            players.add(name);
+        }
     }
 
     //we need to set the board visible, how to do that?
@@ -65,7 +61,7 @@ public class Scrabble {
         boolean firstTurn = true;
         int columnNumber, rowNumber;
 
-        while(!gameFinished){
+         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
             board.printGameBoard();
             System.out.println("Which character would you like to place?");
@@ -74,27 +70,14 @@ public class Scrabble {
             rowNumber = scan.nextInt();
             System.out.println("Which row would you like to place that letter?");
             columnNumber = scan.nextInt();
-            Tile tile = new Tile(letter.charAt(0));
-            board.setTileOnSquare(tile,rowNumber, columnNumber);
 
-            /*Scoring will be implemented later
-            Square squareType;
-
-            if(player == 0){ //player 1
-                players.get(0).addScore(tile.getValue() * squareType);
-            }else{
-                players.get(1).addScore(tile.getValue() * squareType);
-            }
-            */
-
-            board.printGameBoard();
+            board.setTileOnSquare(new Tile(letter.charAt(0)),rowNumber, columnNumber);
          }
     }
 
     public static void main(String[] args){
         Scrabble game = new Scrabble();
-        game.addPlayer("Player 1", game.bag);
-        game.addPlayer("Player 2", game.bag);
+        game.startGame();
     }
 
 
