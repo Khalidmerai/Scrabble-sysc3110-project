@@ -67,6 +67,7 @@ public class Scrabble {
             board.printGameBoard();
             System.out.println("Which character would you like to place?");
             letter = scan.next();
+            letter = letter.toUpperCase();
             System.out.println("Which row would you like to place that letter?");
             rowNumber = scan.nextInt();
             System.out.println("Which row would you like to place that letter?");
