@@ -31,14 +31,14 @@ public class GameBoard {
         System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
         for (int i = 0; i < numRows; i++){
             if (i < 9) {
-                System.out.print((i + 1) + "  ");
+                System.out.print(i + "  ");
                 for (int j = 0; j < numColumns; j++) { //prints value of square
                     System.out.print(squares[i][j] + " ");
                 }
                 System.out.println();
                 System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
             }else{
-                System.out.print((i + 1) + " ");
+                System.out.print(i + " ");
                 for (int j = 0; j < numColumns; j++) { //prints value of square
                     System.out.print(squares[i][j] + " ");
                 }
