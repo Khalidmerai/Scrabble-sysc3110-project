@@ -35,7 +35,7 @@ public class StartingSquare extends Square{
      */
     public String toString(){
         if (isFilled){
-            return " " + this.toString() + " ";
+            return " " + super.tile.toString() + " ";
         }
         else{
             return " X ";

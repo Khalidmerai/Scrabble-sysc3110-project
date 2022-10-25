@@ -9,11 +9,11 @@ public abstract class Square
     /**
      * The tile to be placed in square.
      */
-    private Tile tile;
+    protected Tile tile;
     /**
      * This tile will act as a placeholder
      */
-    private  Tile emptyTile = new Tile(' ');
+    private Tile emptyTile = new Tile(' ');
     /**
      * The square's name.
      */
