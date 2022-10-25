@@ -1,6 +1,8 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Scrabble {
     private Player player;
@@ -14,10 +16,19 @@ public class Scrabble {
 
 
     public Scrabble(){
-        dictionary = new Dictionary();
         bag = new Bag();
         board =new GameBoard();
+
         players = new ArrayList<Player>();
+        // try and catch for initializing the Dictionary
+        try{
+            this.dictionary = new Dictionary();
+        } catch (FileNotFoundException e){
+            //we need to initialize it
+        }
+
+
+
 
     }
 
@@ -37,11 +48,15 @@ public class Scrabble {
         }
     }
 
+    //we need to set the board visible, how to do that?
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
+
+
+
     public static void main(String[] args){
         Scrabble game = new Scrabble();
-
-
-
 
     }
 
