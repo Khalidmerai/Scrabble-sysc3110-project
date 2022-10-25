@@ -103,14 +103,18 @@ public class Scrabble {
             }
 
             Tile tile = new Tile(letter.charAt(0));
-            board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
-            board.printGameBoard();
+            if (board.squares[rowNumber-1][columnNumber-1].isFilled()){
+                System.out.println("There is already a letter on that square. Please place your tile on a different square");
+            }else{
+                board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
+            }
+            //board.printGameBoard();
             /*Scoring will be implemented later
             Square squareType;
 
             if(player == 0){ //player 1
                 players.get(0).addScore(tile.getValue() * squareType);
-            }else{
+            }else{ //player 2
                 players.get(1).addScore(tile.getValue() * squareType);
             }
             */
@@ -121,7 +125,6 @@ public class Scrabble {
         Scrabble game = new Scrabble();
         game.addPlayer("Player 1", game.bag);
         game.addPlayer("Player 2", game.bag);
-        game.printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
         game.startGame();
     }
 }

@@ -58,10 +58,6 @@ public class Bag {
 
     }
 
-
-
-
-
     public Tile drag(){
         int tileSize = letter.size() - 1;
         Random rand = new Random();

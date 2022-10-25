@@ -121,8 +121,4 @@ public class Tile {
             return false;
         }
     }
-    public static void main(String[] args){
-        Tile tile = new Tile('A');
-        System.out.println("Value: " + tile.getValue());
-    }
 }

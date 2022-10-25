@@ -15,7 +15,7 @@ public class GameBoard {
      */
     private static final int numColumns = 15;
     /** The squares on the board. */
-    private Square[][] squares;
+    public Square[][] squares;
 
     public GameBoard(){
         squares = new Square[numRows][numColumns];
@@ -247,14 +247,12 @@ public class GameBoard {
     /**
      * Places the tile on the square of the gameboard
      */
-    public void setTileOnSquare(Tile tile, int rowNumber, int columnNumber) {
-        squares[rowNumber][columnNumber].placeTile(tile);
-    }
-    public static void main(String[] args) {
-        GameBoard game = new GameBoard();
-        game.printGameBoard();
-        Tile tile = new Tile('A');
-        game.setTileOnSquare(tile, 7,7);
-        game.printGameBoard();
+    public boolean setTileOnSquare(Tile tile, int rowNumber, int columnNumber) {
+        if(squares[rowNumber][columnNumber].isFilled()){
+            return false;
+        }else{
+            squares[rowNumber][columnNumber].placeTile(tile);
+            return true;
+        }
     }
 }
