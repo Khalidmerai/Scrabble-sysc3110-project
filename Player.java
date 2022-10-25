@@ -20,7 +20,9 @@ public class Player  {
 
 
     /**
-     * Contsructor
+     * Contsructor of player requiring their name and letter bag
+     * @param name The player's name.
+     * @param bag The player's letter bag
      */
     public Player (String name,Bag bag){
         this.name = name;
@@ -56,7 +58,7 @@ public class Player  {
     }
     /**
      * Setter method for Player's turn
-     *Sets boolean to true if its the player's turn
+     *Sets boolean to true if it's the player's turn
      */
     public void setTurn(){
         turn = true;
@@ -71,34 +73,38 @@ public class Player  {
         else{
             turn = true;
         }
-
     }
+
     /**
      * Getter method for rack
      * @return rack
      */
     public ArrayList<Tile> getRack() {
         return rack;
-
     }
 
     /**
      * Setter method for rack
-     *
      */
     public void setRack( ArrayList<Tile> list) {
         rack = list;
     }
     public final boolean addTile(Bag bag){
-    boolean dragTile = rack.add(bag.drag());
-    return dragTile;
+        boolean dragTile = rack.add(bag.drag());
+        return dragTile;
     }
-    //add a specific tile to the rack
-    public boolean  addTileToRack(Tile t){
+
+    /**
+     * add a specific tile to the rack
+     */
+    public boolean addTileToRack(Tile t){
       return rack.add(t);
     }
-    //Remove tile from the rack
-    public boolean  removeTileFromRack(Tile t){
+
+    /**
+     * Remove tile from the rack
+     */
+    public boolean removeTileFromRack(Tile t){
         return rack.remove(t);
     }
 }
