@@ -56,6 +56,9 @@ public class Scrabble {
         String letter = "";
         boolean firstTurn = true;
         int columnNumber, rowNumber;
+        System.out.println("Commands: ");
+        System.out.println("1. \"pass\": to pass your turn");
+        System.out.println("2. \"quit\": to quit the game");
 
         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
@@ -67,16 +70,37 @@ public class Scrabble {
             if(letter.equals("pass")){
                 if (player == 0){
                     player = 1;
+                    continue;
                 }else{
                     player = 0;
+                    continue;
                 }
             }
-
+            //quiting game
+            if(letter.equals("quit")){
+                gameFinished = true;
+                continue;
+            }
             letter = letter.toUpperCase();
             System.out.print("Which row would you like to place that letter? ");
             rowNumber = scan.nextInt();
             System.out.print("Which column would you like to place that letter? ");
             columnNumber = scan.nextInt();
+
+            while (firstTurn){
+                if (rowNumber != 8 && columnNumber != 8){
+                    System.out.println("You need to start from the middle of the board.");
+                    System.out.print("Which character would you like to place? ");
+                    letter = scan.next();
+                    letter = letter.toUpperCase();
+                    System.out.print("Which row would you like to place that letter? ");
+                    rowNumber = scan.nextInt();
+                    System.out.print("Which column would you like to place that letter? ");
+                    columnNumber = scan.nextInt();
+                }else{
+                    firstTurn = false;
+                }
+            }
 
             Tile tile = new Tile(letter.charAt(0));
             board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
