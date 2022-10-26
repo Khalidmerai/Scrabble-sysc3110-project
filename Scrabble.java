@@ -34,10 +34,7 @@ public class Scrabble {
         players.add(new Player(name, bag));
     }
 
-    /**
-     * Setter method for GameBoard
-     * @param board
-     */
+    //we need to set the board visible, how to do that?
     public void setBoard(GameBoard board) {
         this.board = board;
     }
@@ -55,7 +52,7 @@ public class Scrabble {
                 tileUsed++;
             }
 
-            System.out.println("Letters: "); //need to print all letters
+            System.out.println("Letters: "+bag.drag() ); //need to print all letters
             System.out.println("Score: " + player.getScore());
         }
     }
