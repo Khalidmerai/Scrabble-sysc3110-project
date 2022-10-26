@@ -45,13 +45,6 @@ public class Scrabble {
     public void printPlayerLettersAndScore(){
         for(Player player : players) {
             System.out.println(player.getName());
-            int tileLimit = 7;
-            int tileUsed = 0;
-            while(tileUsed < tileLimit){
-                player.addTile();
-                tileUsed++;
-            }
-
             System.out.println("Letters: " ); //need to print all letters
             System.out.println("Score: " + player.getScore());
         }
