@@ -48,11 +48,11 @@ public class Scrabble {
             int tileLimit = 7;
             int tileUsed = 0;
             while(tileUsed < tileLimit){
-                player.addTile();
+                player.addTile(bag);
                 tileUsed++;
             }
 
-            System.out.println("Letters: " ); //need to print all letters
+            System.out.println("Letters: "+bag.drag() ); //need to print all letters
             System.out.println("Score: " + player.getScore());
         }
     }
