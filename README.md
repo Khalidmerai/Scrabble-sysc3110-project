@@ -29,5 +29,5 @@ Left for MileStone 1 is the scrabble class to display all seven letters per play
 
 HOW TO RUN THE PROGRAM FOR SUBMISSION 1:
 1. Download a junit.framework package to ensure all test methods run and the whole code implementation runs. Can be downloaded from this link https://search.maven.org/search?q=g:junit%20AND%20a:junit
-2. If user does not have a junit tester and does not want to dowloand it just remove or bypass it by putting it in /** */
+2. If user does not have a junit tester and does not want to dowloand it just remove or bypass the SquareTest.java and TileTest.java it by putting it in /** */
 3. Dowloand the whole src and open it on intelij then configure the project then run the program by running class scrabble.java.
