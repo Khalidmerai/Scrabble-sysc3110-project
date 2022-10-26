@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 import java.util.Random;
-/*
-Khalid merai 101159203
-Scharara Islam 101149731
+
+/**
+ * Author: Scharara Islam 101149731 and Khalid Merai 101159203
+ * This class shows that there are 26 letters in a bag.
  */
 public class Bag {
     public ArrayList<Tile> letter; //  initial words
+
+    /**
+     * Constructor for bag class
+     */
     public Bag(){
         Tile a = new Tile('A');
         Tile b = new Tile('B');
@@ -43,10 +48,20 @@ public class Bag {
         letter.add(u);letter.add(v);letter.add(w);letter.add(x);letter.add(y);
         letter.add(z);letter.add(blank);
     }
+
+    /**
+     * Method to show how many letters tiles are in the bag
+     * @return the size
+     */
     public int size(){
         return letter.size();
     }
 
+    /**
+     * Method to get a  letter tile from the bag
+     * @param nextTile
+     * @return the  letter tiles from the bag
+     */
    public ArrayList<Tile> getNextTile(int nextTile){
         ArrayList<Tile> newTile = new ArrayList<Tile>();
         for(int i = 0; i<nextTile; i++){
@@ -58,6 +73,10 @@ public class Bag {
 
     }
 
+    /**
+     * Method to shuffle the bag
+     * @return the letter tile that was taken out of the bag
+     */
     public Tile drag(){
         int tileSize = letter.size() - 1;
         Random rand = new Random();
@@ -65,6 +84,11 @@ public class Bag {
         return letter.remove(randomTile);
 
     }
+
+    /**
+     * To check if the bag is empty
+     * @return the remaining number of letter tiles from the bag
+     */
     public Object bagEmpty(){
         if (letter.isEmpty()){
             return null;
