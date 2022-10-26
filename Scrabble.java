@@ -39,7 +39,7 @@ public class Scrabble {
         this.board = board;
     }
 
-    /**TODO: print letters in the players' rack
+    /**
      * Prints the letters and scores of the players
      */
     public void printPlayerLettersAndScore(){
@@ -52,13 +52,16 @@ public class Scrabble {
 
     public void startGame(){
         boolean gameFinished = false;
+        boolean check = false;
         int player = 0; //keeps track of which player is playing at the moment
         String letter = "";
+        String wordCheckString = ""; //keeps track of the letters entered by player
         boolean firstTurn = true;
         int columnNumber, rowNumber;
         System.out.println("Commands: ");
-        System.out.println("1. \"pass\": to pass your turn");
-        System.out.println("2. \"quit\": to quit the game");
+        System.out.println("1.\"pass\": to pass your turn");
+        System.out.println("2.\"quit\": to quit the game");
+        System.out.println("3.\"check\": after placing all the letters on the board, the game checks if it is valid or not");
 
         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
@@ -70,16 +73,30 @@ public class Scrabble {
             if(letter.equals("pass")){
                 if (player == 0){
                     player = 1;
-                    continue;
                 }else{
                     player = 0;
-                    continue;
                 }
+                wordCheckString = "";
+                continue;
             }
             //quiting game
             if(letter.equals("quit")){
                 gameFinished = true;
                 continue;
+            }
+            //checks whether the word is valid after the player places their tile
+            if(letter.equals("check")){
+                if (!dictionary.checkWord(wordCheckString)){
+                    System.out.println("Please enter a valid word.");
+                    //Remove all the tiles that were placed by that player during that turn
+                }else{
+                    if (player == 0){
+                        player = 1;
+                    }else{
+                        player = 0;
+                    }
+                    continue;
+                }
             }
             letter = letter.toUpperCase();
             System.out.print("Which row would you like to place that letter? ");
