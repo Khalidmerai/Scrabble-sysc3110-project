@@ -26,3 +26,8 @@ Tile.java, bag.java, Scrabble.java, and readme file. Assisted in Dictionary.java
 DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, Scrabble.java and gameBoard.java. Also assisted in bag.java and tile.java : Saad
 
 Left for MileStone 1 is the scrabble class to display all seven letters per player.
+
+HOW TO RUN THE PROGRAM FOR SUBMISSION 1:
+1. Download a junit.framework package to ensure all test methods run and the whole code implementation runs. Can be downloaded from this link https://search.maven.org/search?q=g:junit%20AND%20a:junit
+2. If user does not have a junit tester and does not want to dowloand it just remove or bypass it by putting it in /** */
+3. Dowloand the whole src and open it on intelij then configure the project then run the program by running class scrabble.java.
