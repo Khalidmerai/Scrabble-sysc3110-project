@@ -11,11 +11,13 @@ public class Player  {
      */
     private int score;
 
-    private ArrayList<Tile> rack;
+    public ArrayList<Tile> rack;
     /**
      * Player's turn
      */
     private boolean turn;
+
+    private static final int rackSize = 7;
 
 
     /**
@@ -28,8 +30,8 @@ public class Player  {
         this.score = 0;
         this.turn = false;
         rack = new ArrayList<Tile>();
-        for(int i =0; i< rack.size();i++){
-            addTile(bag);
+        for(int i =0; i< rackSize;i++){
+            rack.add(bag.drag());
         }
     }
 
@@ -109,5 +111,9 @@ public class Player  {
      */
     public boolean removeTileFromRack(Tile t){
         return rack.remove(t);
+    }
+
+    public static void main(String[] args) {
+        Player player = new Player("Player 1", new Bag());
     }
 }

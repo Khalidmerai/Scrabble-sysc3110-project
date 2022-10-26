@@ -5,10 +5,8 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Scrabble {
-    private Player player;
     Scanner scan = new Scanner(System.in);
     private Bag bag;
-    private int turn = 0;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
@@ -19,7 +17,7 @@ public class Scrabble {
     public Scrabble(){
         bag = new Bag();
         board =new GameBoard();
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
         dictionary = new Dictionary();
     }
 
@@ -34,18 +32,13 @@ public class Scrabble {
         players.add(new Player(name, bag));
     }
 
-    //we need to set the board visible, how to do that?
-    public void setBoard(GameBoard board) {
-        this.board = board;
-    }
-
     /**
      * Prints the letters and scores of the players
      */
     public void printPlayerLettersAndScore(){
         for(Player player : players) {
             System.out.println(player.getName());
-            System.out.println("Letters: " ); //need to print all letters
+            System.out.println("Letters: " + player.getRack()); //need to print all letters
             System.out.println("Score: " + player.getScore());
         }
     }
@@ -53,7 +46,6 @@ public class Scrabble {
 
     public void startGame(){
         boolean gameFinished = false;
-        boolean check = false;
         int player = 0; //keeps track of which player is playing at the moment
         String letter = "";
         String wordCheckString = ""; //keeps track of the letters entered by player
@@ -99,11 +91,37 @@ public class Scrabble {
                     continue;
                 }
             }
-            letter = letter.toUpperCase();
-            System.out.print("Which row would you like to place that letter? ");
-            rowNumber = scan.nextInt();
-            System.out.print("Which column would you like to place that letter? ");
-            columnNumber = scan.nextInt();
+
+            //check wether or not the letter entered by the player is in the rack
+            if (player == 0){
+                if(players.get(0).rack.contains(new Tile(letter.charAt(0)))){
+                    players.get(0).removeTileFromRack(new Tile(letter.charAt(0)));
+                    players.get(0).addTileToRack(bag.drag());
+                }else{
+                    System.out.println("You need to enter an existing tile from your rack.");
+                    System.out.print("Which character would you like to place? ");
+                    letter = scan.next();
+                }
+                letter = letter.toUpperCase();
+                System.out.print("Which row would you like to place that letter? ");
+                rowNumber = scan.nextInt();
+                System.out.print("Which column would you like to place that letter? ");
+                columnNumber = scan.nextInt();
+            }else{
+                if(players.get(1).rack.contains(new Tile(letter.charAt(0)))){
+                    players.get(1).removeTileFromRack(new Tile(letter.charAt(0)));
+                    players.get(1).addTileToRack(bag.drag());
+                }else{
+                    System.out.println("You need to enter an existing tile from your rack.");
+                    System.out.print("Which character would you like to place? ");
+                    letter = scan.next();
+                }
+                letter = letter.toUpperCase();
+                System.out.print("Which row would you like to place that letter? ");
+                rowNumber = scan.nextInt();
+                System.out.print("Which column would you like to place that letter? ");
+                columnNumber = scan.nextInt();
+            }
 
             while (firstTurn){
                 if (rowNumber != 8 && columnNumber != 8){
