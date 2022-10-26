@@ -17,6 +17,7 @@ public class Player  {
      */
     private boolean turn;
 
+
     /**
      * Contsructor of player requiring their name and letter bag
      * @param name The player's name.
