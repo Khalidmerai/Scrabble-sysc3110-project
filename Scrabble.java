@@ -48,7 +48,7 @@ public class Scrabble {
             int tileLimit = 7;
             int tileUsed = 0;
             while(tileUsed < tileLimit){
-                player.addTile();
+                player.addTile(bag);
                 tileUsed++;
             }
 
