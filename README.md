@@ -18,10 +18,10 @@ https://en.wikipedia.org/wiki/Scrabble
 BREAK DOWN OF TASKS FOR MILESTONE 1
 Player.java and UML : Marina
 
-Dictionary.java, bag.java : Scharara
+Dictionary.java, bag.java, Scrabble.java : Scharara
 
-Tile.java, bag.java and readme file. Assisted in class Dictionary : Khalid (Macbook)
+Tile.java, bag.java, Scrabble.java, and readme file. Assisted in Dictionary.java : Khalid (Macbook)
 
-DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java and gameBoard.java. Also assisted in bag and tile - Saad 
+DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, Scrabble.java and gameBoard.java. Also assisted in bag.java and tile.java : Saad
 
-Left for MileStone 1 is the scrabble class to initialize all components of the game in the class and start to play the game.
+Left for MileStone 1 is the scrabble class to display all seven letters per player.
