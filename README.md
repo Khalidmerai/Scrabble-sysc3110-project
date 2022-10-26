@@ -16,6 +16,7 @@ For more information on the scrabble game it can be found in the link below.
 https://en.wikipedia.org/wiki/Scrabble
 
 BREAK DOWN OF TASKS FOR MILESTONE 1
+
 Player.java and UML : Marina
 
 Dictionary.java, bag.java, Scrabble.java : Scharara
