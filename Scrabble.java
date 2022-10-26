@@ -34,7 +34,10 @@ public class Scrabble {
         players.add(new Player(name, bag));
     }
 
-    //we need to set the board visible, how to do that?
+    /**
+     * Setter method for the Board
+     * @param board
+     */
     public void setBoard(GameBoard board) {
         this.board = board;
     }
