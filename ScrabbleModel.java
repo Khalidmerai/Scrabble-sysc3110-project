@@ -53,7 +53,7 @@ public class ScrabbleModel implements ScrabbleView{
         System.out.println("Commands: ");
         System.out.println("1.\"pass\": to pass your turn");
         System.out.println("2.\"quit\": to quit the game");
-        System.out.println("3.\"check\": after placing all the letters on the board, the game checks if it is valid or not");
+        System.out.println("3.\"submit\": after placing all the letters on the board, the game checks if it is valid or not");
 
         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
@@ -77,7 +77,7 @@ public class ScrabbleModel implements ScrabbleView{
                 continue;
             }
             //checks whether the word is valid after the player places their tile
-            if(letter.equals("check")){
+            if(letter.equals("submit")){
                 if (!dictionary.checkWord(wordCheckString)){
                     System.out.println("Please enter a valid word.");
                     //Remove all the tiles that were placed by that player during that turn
