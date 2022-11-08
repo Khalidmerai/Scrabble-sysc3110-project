@@ -8,6 +8,8 @@ public class ScrabbleModel implements ScrabbleView{
     private Dictionary dictionary;
     private ArrayList<Player> players;
     private ArrayList<ScrabbleView> views;
+    private boolean turn;
+    private  boolean firstTurn;
 
     /**
      * Constructor for ScrabbleModel
@@ -21,6 +23,8 @@ public class ScrabbleModel implements ScrabbleView{
 
         addPlayer("Player 1", bag);
         addPlayer("Player 2", bag);
+
+        firstTurn = true;
     }
 
     /**
@@ -32,6 +36,15 @@ public class ScrabbleModel implements ScrabbleView{
     public void addPlayer(String name, Bag bag)
     {
         players.add(new Player(name, bag));
+    }
+
+    /**
+     * Changes turn between players
+     * True for player 1
+     * false for player 2
+     */
+    public void changeTurn() {
+        turn = !turn;
     }
 
     /**
@@ -49,13 +62,42 @@ public class ScrabbleModel implements ScrabbleView{
         return players.get(0);
     }
 
-    public void startGame(){
+    /**
+     * Checks if Starting point was filled by player in the first turn
+     * @return true if starting point is filled, otherwise false.
+     */
+    public boolean startingPointFilled(int rowNumber, int columnNumber){
+        if (rowNumber == 8 && columnNumber == 8){
+            return true;
+            /*
+            System.out.println("You need to start from the middle of the board.");
+            System.out.print("Which character would you like to place? ");
+            letter = scan.next();
+            letter = letter.toUpperCase();
+            System.out.print("Which row would you like to place that letter? ");
+            rowNumber = scan.nextInt();
+            System.out.print("Which column would you like to place that letter? ");
+            columnNumber = scan.nextInt();
+            */
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Checks wheter any of the command words was pressed
+     */
+    public void checkForCommandWords(){
+
+    }
+
+
+    public void startGame(int rowNumber, int columnNumber){
         boolean gameFinished = false;
         int player = 0; //keeps track of which player is playing at the moment
         String letter = "";
         String wordCheckString = ""; //keeps track of the letters entered by player
-        boolean firstTurn = true;
-        int columnNumber, rowNumber;
+        //int columnNumber, rowNumber;
         System.out.println("Commands: ");
         System.out.println("1.\"pass\": to pass your turn");
         System.out.println("2.\"quit\": to quit the game");
@@ -129,18 +171,7 @@ public class ScrabbleModel implements ScrabbleView{
             }
 
             while (firstTurn){
-                if (rowNumber != 8 && columnNumber != 8){
-                    System.out.println("You need to start from the middle of the board.");
-                    System.out.print("Which character would you like to place? ");
-                    letter = scan.next();
-                    letter = letter.toUpperCase();
-                    System.out.print("Which row would you like to place that letter? ");
-                    rowNumber = scan.nextInt();
-                    System.out.print("Which column would you like to place that letter? ");
-                    columnNumber = scan.nextInt();
-                }else{
-                    firstTurn = false;
-                }
+                checkStartingPoint();
             }
 
             Tile tile = new Tile(letter.charAt(0));
