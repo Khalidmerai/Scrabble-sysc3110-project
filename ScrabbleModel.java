@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ScrabbleModel implements ScrabbleView{
     Scanner scan = new Scanner(System.in);
-    private Bag bag;
+    Bag bag;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
@@ -18,6 +18,9 @@ public class ScrabbleModel implements ScrabbleView{
         players = new ArrayList<>();
         dictionary = new Dictionary();
         views = new ArrayList<>();
+
+        addPlayer("Player 1", bag);
+        addPlayer("Player 2", bag);
     }
 
     /**
@@ -42,6 +45,9 @@ public class ScrabbleModel implements ScrabbleView{
         }
     }
 
+    public Player getFirstPlayer(){
+        return players.get(0);
+    }
 
     public void startGame(){
         boolean gameFinished = false;

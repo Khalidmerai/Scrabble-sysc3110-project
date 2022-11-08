@@ -38,6 +38,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
 
         buildPanels();
         buildMenuBar();
+        setUpPlayerRack();
         createCommandButtons();
 
         this.setSize(610,700);
@@ -79,7 +80,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
 
         gameInfoPanel.setLayout(new BorderLayout());
         gridPanel.setLayout(new GridLayout(15,15));
-        rackPanel.setLayout(new BorderLayout());
+        rackPanel.setLayout(new FlowLayout());
 
         GridLayout layout = new GridLayout(1,3);
         layout.setHgap(25);
@@ -90,10 +91,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         rackPanel.setBounds(10,560,580,30);
         commandWordPanel.setBounds(10,600, 580, 25);
 
+        buildGuiSquares();
         //The background colours are to signify the
         // location of the panels and will be removed once the info is added
-        gameInfoPanel.setBackground(Color.YELLOW);
-        buildGuiSquares();
         rackPanel.setBackground(Color.BLUE);
 
         this.add(gameInfoPanel);
@@ -134,6 +134,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         commandWordPanel.add(button);
     }
 
+    private void setUpPlayerRack(){
+        Player player = model.getFirstPlayer();
+        for(Tile t: player.getRack()){
+            JButton button = new JButton(String.valueOf(t.getLetter()));
+            button.addActionListener(controller);
+            rackPanel.add(button, BorderLayout.NORTH);
+        }
+    }
     @Override
     public void update(ScrabbleEvent scrabbleEvent) {
 
