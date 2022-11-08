@@ -1,5 +1,5 @@
 /**
- * Represents the triple letter square on the Scrabble game board.
+ * Represents the triple letter square on the ScrabbleModel game board.
  *
  * @author Saad Eid
  */

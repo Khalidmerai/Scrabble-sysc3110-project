@@ -1,5 +1,5 @@
 /**
- * Represents the starting square on the Scrabble game board.
+ * Represents the starting square on the ScrabbleModel game board.
  *
  * @author Saad Eid
  */

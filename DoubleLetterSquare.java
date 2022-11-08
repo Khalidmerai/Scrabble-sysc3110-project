@@ -1,5 +1,5 @@
 /**
- * Represents the double letter square on the Scrabble game board.
+ * Represents the double letter square on the ScrabbleModel game board.
  *
  * @author Saad Eid
  */

@@ -1,24 +1,23 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
-public class Scrabble {
+public class ScrabbleModel implements ScrabbleView{
     Scanner scan = new Scanner(System.in);
     private Bag bag;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
+    private ArrayList<ScrabbleView> views;
 
     /**
-     * Constructor for Scrabble
+     * Constructor for ScrabbleModel
      */
-    public Scrabble(){
+    public ScrabbleModel(){
         bag = new Bag();
         board =new GameBoard();
         players = new ArrayList<>();
         dictionary = new Dictionary();
+        views = new ArrayList<>();
     }
 
     /**
@@ -158,9 +157,20 @@ public class Scrabble {
     }
 
     public static void main(String[] args){
-        Scrabble game = new Scrabble();
+        ScrabbleModel game = new ScrabbleModel();
         game.addPlayer("Player 1", game.bag);
         game.addPlayer("Player 2", game.bag);
         game.startGame();
+    }
+
+    @Override
+    public void update(ScrabbleEvent scrabbleEvent) {
+        for (ScrabbleView v: views){
+            //v.update(new ScrabbleEvent(this, rowNumber, ColumnNumber))
+        }
+    }
+
+    public void addScrabbleView(ScrabbleView view) {
+        views.add(view);
     }
 }

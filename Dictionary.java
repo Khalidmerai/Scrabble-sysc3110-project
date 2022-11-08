@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * Author: Scharara Islam 101149731 and Khalid Merai 101159203
- * This class is to import the list of word that is acceptable in the Scrabble game.
+ * This class is to import the list of word that is acceptable in the ScrabbleModel game.
  * The link is provided on the project description and downloaded as a .txt file
  */
 public class Dictionary {

@@ -1,5 +1,5 @@
 /**
- * Represents the regular square on the Scrabble game board.
+ * Represents the regular square on the ScrabbleModel game board.
  *
  * @author Saad Eid
  */
