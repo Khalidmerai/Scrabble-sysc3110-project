@@ -1,24 +1,26 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
-public class Scrabble {
+public class ScrabbleModel implements ScrabbleView{
     Scanner scan = new Scanner(System.in);
-    private Bag bag;
+    Bag bag;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
+    private ArrayList<ScrabbleView> views;
 
     /**
-     * Constructor for Scrabble
+     * Constructor for ScrabbleModel
      */
-    public Scrabble(){
+    public ScrabbleModel(){
         bag = new Bag();
         board =new GameBoard();
         players = new ArrayList<>();
         dictionary = new Dictionary();
+        views = new ArrayList<>();
+
+        addPlayer("Player 1", bag);
+        addPlayer("Player 2", bag);
     }
 
     /**
@@ -43,6 +45,9 @@ public class Scrabble {
         }
     }
 
+    public Player getFirstPlayer(){
+        return players.get(0);
+    }
 
     public void startGame(){
         boolean gameFinished = false;
@@ -54,7 +59,7 @@ public class Scrabble {
         System.out.println("Commands: ");
         System.out.println("1.\"pass\": to pass your turn");
         System.out.println("2.\"quit\": to quit the game");
-        System.out.println("3.\"check\": after placing all the letters on the board, the game checks if it is valid or not");
+        System.out.println("3.\"submit\": after placing all the letters on the board, the game checks if it is valid or not");
 
         while(!gameFinished){
             printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
@@ -78,7 +83,7 @@ public class Scrabble {
                 continue;
             }
             //checks whether the word is valid after the player places their tile
-            if(letter.equals("check")){
+            if(letter.equals("submit")){
                 if (!dictionary.checkWord(wordCheckString)){
                     System.out.println("Please enter a valid word.");
                     //Remove all the tiles that were placed by that player during that turn
@@ -158,9 +163,20 @@ public class Scrabble {
     }
 
     public static void main(String[] args){
-        Scrabble game = new Scrabble();
+        ScrabbleModel game = new ScrabbleModel();
         game.addPlayer("Player 1", game.bag);
         game.addPlayer("Player 2", game.bag);
         game.startGame();
+    }
+
+    @Override
+    public void update(ScrabbleEvent scrabbleEvent) {
+        for (ScrabbleView v: views){
+            //v.update(new ScrabbleEvent(this, rowNumber, ColumnNumber))
+        }
+    }
+
+    public void addScrabbleView(ScrabbleView view) {
+        views.add(view);
     }
 }

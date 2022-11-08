@@ -1,7 +1,7 @@
-import java.lang.reflect.Array;
+import javax.swing.*;
 
 /**
- * The GameBoard class initializes the scrabble board by building its different squares
+ * The ScrabbleFrame class initializes the scrabble board by building its different squares
  * and printing them for the user to use
  * @author Saad Eid
  */
@@ -21,6 +21,7 @@ public class GameBoard {
         squares = new Square[numRows][numColumns];
         buildSquares();
     }
+
 
     /**
      * Populates the board with squares numbered 1, 2, 3, ..., numRows and numColumns.
@@ -49,12 +50,12 @@ public class GameBoard {
         System.out.println();
     }
 
+
     /**
-     * Populates the board with squares of Scrabble such as the
+     * Populates the board with squares of ScrabbleModel such as the
      * DLS, TLS, DWS, TWS, starting square, and regular squares.
      */
     private void buildSquares() {
-
         //Triple Word Squares
         for (int i = 0; i < numRows; i++){
             if (i == 0 || i == 14){

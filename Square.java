@@ -1,6 +1,6 @@
 /**
  * Square is the superclass of the different types of
- * square on the Scrabble game board.
+ * square on the ScrabbleModel game board.
  *
  * @author Saad Eid
  */
