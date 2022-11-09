@@ -8,7 +8,11 @@ public class ScrabbleController implements ActionListener {
     public ScrabbleController(ScrabbleModel model) {
         this.model = model;
     }
-
+    
+    /**
+     * Method that executes the intended action of each button
+     * @param e of type action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String[] input = e.getActionCommand().split(" ");
