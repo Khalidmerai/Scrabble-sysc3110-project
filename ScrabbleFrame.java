@@ -137,7 +137,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     private void setUpPlayerRack(){
         Player player = model.getFirstPlayer();
         for(Tile t: player.getRack()){
-            JButton button = new JButton(String.valueOf(t.getLetter()));
+            JButton button = new JButton(String.valueOf(t.getLetter()).toUpperCase());
+            button.setActionCommand(String.valueOf(t.getLetter()).toUpperCase());
             button.addActionListener(controller);
             rackPanel.add(button, BorderLayout.NORTH);
         }

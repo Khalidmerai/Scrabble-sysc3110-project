@@ -14,6 +14,7 @@ public class ScrabbleController implements ActionListener {
      * The number of columns in the board.
      */
     private static final int numColumns = 15;
+    private static final int numOfLetters = 26;
 
     public ScrabbleController(ScrabbleModel model) {
         this.model = model;
@@ -47,6 +48,11 @@ public class ScrabbleController implements ActionListener {
             model.checkForCommandWords("Submit");
         }
         else{
+            for(char c = 'A'; c <= 'Z'; ++c){
+                if(e.getActionCommand().equals(c)){
+                    letterSelected = e.getActionCommand();
+                }
+            }
             for(int i = 0; i < numRows; i++) {
                 for (int j = 0; j < numColumns; j++) {
                     if (e.getActionCommand().equals(i + " " + j)) {
