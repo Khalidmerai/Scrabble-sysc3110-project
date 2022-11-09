@@ -29,5 +29,9 @@ public class ScrabbleController implements ActionListener {
             }
 
         }
+        else if(e.getActionCommand().equals("Pass")) {
+        }
+        else if(e.getActionCommand().equals("Submit")){
+            }
     }
 }
