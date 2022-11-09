@@ -5,6 +5,15 @@ import java.awt.event.ActionListener;
 public class ScrabbleController implements ActionListener {
 
     private ScrabbleModel model;
+    private String letterSelected;
+    /**
+     * The number of rows in the board.
+     */
+    private static final int numRows = 15;
+    /**
+     * The number of columns in the board.
+     */
+    private static final int numColumns = 15;
 
     public ScrabbleController(ScrabbleModel model) {
         this.model = model;
@@ -17,8 +26,6 @@ public class ScrabbleController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String[] input = e.getActionCommand().split(" ");
-        //int x = Integer.parseInt(input[0]);
-        //int y = Integer.parseInt(input[1]);
         
         if(e.getActionCommand().equals("Quit")){
             var result = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
@@ -34,8 +41,22 @@ public class ScrabbleController implements ActionListener {
             }
         }
         else if(e.getActionCommand().equals("Pass")) {
+            model.checkForCommandWords("Pass");
         }
         else if(e.getActionCommand().equals("Submit")){
+            model.checkForCommandWords("Submit");
+        }
+        else{
+            for(int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numColumns; j++) {
+                    if (e.getActionCommand().equals(i + " " + j)) {
+                        int x = Integer.parseInt(input[0]);
+                        int y = Integer.parseInt(input[1]);
+                        model.play(x, y, letterSelected);
+                        letterSelected = " ";
+                    }
+                }
             }
+        }
     }
 }
