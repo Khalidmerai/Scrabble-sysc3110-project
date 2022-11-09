@@ -94,7 +94,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         buildGuiSquares();
         //The background colours are to signify the
         // location of the panels and will be removed once the info is added
-        rackPanel.setBackground(Color.BLUE);
+        gameInfoPanel.setBackground(Color.BLUE);
 
         this.add(gameInfoPanel);
         this.add(gridPanel);
@@ -143,8 +143,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         }
     }
     @Override
-    public void update(ScrabbleEvent scrabbleEvent) {
-
+    public void update(ScrabbleEvent e) {
+        char label = e.getLetter();
+        buttons[e.getX()][e.getY()].setText(String.valueOf(label));
     }
 
     public static void main(String[] args) {

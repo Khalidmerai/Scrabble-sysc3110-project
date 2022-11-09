@@ -2,14 +2,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScrabbleModel implements ScrabbleView{
-    Scanner scan = new Scanner(System.in);
-    Bag bag;
+    /**
+     * The number of rows in the board.
+     */
+    private static final int numRows = 15;
+    /**
+     * The number of columns in the board.
+     */
+    private static final int numColumns = 15;
+    public enum Status {PLAYER_1_WON, PLAYER_2_WON, UNDECIDED};
+    private Status status;
+    private Bag bag;
     private GameBoard board;
     private Dictionary dictionary;
     private ArrayList<Player> players;
     private ArrayList<ScrabbleView> views;
-    private boolean turn;
-    private  boolean firstTurn;
+    private boolean turn, firstTurn, gameFinished;
+    private char[][] grid;
+    private String wordCheckString = "", letter = "";
+    private int rowNumber, columnNumber;
 
     /**
      * Constructor for ScrabbleModel
@@ -24,7 +35,16 @@ public class ScrabbleModel implements ScrabbleView{
         addPlayer("Player 1", bag);
         addPlayer("Player 2", bag);
 
+        //initializing the grid as empty characters
+        grid = new char[numRows][numColumns];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                grid[i][j] = ' ';
+            }
+        }
         firstTurn = true;
+        gameFinished = false;
+        status = Status.UNDECIDED;
     }
 
     /**
@@ -39,12 +59,30 @@ public class ScrabbleModel implements ScrabbleView{
     }
 
     /**
+     * Returns the status of the game
+     * @return
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
      * Changes turn between players
      * True for player 1
      * false for player 2
      */
     public void changeTurn() {
         turn = !turn;
+        wordCheckString = "";
+    }
+
+    /**
+     * Returns the player's turn
+     * True for player 1
+     * false for player 2
+     */
+    public boolean getTurn() {
+        return turn;
     }
 
     /**
@@ -64,21 +102,12 @@ public class ScrabbleModel implements ScrabbleView{
 
     /**
      * Checks if Starting point was filled by player in the first turn
-     * @return true if starting point is filled, otherwise false.
+     * @return true if starting point is filled and sets firstTurn to false, otherwise returns false.
      */
-    public boolean startingPointFilled(int rowNumber, int columnNumber){
+    public boolean checkIfStartingPointFilled(int rowNumber, int columnNumber){
         if (rowNumber == 8 && columnNumber == 8){
+            firstTurn = false;
             return true;
-            /*
-            System.out.println("You need to start from the middle of the board.");
-            System.out.print("Which character would you like to place? ");
-            letter = scan.next();
-            letter = letter.toUpperCase();
-            System.out.print("Which row would you like to place that letter? ");
-            rowNumber = scan.nextInt();
-            System.out.print("Which column would you like to place that letter? ");
-            columnNumber = scan.nextInt();
-            */
         }else{
             return false;
         }
@@ -87,127 +116,89 @@ public class ScrabbleModel implements ScrabbleView{
     /**
      * Checks wheter any of the command words was pressed
      */
-    public void checkForCommandWords(){
-
-    }
-
-
-    public void startGame(int rowNumber, int columnNumber){
-        boolean gameFinished = false;
-        int player = 0; //keeps track of which player is playing at the moment
-        String letter = "";
-        String wordCheckString = ""; //keeps track of the letters entered by player
-        //int columnNumber, rowNumber;
-        System.out.println("Commands: ");
-        System.out.println("1.\"pass\": to pass your turn");
-        System.out.println("2.\"quit\": to quit the game");
-        System.out.println("3.\"submit\": after placing all the letters on the board, the game checks if it is valid or not");
-
-        while(!gameFinished){
-            printPlayerLettersAndScore(); //prints player's available tiles and the points he/she has
-            board.printGameBoard();
-            System.out.print("Which character would you like to place? ");
-            letter = scan.next();
-
-            //Switching players when the player enters the word "pass"
-            if(letter.equals("pass")){
-                if (player == 0){
-                    player = 1;
-                }else{
-                    player = 0;
-                }
-                wordCheckString = "";
-                continue;
-            }
-            //quiting game
-            if(letter.equals("quit")){
-                gameFinished = true;
-                continue;
-            }
-            //checks whether the word is valid after the player places their tile
-            if(letter.equals("submit")){
-                if (!dictionary.checkWord(wordCheckString)){
-                    System.out.println("Please enter a valid word.");
-                    //Remove all the tiles that were placed by that player during that turn
-                }else{
-                    if (player == 0){
-                        player = 1;
-                    }else{
-                        player = 0;
-                    }
-                    continue;
-                }
-            }
-
-            //check wether or not the letter entered by the player is in the rack
-            if (player == 0){
-                if(players.get(0).rack.contains(new Tile(letter.charAt(0)))){
-                    players.get(0).removeTileFromRack(new Tile(letter.charAt(0)));
-                    players.get(0).addTileToRack(bag.drag());
-                }else{
-                    System.out.println("You need to enter an existing tile from your rack.");
-                    System.out.print("Which character would you like to place? ");
-                    letter = scan.next();
-                }
-                letter = letter.toUpperCase();
-                System.out.print("Which row would you like to place that letter? ");
-                rowNumber = scan.nextInt();
-                System.out.print("Which column would you like to place that letter? ");
-                columnNumber = scan.nextInt();
+    public void checkForCommandWords(String word){
+        //Switching players when the player enters the word "pass"
+        if(word.equals("pass")) {
+            changeTurn();
+        }
+        //quiting game (not sure if this needs to be implemented)
+        if(word.equals("quit")){
+            gameFinished = true;
+        }
+        //checks whether the word is valid after the player places their tile
+        if(word.equals("submit")){
+            if (!dictionary.checkWord(wordCheckString)){
+                System.out.println("Please enter a valid word.");
+                //Remove all the tiles that were placed by that player during that turn
             }else{
-                if(players.get(1).rack.contains(new Tile(letter.charAt(0)))){
-                    players.get(1).removeTileFromRack(new Tile(letter.charAt(0)));
-                    players.get(1).addTileToRack(bag.drag());
-                }else{
-                    System.out.println("You need to enter an existing tile from your rack.");
-                    System.out.print("Which character would you like to place? ");
-                    letter = scan.next();
-                }
-                letter = letter.toUpperCase();
-                System.out.print("Which row would you like to place that letter? ");
-                rowNumber = scan.nextInt();
-                System.out.print("Which column would you like to place that letter? ");
-                columnNumber = scan.nextInt();
+                changeTurn();
             }
-
-            while (firstTurn){
-                checkStartingPoint();
-            }
-
-            Tile tile = new Tile(letter.charAt(0));
-            if (board.squares[rowNumber-1][columnNumber-1].isFilled()){
-                System.out.println("There is already a letter on that square. Please place your tile on a different square");
-            }else{
-                board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
-            }
-            //board.printGameBoard();
-            /*Scoring will be implemented later
-            Square squareType;
-
-            if(player == 0){ //player 1
-                players.get(0).addScore(tile.getValue() * squareType);
-            }else{ //player 2
-                players.get(1).addScore(tile.getValue() * squareType);
-            }
-            */
         }
     }
 
-    public static void main(String[] args){
-        ScrabbleModel game = new ScrabbleModel();
-        game.addPlayer("Player 1", game.bag);
-        game.addPlayer("Player 2", game.bag);
-        game.startGame();
+    /**
+     * Checks wether or not the letter entered by the player is in the rack.
+     * @param letter entered by player
+     */
+    public void checkForLetterInPlayerRack(String letter){
+        if (getTurn()){ //Player 1
+            if(players.get(0).rack.contains(new Tile(letter.charAt(0)))) {
+                players.get(0).removeTileFromRack(new Tile(letter.charAt(0)));
+                players.get(0).addTileToRack(bag.drag());
+            }
+        }else {
+            if (players.get(1).rack.contains(new Tile(letter.charAt(0)))) {
+                players.get(1).removeTileFromRack(new Tile(letter.charAt(0)));
+                players.get(1).addTileToRack(bag.drag());
+            }
+        }
+    }
+
+    public void placeLetterOnBoard(int rowNumber, int columnNumber, String letter){
+        Tile tile = new Tile(letter.charAt(0));
+        if (board.squares[rowNumber-1][columnNumber-1].isFilled()){
+            System.out.println("There is already a letter on that square. Please place your tile on a different square");
+        }else{
+            board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
+        }
+    }
+
+    /**
+     * Places the letter specified by player
+     * @param rowNumber location of sqaure
+     * @param columnNumber location of sqaure
+     * @param letter letter to be placed in square
+     */
+    public void play(int rowNumber, int columnNumber, String letter){
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
+        checkForCommandWords(letter);
+        checkForLetterInPlayerRack(letter);
+
+        if (firstTurn){
+            if (checkIfStartingPointFilled(rowNumber,columnNumber)){
+                grid[rowNumber][columnNumber] = letter.charAt(0);
+                wordCheckString += letter.charAt(0);
+            }
+        }
+        placeLetterOnBoard(rowNumber,columnNumber, letter);
     }
 
     @Override
     public void update(ScrabbleEvent scrabbleEvent) {
         for (ScrabbleView v: views){
-            //v.update(new ScrabbleEvent(this, rowNumber, ColumnNumber))
+            v.update(new ScrabbleEvent(this, rowNumber, columnNumber, letter.charAt(0), turn, status));
         }
     }
 
     public void addScrabbleView(ScrabbleView view) {
         views.add(view);
+    }
+
+    /**TODO
+     * Updates status of the game
+     */
+    public void updateStatus(){
+
     }
 }
