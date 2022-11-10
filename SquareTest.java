@@ -1,6 +1,6 @@
 /**
  * The test class for the Squares
- */
+
 
 public class SquareTest extends junit.framework.TestCase{
 
@@ -8,7 +8,7 @@ public class SquareTest extends junit.framework.TestCase{
 
     /**
      * Default constructor for test class SquareTest
-     */
+
     public SquareTest()
     {
     }
@@ -17,7 +17,7 @@ public class SquareTest extends junit.framework.TestCase{
      * Sets up the test fixture.
      *
      * Called before every test case method.
-     */
+
     protected void setUp()
     {
         startingSqaure = new StartingSquare();
@@ -32,14 +32,14 @@ public class SquareTest extends junit.framework.TestCase{
      * Tears down the test fixture.
      *
      * Called after every test case method.
-     */
+
     protected void tearDown()
     {
     }
 
     /* Verify that the starting square of a newly created game board is
      * Square 1.
-     */
+
     public void testSquareNumbers()
     {
         assertEquals(7, startingSqaure.getRowNum());
@@ -61,3 +61,4 @@ public class SquareTest extends junit.framework.TestCase{
         assertEquals(7, tripleLetterSquare.getColumnNum());
     }
 }
+ */

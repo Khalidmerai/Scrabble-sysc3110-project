@@ -112,4 +112,10 @@ public abstract class Square
             return " _ ";
         }
     }
+    public Tile getTile(){
+        return tile;
+    }
+    public static boolean withinBounds(int rowNum, int columnNum){
+        return columnNum >= 0 && columnNum < GameBoard.SIZE && rowNum>= 0 && rowNum < GameBoard.SIZE;
+    }
 }

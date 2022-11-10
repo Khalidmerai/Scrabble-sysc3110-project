@@ -10,7 +10,11 @@ import java.util.Scanner;
  * The link is provided on the project description and downloaded as a .txt file
  */
 public class Dictionary {
+    private String letters;
     private ArrayList<String> dictionaryList = new ArrayList<String>();
+    public int row;
+    public int column;
+    private char c ;
 
     private static final String wordList = "wordlist.10000.txt";
 
@@ -30,6 +34,13 @@ public class Dictionary {
         while (filename.hasNext()) {
             dictionaryList.add(filename.next());
         }
+    }
+    public int getColumn(){
+        return column;
+    }
+
+    public int getRow() {
+        return row;
     }
 
     /**
@@ -59,4 +70,14 @@ public class Dictionary {
         return false;
     }
 
+    public boolean Horizontal() {
+        return c == 'B';
+    }
+    public boolean Vertical() {
+        return c == 'A';
+    }
+
+    public int length() {
+        return letters.length();
+    }
 }
