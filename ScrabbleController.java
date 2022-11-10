@@ -48,9 +48,11 @@ public class ScrabbleController implements ActionListener {
             model.checkForCommandWords("Submit");
         }
         else{
+            System.out.println("action command " + e.getActionCommand());
             for(char c = 'A'; c <= 'Z'; ++c){
-                if(e.getActionCommand().equals(c)){
+                if(e.getActionCommand().equals(String.valueOf(c))){
                     letterSelected = e.getActionCommand();
+                    System.out.println("Letter Selected: " + letterSelected);
                 }
             }
             for(int i = 0; i < numRows; i++) {

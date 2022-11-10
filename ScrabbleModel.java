@@ -182,12 +182,13 @@ public class ScrabbleModel implements ScrabbleView{
             }
         }
         placeLetterOnBoard(rowNumber,columnNumber, letter);
+        update(new ScrabbleEvent(this, rowNumber, columnNumber, letter.charAt(0), getTurn(), getStatus()));
     }
 
     @Override
     public void update(ScrabbleEvent scrabbleEvent) {
         for (ScrabbleView v: views){
-            v.update(new ScrabbleEvent(this, rowNumber, columnNumber, letter.charAt(0), turn, status));
+            v.update(scrabbleEvent);
         }
     }
 

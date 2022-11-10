@@ -22,14 +22,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
      * Initalizes the different panels within the frame
      */
     private JPanel gameInfoPanel, gridPanel, rackPanel, commandWordPanel;
-
     private ScrabbleModel model;
     private ScrabbleController controller;
 
     public ScrabbleFrame(){
         super("Scrabble");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
         buttons = new JButton[numRows][numColumns];
 
         model = new ScrabbleModel();
@@ -41,13 +40,11 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         setUpPlayerRack();
         createCommandButtons();
 
-        this.setSize(610,700);
+        this.setSize(750,680);
         this.setVisible(true);
     }
 
-    /** Incomplete! Will be complete in MileStone 4.
-     * This method adds the menu items to the menu bar.
-     */
+
     private void buildMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
@@ -78,28 +75,22 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         rackPanel = new JPanel();
         commandWordPanel = new JPanel();
 
-        gameInfoPanel.setLayout(new BorderLayout());
+        gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.Y_AXIS));
         gridPanel.setLayout(new GridLayout(15,15));
         rackPanel.setLayout(new FlowLayout());
 
-        GridLayout layout = new GridLayout(1,3);
-        layout.setHgap(25);
+        BoxLayout layout = new BoxLayout(commandWordPanel, BoxLayout.Y_AXIS);
         commandWordPanel.setLayout(layout);
-
-        gameInfoPanel.setBounds(10,10,580,25);
-        gridPanel.setBounds(10, 50,580,500);
-        rackPanel.setBounds(10,560,580,30);
-        commandWordPanel.setBounds(10,600, 580, 25);
 
         buildGuiSquares();
         //The background colours are to signify the
         // location of the panels and will be removed once the info is added
         gameInfoPanel.setBackground(Color.BLUE);
 
-        this.add(gameInfoPanel);
-        this.add(gridPanel);
-        this.add(rackPanel);
-        this.add(commandWordPanel);
+        this.add(gameInfoPanel, BorderLayout.NORTH);
+        this.add(gridPanel,BorderLayout.CENTER);
+        this.add(rackPanel, BorderLayout.SOUTH);
+        this.add(commandWordPanel, BorderLayout.EAST);
     }
 
     /**
@@ -109,6 +100,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         for(int i = 0; i < numRows; i++){
             for(int j = 0; j < numColumns; j++){
                 JButton b = new JButton(); //Place icon image there
+                b.setMargin(new Insets(1,1,1,1));
                 b.setActionCommand(i + " " + j);
                 buttons[i][j] = b;
                 b.addActionListener(controller);
@@ -120,17 +112,24 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     private void createCommandButtons(){
         JButton button = new JButton("Pass");
         button.setActionCommand("Pass");
+        button.setSize(15,30);
         button.addActionListener(controller);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setAlignmentY(Component.CENTER_ALIGNMENT);
         commandWordPanel.add(button);
 
         button = new JButton("Submit");
         button.setActionCommand("Submit");
         button.addActionListener(controller);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setAlignmentY(Component.CENTER_ALIGNMENT);
         commandWordPanel.add(button);
 
         button = new JButton("Quit");
         button.setActionCommand("Quit");
         button.addActionListener(controller);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setAlignmentY(Component.CENTER_ALIGNMENT);
         commandWordPanel.add(button);
     }
 
@@ -140,7 +139,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
             JButton button = new JButton(String.valueOf(t.getLetter()).toUpperCase());
             button.setActionCommand(String.valueOf(t.getLetter()).toUpperCase());
             button.addActionListener(controller);
-            rackPanel.add(button, BorderLayout.NORTH);
+            rackPanel.add(button, BorderLayout.SOUTH);
         }
     }
     @Override
