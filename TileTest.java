@@ -1,12 +1,12 @@
 /**
  * The test class for Tiles
- */
+
 public class TileTest extends junit.framework.TestCase{
     private Tile blank, a, d, b, f, k, j, q;
 
     /**
      * Default constructor for test class SquareTest
-     */
+
     public TileTest()
     {
     }
@@ -15,7 +15,7 @@ public class TileTest extends junit.framework.TestCase{
      * Sets up the test fixture.
      *
      * Called before every test case method.
-     */
+
     protected void setUp()
     {
         blank = new Tile('_');
@@ -32,13 +32,13 @@ public class TileTest extends junit.framework.TestCase{
      * Tears down the test fixture.
      *
      * Called after every test case method.
-     */
+
     protected void tearDown()
     {
     }
 
     /* Verify that the tiles have the correct letter
-     */
+
     public void testTileLetters()
     {
         assertEquals('_', blank.getLetter());
@@ -52,7 +52,7 @@ public class TileTest extends junit.framework.TestCase{
     }
 
     /* Verify that the tiles have the correct letter value
-     */
+
     public void testTileValue()
     {
         assertEquals(0, blank.getValue());
@@ -65,3 +65,4 @@ public class TileTest extends junit.framework.TestCase{
         assertEquals(10, q.getValue());
     }
 }
+     */

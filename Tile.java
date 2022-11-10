@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.HashMap;
 
 public class Tile {
+
     char letter;
     int value;
     static HashMap<Character, Integer> letterVal ;
@@ -75,6 +76,7 @@ public class Tile {
                 break;
         }
     }
+
 
     /*
     This method gets the letter from the HashMap letterVal

@@ -8,6 +8,8 @@ import java.util.Random;
 public class Bag {
     public ArrayList<Tile> letter; //  initial words
 
+
+
     /**
      * Constructor for bag class
      */
@@ -84,6 +86,7 @@ public class Bag {
         return letter.remove(randomTile);
 
     }
+
 
     /**
      * To check if the bag is empty

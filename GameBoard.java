@@ -6,6 +6,7 @@ import javax.swing.*;
  * @author Saad Eid
  */
 public class GameBoard {
+    public static final int SIZE = 15;
     /**
      * The number of rows in the board.
      */
@@ -256,4 +257,71 @@ public class GameBoard {
             return true;
         }
     }
+    public String getHorizontal(int numRows, int startColumn, int endColumn){
+        StringBuilder word = new StringBuilder();
+        for(int i = startColumn; i<= endColumn; i++){
+            word.append(squares[numRows][i].getTile().getLetter());
+        }
+        return word.toString();
+    }
+    public String getVertical(int numRows, int startColumn, int endColumn){
+        StringBuilder word = new StringBuilder();
+        for(int i = startColumn; i<= endColumn; i++){
+            word.append(squares[numRows][i].getTile().getLetter());
+        }
+        return word.toString();
+    }
+    private boolean connectWords(Dictionary word){
+        int row = word.getRow();
+        int column = word.getColumn();
+        if (word.Horizontal()){
+            for(int i = 0; i< word.length();i++){
+                if (Square.withinBounds(column + i, row - 1)) {
+                    if (!squares[row - 1][column + i].isFilled()) {
+                        return true;
+                    }
+                }
+                // Check bottom
+                if (Square.withinBounds(column + i, row + 1)) {
+                    if (!squares[row + 1][column + i].isFilled()) {
+                        return true;
+                    }
+                }
+                // Check if the word contains tiles already on the board
+                if (Square.withinBounds(column + i, row)) {
+                    if (!squares[row][column + i].isFilled()) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < word.length(); i++) {
+                // Check left
+                if (Square.withinBounds(column - 1, row + i)) {
+                    if (!squares[row + i][column - 1].isFilled()) {
+                        return true;
+                    }
+                }
+                // Check right
+                if (Square.withinBounds(column + 1, row + i)) {
+                    if (!squares[row + i][column + 1].isFilled()) {
+                        return true;
+                    }
+                }
+                // Check if the word contains letter already on the board
+                if (Square.withinBounds(column, row + i)) {
+                    if (!squares[row + i][column].isFilled()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
 }
+
+
+
+
