@@ -105,8 +105,7 @@ public class ScrabbleModel implements ScrabbleView{
      * @return true if starting point is filled and sets firstTurn to false, otherwise returns false.
      */
     public boolean checkIfStartingPointFilled(int rowNumber, int columnNumber){
-        if (rowNumber == 8 && columnNumber == 8){
-            firstTurn = false;
+        if (rowNumber == 7 && columnNumber == 7){
             return true;
         }else{
             return false;
@@ -118,15 +117,15 @@ public class ScrabbleModel implements ScrabbleView{
      */
     public void checkForCommandWords(String word){
         //Switching players when the player enters the word "pass"
-        if(word.equals("pass")) {
+        if(word.equals("Pass")) {
             changeTurn();
         }
         //quiting game (not sure if this needs to be implemented)
-        if(word.equals("quit")){
+        if(word.equals("Quit")){
             gameFinished = true;
         }
         //checks whether the word is valid after the player places their tile
-        if(word.equals("submit")){
+        if(word.equals("Submit")){
             if (!dictionary.checkWord(wordCheckString)){
                 System.out.println("Please enter a valid word.");
                 //Remove all the tiles that were placed by that player during that turn
@@ -156,10 +155,10 @@ public class ScrabbleModel implements ScrabbleView{
 
     public void placeLetterOnBoard(int rowNumber, int columnNumber, String letter){
         Tile tile = new Tile(letter.charAt(0));
-        if (board.squares[rowNumber-1][columnNumber-1].isFilled()){
+        if (board.squares[rowNumber][columnNumber].isFilled()){
             System.out.println("There is already a letter on that square. Please place your tile on a different square");
         }else{
-            board.setTileOnSquare(tile,rowNumber-1, columnNumber-1);
+            board.setTileOnSquare(tile,rowNumber, columnNumber);
         }
     }
 
@@ -174,13 +173,17 @@ public class ScrabbleModel implements ScrabbleView{
         this.columnNumber = columnNumber;
         checkForCommandWords(letter);
         checkForLetterInPlayerRack(letter);
-
+        System.out.println("firstTurn " +firstTurn);
         if (firstTurn){
-            if (checkIfStartingPointFilled(rowNumber,columnNumber)){
+            if (!checkIfStartingPointFilled(rowNumber,columnNumber)){
                 grid[rowNumber][columnNumber] = letter.charAt(0);
                 wordCheckString += letter.charAt(0);
             }
+        }else {
+            grid[rowNumber][columnNumber] = letter.charAt(0);
+            wordCheckString += letter.charAt(0);
         }
+        System.out.println("wordCheckString " + wordCheckString);
         placeLetterOnBoard(rowNumber,columnNumber, letter);
         update(new ScrabbleEvent(this, rowNumber, columnNumber, letter.charAt(0), getTurn(), getStatus()));
     }
