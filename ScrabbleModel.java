@@ -104,8 +104,8 @@ public class ScrabbleModel implements ScrabbleView{
      * Checks if Starting point was filled by player in the first turn
      * @return true if starting point is filled and sets firstTurn to false, otherwise returns false.
      */
-    public boolean checkIfStartingPointFilled(int rowNumber, int columnNumber){
-        if (rowNumber == 7 && columnNumber == 7){
+    public boolean checkIfStartingPointFilled(){
+        if (grid[7][7] != ' '){
             return true;
         }else{
             return false;
@@ -126,6 +126,11 @@ public class ScrabbleModel implements ScrabbleView{
         }
         //checks whether the word is valid after the player places their tile
         if(word.equals("Submit")){
+            if (firstTurn){
+                if (!checkIfStartingPointFilled()){
+                    System.out.println("you need to start in the middle.");
+                }
+            }
             if (!dictionary.checkWord(wordCheckString)){
                 System.out.println("Please enter a valid word.");
                 //Remove all the tiles that were placed by that player during that turn
@@ -136,19 +141,33 @@ public class ScrabbleModel implements ScrabbleView{
     }
 
     /**
+     * Adds tile to player's rack
+     */
+    public void addLetterToPlayerRack(){
+        players.get(0).addTileToRack(bag.drag());
+    }
+
+    /**
+     * Removes tile to player's rack with that letter
+     */
+    public void removeLetterFromPlayerRack(String Letter){
+        players.get(0).removeTileFromRack(new Tile(letter.charAt(0)));
+    }
+
+    /**
      * Checks wether or not the letter entered by the player is in the rack.
      * @param letter entered by player
      */
     public void checkForLetterInPlayerRack(String letter){
         if (getTurn()){ //Player 1
             if(players.get(0).rack.contains(new Tile(letter.charAt(0)))) {
-                players.get(0).removeTileFromRack(new Tile(letter.charAt(0)));
-                players.get(0).addTileToRack(bag.drag());
+                removeLetterFromPlayerRack(letter);
+                addLetterToPlayerRack();
             }
         }else {
             if (players.get(1).rack.contains(new Tile(letter.charAt(0)))) {
-                players.get(1).removeTileFromRack(new Tile(letter.charAt(0)));
-                players.get(1).addTileToRack(bag.drag());
+                removeLetterFromPlayerRack(letter);
+                addLetterToPlayerRack();
             }
         }
     }
@@ -174,15 +193,9 @@ public class ScrabbleModel implements ScrabbleView{
         checkForCommandWords(letter);
         checkForLetterInPlayerRack(letter);
         System.out.println("firstTurn " +firstTurn);
-        if (firstTurn){
-            if (!checkIfStartingPointFilled(rowNumber,columnNumber)){
-                grid[rowNumber][columnNumber] = letter.charAt(0);
-                wordCheckString += letter.charAt(0);
-            }
-        }else {
-            grid[rowNumber][columnNumber] = letter.charAt(0);
-            wordCheckString += letter.charAt(0);
-        }
+
+        grid[rowNumber][columnNumber] = letter.charAt(0);
+        wordCheckString += letter.charAt(0);
         System.out.println("wordCheckString " + wordCheckString);
         placeLetterOnBoard(rowNumber,columnNumber, letter);
         update(new ScrabbleEvent(this, rowNumber, columnNumber, letter.charAt(0), getTurn(), getStatus()));
