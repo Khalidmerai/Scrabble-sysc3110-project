@@ -1,7 +1,10 @@
 //Marina Latif, 101149148
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Player  {
+public class Player extends JComponent {
     /**
      * Name of player
      */
@@ -11,7 +14,8 @@ public class Player  {
      */
     private int score;
 
-    public ArrayList<Tile> rack;
+    //public ArrayList<Tile> rack;
+    private List<Character> rack;
     /**
      * Player's turn
      */
@@ -23,16 +27,20 @@ public class Player  {
     /**
      * Contsructor of player requiring their name and letter bag
      * @param name The player's name.
-     * @param bag The player's letter bag
+     * @param startingRack The player's letter bag
+     * @param turn player's turn
      */
-    public Player (String name,Bag bag){
+    public Player (String name,List<Character> startingRack, boolean turn){
         this.name = name;
         this.score = 0;
-        this.turn = false;
+        this.turn = turn;
+        this.rack = new ArrayList<>(startingRack);
+        /*
         rack = new ArrayList<Tile>();
         for(int i =0; i< rackSize;i++){
             rack.add(bag.drag());
         }
+         */
     }
 
     /**
@@ -63,8 +71,16 @@ public class Player  {
      * Setter method for Player's turn
      *Sets boolean to true if it's the player's turn
      */
-    public void setTurn(){
-        turn = true;
+    public void setTurn(boolean b){
+        turn = b;
+    }
+
+    /**
+     * Setter method for Player's turn
+     *Sets boolean to true if it's the player's turn
+     */
+    public boolean getTurn(){
+        return turn;
     }
 
     /**
@@ -80,40 +96,80 @@ public class Player  {
     }
 
     /**
-     * Getter method for rack
-     * @return rack
+     * @param index
+     * @return letter at the specified index
      */
-    public ArrayList<Tile> getRack() {
-        return rack;
+    public char getLetter(int index) {
+        return rack.get(index);
     }
 
     /**
-     * Setter method for rack
+     * @return all current letters
      */
-    public void setRack( ArrayList<Tile> list) {
-        rack = list;
-    }
-
-    public final boolean addTile(Bag bag){
-        boolean dragTile = rack.add(bag.drag());
-        return dragTile;
+    public List<Character> getAll() {
+        return new ArrayList<Character>(rack);
     }
 
     /**
-     * add a specific tile to the rack
+     * clears player's letter rack
      */
-    public boolean addTileToRack(Tile t){
-      return rack.add(t);
+    public void clear() {
+        rack.clear();
     }
 
     /**
-     * Remove tile from the rack
+     *
+     * @return - size of bench
      */
-    public boolean removeTileFromRack(Tile t){
-        return rack.remove(t);
+    public int getBenchSize() {
+        return rack.size();
     }
 
-    public static void main(String[] args) {
-        Player player = new Player("Player 1", new Bag());
+    /**
+     *
+     * @param toUse letters to be "used"
+     * and deleted from current letter bench
+     */
+    public void useLetters(List<Character> toUse) {
+        for (char c : toUse) {
+            this.useLetter(c);
+        }
+
+    }
+    /**
+     *
+     * @param c char to "use"
+     * helper function for public method useLetters
+     */
+    private void useLetter(Character c) {
+        rack.remove(c);
+    }
+
+    /**
+     * @param toAdd letters to add to bench
+     */
+    public void addLetters(List<Character> toAdd) {
+        rack.addAll(toAdd);
+    }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        System.out.println("here");
+        g.fillRect(0, 0, 100, 100000);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 35-(35/2)));
+        int index = 0;
+        for (char c: rack) {
+            g.drawString(Character.toString(c), index*35, (35/2));
+        }
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(35*7, 35);
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(35*7, 35);
     }
 }

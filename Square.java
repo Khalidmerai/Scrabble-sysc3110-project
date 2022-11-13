@@ -1,19 +1,21 @@
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Square is the superclass of the different types of
  * square on the ScrabbleModel game board.
  *
+ * Removed the abstract for now
  * @author Saad Eid
  */
-public abstract class Square
+public class Square extends JComponent implements Comparable<Square>
 {
     /**
      * The tile to be placed in square.
      */
     protected Tile tile;
-    /**
-     * This tile will act as a placeholder
-     */
-    private Tile emptyTile = new Tile(' ');
+
+    private char letter;
     /**
      * The square's name.
      */
@@ -25,31 +27,49 @@ public abstract class Square
     private int rowNum; //x position
     private int columnNum; //y position
 
-    protected boolean isFilled;
     /**
      * Constructs a new square with the specified name, row and column number.
      *
-     * @param name The square's name.
      * @param rowNum The square's row number.
      * @param columnNum The square's row number.
      */
-    public Square(String name, int rowNum, int columnNum)
+    public Square(int rowNum, int columnNum)
     {
         this.name = name;
         this.rowNum = rowNum;
         this.columnNum = columnNum;
-        this.tile = emptyTile;
+        this.letter = (char)-1; //set it to null
     }
 
+    public Square(int rowNum, int columnNum, char letter)
+    {
+        this.name = name;
+        this.rowNum = rowNum;
+        this.columnNum = columnNum;
+        this.letter = letter;
+    }
     /**
      * Gets letter in square
      *
      * @return letter in square
      */
     public char getLetter(){
-        return this.tile.getLetter();
+        return this.letter;
     }
 
+    /**
+     *
+     * @return this.content is not empty
+     */
+    public boolean hasLetter() {
+        return letter!=((char)-1);
+    }
+    /**
+     * @param letter - sets content
+     */
+    public void setLetter(char letter) {
+        this.letter = letter;
+    }
     /**
      * Returns this square's number row.
      *
@@ -71,45 +91,58 @@ public abstract class Square
     }
 
     /**
-     * Fills the square with tile
+     * @param o - square to compare with
+     * @return 0 if same row and same col
      *
-     * @return The square's number column.
+     * Written to implement comparable for sorting
+     * purposes in GameBoard.addWord method
      */
-    public void placeTile(Tile tile){
-        this.isFilled = true;
-        this.tile = tile;
+
+    @Override
+    public int compareTo(Square o) {
+        if (this.rowNum!=o.getRowNum()) {
+            if (this.rowNum > o.getRowNum()) return 1;
+            return -1;
+        } else if (this.columnNum != o.getColumnNum()) {
+            if (this.columnNum > o.getColumnNum()) return 1;
+            return -1;
+        } else { return 0;}
     }
 
     /**
-     * Removes the tile from square
-     *
-     * @return The square's number column.
+     * see super class documentation
      */
-    public void removeTile(){
-        this.isFilled = false;
-        this.tile = null;
-    }
 
-    /**
-     * Checks if square is empty
-     *
-     * @return if square is filled
-     */
-    public boolean isFilled(){
-        return this.isFilled;
-    }
-
-    /**
-     * Returns the description of this square.
-     *
-     * @return A string containing the name of this square.
-     */
-    public String toString(){
-        if (isFilled){
-            return " " + this.tile.toString() + " ";
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (rowNum==7 && columnNum==7) {
+            g.setColor(Color.red);
+            g.drawRect(0, 0, 35+1, 35-2);
+        } else {
+            g.setColor(Color.black);
+            g.drawRect(0, 0, 35+1, 35-2);
         }
-        else{
-            return " _ ";
+        if (this.hasLetter()) {
+            g.setColor(Color.black);
+            g.setFont(new Font("Verdana", Font.PLAIN, 25));
+            g.drawString(Character.toString(letter), 35/3, 35-(35/3));
         }
+    }
+
+    /**
+     * see super class documentation
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(35, 35);
+    }
+
+    /**
+     * see super class documentation
+     */
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(35, 35);
     }
 }

@@ -24,21 +24,8 @@ public class StartingSquare extends Square{
      * Assigns the square as empty.
      */
     public StartingSquare(){
-        super(name, rowNum, columnNum);
-        super.isFilled = false;
+        super(rowNum, columnNum);
     }
 
-    /**
-     * Returns the description of this square.
-     *
-     * @return A string containing the name of the staring square.
-     */
-    public String toString(){
-        if (isFilled){
-            return " " + super.tile.toString() + " ";
-        }
-        else{
-            return " X ";
-        }
-    }
+
 }

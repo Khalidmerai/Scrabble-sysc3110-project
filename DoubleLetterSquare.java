@@ -21,7 +21,10 @@ public class DoubleLetterSquare extends Square{
      * @param columnNum The square's row number.
      */
     public DoubleLetterSquare(int rowNum, int columnNum){
-        super(name, rowNum, columnNum);
-        super.isFilled = false;
+        super(rowNum, columnNum);
+    }
+
+    public DoubleLetterSquare(int rowNum, int columnNum, char letter){
+        super(rowNum, columnNum, letter);
     }
 }

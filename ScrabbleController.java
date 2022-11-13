@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 
-public class ScrabbleController implements ActionListener {
+public class ScrabbleController extends MouseAdapter implements ActionListener {
 
     private ScrabbleModel model;
     private String letterSelected;
@@ -40,19 +42,20 @@ public class ScrabbleController implements ActionListener {
                     JOptionPane.getRootFrame().dispose();
                     break;
             }
-        }
+        }/*
         else if(e.getActionCommand().equals("Pass")) {
             model.checkForCommandWords("Pass");
         }
         else if(e.getActionCommand().equals("Submit")){
             model.checkForCommandWords("Submit");
-        }
+        }*/
         else{
             System.out.println("action command " + e.getActionCommand());
             for(char c = 'A'; c <= 'Z'; ++c){
                 if(e.getActionCommand().equals(String.valueOf(c))){
                     letterSelected = e.getActionCommand();
                     System.out.println("Letter Selected: " + letterSelected);
+                    //model.removeLetterFromPlayerRack(letterSelected);
                 }
             }
             for(int i = 0; i < numRows; i++) {
@@ -60,7 +63,7 @@ public class ScrabbleController implements ActionListener {
                     if (e.getActionCommand().equals(i + " " + j)) {
                         int x = Integer.parseInt(input[0]);
                         int y = Integer.parseInt(input[1]);
-                        model.play(x, y, letterSelected);
+                        //model.play(x, y, letterSelected);
                         letterSelected = " ";
                     }
                 }
