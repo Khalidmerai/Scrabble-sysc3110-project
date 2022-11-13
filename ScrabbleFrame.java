@@ -1,22 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 /**
  * The ScrabbleFrame class initializes the scrabble board by building its different squares
  * and creating buttons for the user to use
  * @author Saad Eid
  */
-public class ScrabbleFrame implements ScrabbleView{
+public class ScrabbleFrame implements ScrabbleView, Runnable{
 
-    public void ScrabbleFrame() throws IOException {
+    public void run() {
         String name1 = getUsername("Player 1");
         String name2 = getUsername("Player 2");
 
@@ -73,8 +69,18 @@ public class ScrabbleFrame implements ScrabbleView{
         //create game board for actual state
         //create temporary board for pre-submission state
 
-        final ScrabbleModel board = new ScrabbleModel("wordlist.10000.txt", letterBag);
-        final ScrabbleModel tempBoard = new ScrabbleModel("wordlist.10000.txt", letterBag);
+        ScrabbleModel board;
+        try {
+            board = new ScrabbleModel("wordlist.10000.txt", letterBag);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ScrabbleModel tempBoard;
+        try {
+            tempBoard = new ScrabbleModel("wordlist.10000.txt", letterBag);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Square[][] currBoard = tempBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
@@ -360,7 +366,7 @@ public class ScrabbleFrame implements ScrabbleView{
         //buttons[e.getX()][e.getY()].setEnabled(false);
     }
 
-    public static void main(String[] args) {
-        ScrabbleFrame scrabble = new ScrabbleFrame();
+    public static void main(String[] args) throws IOException {
+        SwingUtilities.invokeLater(new ScrabbleFrame());
     }
 }
