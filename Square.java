@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Square is the superclass of the different types of
  * square on the ScrabbleModel game board.
@@ -5,7 +8,7 @@
  * Removed the abstract for now
  * @author Saad Eid
  */
-public class Square implements Comparable<Square>
+public class Square extends JComponent implements Comparable<Square>
 {
     /**
      * The tile to be placed in square.
@@ -104,5 +107,26 @@ public class Square implements Comparable<Square>
             if (this.columnNum > o.getColumnNum()) return 1;
             return -1;
         } else { return 0;}
+    }
+
+    /**
+     * see super class documentation
+     */
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (rowNum==7 && columnNum==7) {
+            g.setColor(Color.red);
+            g.drawRect(0, 0, rowNum+1, columnNum-2);
+        } else {
+            g.setColor(Color.black);
+            g.drawRect(0, 0, rowNum+1, columnNum-2);
+        }
+        if (this.hasLetter()) {
+            g.setColor(Color.black);
+            g.setFont(new Font("Verdana", Font.PLAIN, 25));
+            g.drawString(Character.toString(letter), rowNum/3, rowNum-(rowNum/3));
+        }
     }
 }

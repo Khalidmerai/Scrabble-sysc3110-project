@@ -14,37 +14,12 @@ import javax.swing.*;
  * and creating buttons for the user to use
  * @author Saad Eid
  */
-public class ScrabbleFrame extends JFrame implements ScrabbleView{
+public class ScrabbleFrame implements ScrabbleView{
 
-    /**
-     *
-     * @param tempBoard - current state of board
-     * @param actualBoard - board to reset to
-     */
-    private void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
-        Square[][] currBoard = tempBoard.getCurrentBoard();
-        Square[][] oldBoard = actualBoard.getCurrentBoard();
-        for (int row = 0; row < currBoard.length; row++) {
-            for (int col = 0; col < currBoard[row].length; col++) {
-                Square sq = currBoard[row][col];
-                Square oldSq = oldBoard[row][col];
-                sq.setLetter(oldSq.getLetter());
-                //sq.repaint();
-            }
-        }
-    }
-
-    private String getUsername(String player) {
-        String tgt = JOptionPane.showInputDialog(null, player + ", Enter Your Name:");
-        if (tgt==null) return getUsername(player);
-        else return tgt;
-    }
-
-    public void Play() throws IOException {
+    public void ScrabbleFrame() throws IOException {
         String name1 = getUsername("Player 1");
         String name2 = getUsername("Player 2");
 
-        //Top level frame
         JFrame frame = new JFrame("Scrabble");
 
         frame.setLocation(500, 500);
@@ -79,11 +54,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         JPanel tileBenchPanel = new JPanel();
         Player currPlayer = (p1.getTurn()? p1 : p2);
         for (int i = 0; i < currPlayer.getBenchSize(); i++) {
-
             char c = currPlayer.getLetter(i);
             final JButton b = new JButton(Character.toString(c));
             tileBenchPanel.add(b);
-
             b.addActionListener( new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -120,10 +93,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
             }
         }
 
-        //game button intialization
+        //game button initialization
 
         final JPanel gameButtonPanel = new JPanel();
-
 
         //undo resets the tileRack to the player's bench
         //also resets the game board
@@ -319,10 +291,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
                     //undoes everything if the move was invalid
                     undo.doClick();
                 }
-
-
-
-
             }
         });
 
@@ -360,6 +328,30 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    /**
+     *
+     * @param tempBoard - current state of board
+     * @param actualBoard - board to reset to
+     */
+    private void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
+        Square[][] currBoard = tempBoard.getCurrentBoard();
+        Square[][] oldBoard = actualBoard.getCurrentBoard();
+        for (int row = 0; row < currBoard.length; row++) {
+            for (int col = 0; col < currBoard[row].length; col++) {
+                Square sq = currBoard[row][col];
+                Square oldSq = oldBoard[row][col];
+                sq.setLetter(oldSq.getLetter());
+                sq.repaint();
+            }
+        }
+    }
+
+
+    private String getUsername(String player) {
+        String tgt = JOptionPane.showInputDialog(null, player + ", Enter Your Name:");
+        if (tgt==null) return getUsername(player);
+        else return tgt;
+    }
 
     @Override
     public void update(ScrabbleEvent e) {
@@ -369,6 +361,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     }
 
     public static void main(String[] args) {
-        ScrabbleView view = new ScrabbleFrame();
+        ScrabbleFrame scrabble = new ScrabbleFrame();
     }
 }

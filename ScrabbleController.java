@@ -42,13 +42,13 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
                     JOptionPane.getRootFrame().dispose();
                     break;
             }
-        }
+        }/*
         else if(e.getActionCommand().equals("Pass")) {
             model.checkForCommandWords("Pass");
         }
         else if(e.getActionCommand().equals("Submit")){
             model.checkForCommandWords("Submit");
-        }
+        }*/
         else{
             System.out.println("action command " + e.getActionCommand());
             for(char c = 'A'; c <= 'Z'; ++c){
@@ -63,7 +63,7 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
                     if (e.getActionCommand().equals(i + " " + j)) {
                         int x = Integer.parseInt(input[0]);
                         int y = Integer.parseInt(input[1]);
-                        model.play(x, y, letterSelected);
+                        //model.play(x, y, letterSelected);
                         letterSelected = " ";
                     }
                 }

@@ -1,8 +1,10 @@
 //Marina Latif, 101149148
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player  {
+public class Player extends JComponent {
     /**
      * Name of player
      */
@@ -148,5 +150,19 @@ public class Player  {
      */
     public void addLetters(List<Character> toAdd) {
         rack.addAll(toAdd);
+    }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        System.out.println("here");
+        g.fillRect(0, 0, 100, 100000);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 35-(35/2)));
+        int index = 0;
+        for (char c: rack) {
+            g.drawString(Character.toString(c), index*35, (35/2));
+        }
+
+
+
     }
 }

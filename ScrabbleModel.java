@@ -42,7 +42,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             for (int column = 0; column < numColumns; column++) {
                 Square sq = new Square(row, column);
                 board[row][column] = sq;
-                tempBoard[row][column] = new Square(row, column);
 
                 //add to panel
                 this.add(sq);
