@@ -54,7 +54,7 @@ public class Square extends JComponent implements Comparable<Square>
      * @return letter in square
      */
     public char getLetter(){
-        return this.tile.getLetter();
+        return this.letter;
     }
 
     /**

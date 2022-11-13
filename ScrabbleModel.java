@@ -123,7 +123,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      *
      * @param sqs to add to board
      */
-    private void addToBoard(ArrayList<Square> sqs) {
+    private void addToBoard(List<Square> sqs) {
         for (Square sq: sqs) {
             addSquareToBoard(sq);
         }
@@ -136,7 +136,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * @return point value of move, -1 if move is invalid for any reason
      */
 
-    public int addWord(ArrayList<Square> sqs, boolean firstTurn) {
+    public int addWord(List<Square> sqs, boolean firstTurn) {
         for (Square sq: sqs) {
             int row = sq.getRowNum();
             int col = sq.getColumnNum();

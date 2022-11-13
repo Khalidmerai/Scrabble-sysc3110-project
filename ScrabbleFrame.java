@@ -85,7 +85,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                     public void mouseClicked(MouseEvent e) {
                         if ((!sq.hasLetter()) && (selectedLetter.hasLetter())) {
                             sq.setLetter(selectedLetter.getLetter());
-                            //sq.repaint();
+                            sq.repaint();
                             squaresToSubmit.add(sq);
                             selectedLetter.setLetter((char)-1);
                         }
@@ -222,7 +222,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 }
 
                 boolean firstTurn = ((p1.getScore()==0 && p2.getScore()==0));
-                int pointsScored = board.addWord((ArrayList<Square>) squaresToSubmit, firstTurn);
+                int pointsScored = board.addWord(squaresToSubmit, firstTurn);
 
                 if (pointsScored > 0) {
                     //update scores and score board
@@ -356,9 +356,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
     @Override
     public void update(ScrabbleEvent e) {
-        char label = e.getLetter();
-        //buttons[e.getX()][e.getY()].setText(String.valueOf(label));
-        //buttons[e.getX()][e.getY()].setEnabled(false);
     }
 
     public static void main(String[] args) throws IOException {
