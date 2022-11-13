@@ -11,42 +11,46 @@ import javax.swing.*;
  * @author Saad Eid
  */
 public class ScrabbleFrame implements ScrabbleView, Runnable{
+    public JFrame frame;
+    public Bag letterBag;
+    public Player p1, p2, currPlayer;
+    public JPanel scoreBoard, tileBenchPanel, gameButtonPanel;
+    public JLabel score1, score2, turn;
+    public Square selectedLetter;
+    public List<Square> squaresToSubmit;
+    public ScrabbleModel board, tempBoard;
 
-    public void run() {
-        JFrame frame = new JFrame("Scrabble");
+    public ScrabbleFrame(){
+        frame = new JFrame("Scrabble");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
+        letterBag = new Bag();
+        scoreBoard = new JPanel();
+        tileBenchPanel = new JPanel();
+        gameButtonPanel = new JPanel();
+        p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
+        p2 = new Player(getUsername("Player 2"), letterBag.drawTiles(7), false);
 
-        //initialize game objects
-        final Bag letterBag = new Bag();
+        //variables to help with player input
+        selectedLetter = new Square(-1, -1);
+        squaresToSubmit = new LinkedList<Square>();
+    }
 
-        String name1 = getUsername("Player 1");
-        String name2 = getUsername("Player 2");
-        final Player p1 = new Player(name1, letterBag.drawTiles(7), true);
-        final Player p2 = new Player(name2, letterBag.drawTiles(7), false);
-
-        //score board panel
-        final JPanel scoreBoard = new JPanel();
+    public void buildScorePanel(){
         scoreBoard.setLayout(new GridLayout(1, 3));
-        final JLabel score1 = new JLabel("\t\t\t\t"+ p1.getName() + "'s Score is " + p1.getScore() + " points");
-        final JLabel score2 = new JLabel(p2.getName() + "'s Score is " + p2.getScore() + " points");
-        final JLabel turn = new JLabel("\t\t\t\t\t  It's " + p1.getName() + "'s Turn");
+        score1 = new JLabel("\t\t\t\t"+ p1.getName() + "'s Score is " + p1.getScore() + " points");
+        score2 = new JLabel(p2.getName() + "'s Score is " + p2.getScore() + " points");
+        turn = new JLabel("\t\t\t\t\t  It's " + p1.getName() + "'s Turn");
 
         scoreBoard.add(score1);
         scoreBoard.add(turn);
         scoreBoard.add(score2);
+    }
 
-        //variables to help with player input
-        Square selectedLetter = new Square(-1, -1);
-        List<Square> squaresToSubmit = new LinkedList<Square>();
-
-        //interactive tile bench
-        //click on letter to select it
-        //then click on square to place it
-        JPanel tileBenchPanel = new JPanel();
-        Player currPlayer = (p1.getTurn()? p1 : p2);
+    public void buildTileBenchPanel(){
+        currPlayer = (p1.getTurn()? p1 : p2);
         for (int i = 0; i < currPlayer.getBenchSize(); i++) {
             char c = currPlayer.getLetter(i);
-            final JButton b = new JButton(Character.toString(c));
+            JButton b = new JButton(Character.toString(c));
             tileBenchPanel.add(b);
             b.addActionListener( new ActionListener() {
                 @Override
@@ -60,22 +64,29 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 }
             });
         }
+    }
 
-        //create game board for actual state
-        //create temporary board for pre-submission state
-
-        ScrabbleModel board;
+    /**
+     * Creates a game board for current state and temporary board for pre-submission state
+     */
+    public void createScrabbleModels(){
         try {
             board = new ScrabbleModel("wordlist.10000.txt", letterBag);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        ScrabbleModel tempBoard;
+
         try {
             tempBoard = new ScrabbleModel("wordlist.10000.txt", letterBag);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void run() {
+        buildScorePanel();
+        buildTileBenchPanel();
+        createScrabbleModels();
+
         Square[][] currBoard = tempBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
@@ -94,13 +105,10 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
             }
         }
 
-        //game button initialization
-
-        final JPanel gameButtonPanel = new JPanel();
-
         //undo resets the tileRack to the player's bench
         //also resets the game board
-        final JButton undo = new JButton("Undo");
+        JButton undo = new JButton("Undo");
+        undo.setActionCommand("Undo");
         undo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,7 +140,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         });
 
         //player can opt to pass instead of submitting a move
-        final JButton pass = new JButton("Pass");
+        JButton pass = new JButton("Pass");
+        pass.setActionCommand("Pass");
         pass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -168,7 +177,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         });
 
         //swap tiles, but give up your turn
-        final JButton swap = new JButton("Swap Tiles");
+        JButton swap = new JButton("Swap Tiles");
+        swap.setActionCommand("Swap Tiles");
         swap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -208,8 +218,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         });
 
         //submit button
-
-        final JButton submit = new JButton("Submit");
+        JButton submit = new JButton("Submit");
+        submit.setActionCommand("Submit");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -296,7 +306,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         });
 
 
-        final JButton checkTilesLeft = new JButton("Tiles Left");
+        JButton checkTilesLeft = new JButton("Tiles Left");
         checkTilesLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -306,12 +316,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
             }
         });
 
-        //add scoreBoard to frame
-        frame.add(scoreBoard);
-        //add board to game panel
-        frame.add(tempBoard);
-        frame.add(tileBenchPanel);
-
         //add all the buttons
         gameButtonPanel.add(undo);
         gameButtonPanel.add(submit);
@@ -319,6 +323,10 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         gameButtonPanel.add(swap);
         gameButtonPanel.add(checkTilesLeft);
 
+        //add panels to frame
+        frame.add(scoreBoard);
+        frame.add(tempBoard);
+        frame.add(tileBenchPanel);
         frame.add(gameButtonPanel);
 
         //top level stuff

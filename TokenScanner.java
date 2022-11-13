@@ -55,7 +55,9 @@ public class TokenScanner implements Iterator<String> {
      * @return true if the string is a word
      */
     public static boolean isWord(String s) {
-        if (s==null || s.length()<=0) return false;
+        if (s==null || s.length()<=0){
+            return false;
+        }
         for (int i = 0; i < s.length(); i++) {
             if (!(isWordCharacter(s.codePointAt(i)))) {
                 return false;
