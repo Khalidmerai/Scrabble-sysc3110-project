@@ -1,21 +1,47 @@
+/*
 import javax.swing.*;
+import java.awt.*;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * The ScrabbleFrame class initializes the scrabble board by building its different squares
  * and printing them for the user to use
  * @author Saad Eid
- */
-public class GameBoard {
+ *
+public class GameBoard{
     /**
      * The number of rows in the board.
-     */
+     *
     private static final int numRows = 15;
     /**
      * The number of columns in the board.
-     */
+     *
     private static final int numColumns = 15;
-    /** The squares on the board. */
+    /** The squares on the board. *
     public Square[][] squares;
+    private JPanel panel;
+
+
+    /** Constructor
+     * @param dictionaryFile - name of .txt file to use as game dictionary
+     * @param letterBag - name of .txt file to use to initialize letter bag
+     * @throws IllegalArgumentException if either file is null
+     * @Exits the system if it hits any IOExceptions while reading dictionary
+     *
+     *
+
+    /*
+    public GameBoard(){
+        panel = new JPanel();
+        squares = new Square[numRows][numColumns];
+
+        panel.setLayout(new GridLayout(numRows, numColumns));
+
+        //initialize board
+        buildSquares();
+    }*
+
 
     public GameBoard(){
         squares = new Square[numRows][numColumns];
@@ -26,7 +52,7 @@ public class GameBoard {
     /**
      * Populates the board with squares numbered 1, 2, 3, ..., numRows and numColumns.
      * The square numbered "n" is stored in squares[n-1].
-     */
+     *
     public void printGameBoard(){
         System.out.println("\tA | B | C | D | E | F | G | H | I | J | K | L | M | N | O");
         System.out.println("------|---|---|---|---|---|---|---|---|---|---|---|---|---|---");
@@ -54,7 +80,7 @@ public class GameBoard {
     /**
      * Populates the board with squares of ScrabbleModel such as the
      * DLS, TLS, DWS, TWS, starting square, and regular squares.
-     */
+     *
     private void buildSquares() {
         //Triple Word Squares
         for (int i = 0; i < numRows; i++){
@@ -246,8 +272,8 @@ public class GameBoard {
     }
 
     /**
-     * Places the tile on the square of the gameboard
-     */
+     * Places the tile on the square of the game-board
+     *
     public boolean setTileOnSquare(Tile tile, int rowNumber, int columnNumber) {
         if(squares[rowNumber][columnNumber].isFilled()){
             return false;
@@ -257,3 +283,5 @@ public class GameBoard {
         }
     }
 }
+*/
+

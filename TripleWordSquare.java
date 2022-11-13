@@ -21,7 +21,9 @@ public class TripleWordSquare extends Square{
      * @param columnNum The square's row number.
      */
     public TripleWordSquare(int rowNum, int columnNum){
-        super(name, rowNum, columnNum);
-        super.isFilled = false;
+        super(rowNum, columnNum);
+    }
+    public TripleWordSquare(int rowNum, int columnNum, char letter){
+        super(rowNum, columnNum, letter);
     }
 }

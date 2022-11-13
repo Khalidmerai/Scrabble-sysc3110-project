@@ -69,8 +69,8 @@ public class Player  {
      * Setter method for Player's turn
      *Sets boolean to true if it's the player's turn
      */
-    public void setTurn(){
-        turn = true;
+    public void setTurn(boolean b){
+        turn = b;
     }
 
     /**
@@ -94,40 +94,6 @@ public class Player  {
     }
 
     /**
-     * Getter method for rack
-     * @return rack
-     *
-    public ArrayList<Tile> getRack() {
-        return rack;
-    }
-
-    /**
-     * Setter method for rack
-     *
-    public void setRack( ArrayList<Tile> list) {
-        rack = list;
-    }
-
-    public final boolean addTile(Bag bag){
-        boolean dragTile = rack.add(bag.drag());
-        return dragTile;
-    }
-
-    /**
-     * add a specific tile to the rack
-     *
-    public boolean addTileToRack(Tile t){
-      return rack.add(t);
-    }
-
-    /**
-     * Remove tile from the rack
-     *
-    public boolean removeTileFromRack(Tile t){
-        return rack.remove(t);
-    }*/
-
-    /**
      * @param index
      * @return letter at the specified index
      */
@@ -136,7 +102,6 @@ public class Player  {
     }
 
     /**
-     *
      * @return all current letters
      */
     public List<Character> getAll() {
@@ -179,7 +144,6 @@ public class Player  {
     }
 
     /**
-     *
      * @param toAdd letters to add to bench
      */
     public void addLetters(List<Character> toAdd) {

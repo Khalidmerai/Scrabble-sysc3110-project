@@ -2,18 +2,17 @@
  * Square is the superclass of the different types of
  * square on the ScrabbleModel game board.
  *
+ * Removed the abstract for now
  * @author Saad Eid
  */
-public abstract class Square implements Comparable<Square>
+public class Square implements Comparable<Square>
 {
     /**
      * The tile to be placed in square.
      */
     protected Tile tile;
-    /**
-     * This tile will act as a placeholder
-     */
-    private Tile emptyTile = new Tile(' ');
+
+    private char letter;
     /**
      * The square's name.
      */
@@ -25,22 +24,27 @@ public abstract class Square implements Comparable<Square>
     private int rowNum; //x position
     private int columnNum; //y position
 
-    protected boolean isFilled;
     /**
      * Constructs a new square with the specified name, row and column number.
      *
-     * @param name The square's name.
      * @param rowNum The square's row number.
      * @param columnNum The square's row number.
      */
-    public Square(String name, int rowNum, int columnNum)
+    public Square(int rowNum, int columnNum)
     {
         this.name = name;
         this.rowNum = rowNum;
         this.columnNum = columnNum;
-        this.tile = emptyTile;
+        this.letter = (char)-1; //set it to null
     }
 
+    public Square(int rowNum, int columnNum, char letter)
+    {
+        this.name = name;
+        this.rowNum = rowNum;
+        this.columnNum = columnNum;
+        this.letter = letter;
+    }
     /**
      * Gets letter in square
      *
@@ -50,6 +54,19 @@ public abstract class Square implements Comparable<Square>
         return this.tile.getLetter();
     }
 
+    /**
+     *
+     * @return this.content is not empty
+     */
+    public boolean hasLetter() {
+        return letter!=((char)-1);
+    }
+    /**
+     * @param letter - sets content
+     */
+    public void setLetter(char letter) {
+        this.letter = letter;
+    }
     /**
      * Returns this square's number row.
      *
@@ -71,54 +88,9 @@ public abstract class Square implements Comparable<Square>
     }
 
     /**
-     * Fills the square with tile
-     *
-     * @return The square's number column.
-     */
-    public void placeTile(Tile tile){
-        this.isFilled = true;
-        this.tile = tile;
-    }
-
-    /**
-     * Removes the tile from square
-     *
-     * @return The square's number column.
-     */
-    public void removeTile(){
-        this.isFilled = false;
-        this.tile = null;
-    }
-
-    /**
-     * Checks if square is empty
-     *
-     * @return if square is filled
-     */
-    public boolean isFilled(){
-        return this.isFilled;
-    }
-
-    /**
-     * Returns the description of this square.
-     *
-     * @return A string containing the name of this square.
-     */
-    public String toString(){
-        if (isFilled){
-            return " " + this.tile.toString() + " ";
-        }
-        else{
-            return " _ ";
-        }
-    }
-
-    /**
      * @param o - square to compare with
      * @return 0 if same row and same col
-     * 1 if this.row > o.row
-     * -1 if this.row < o.row
-     * else if row=row check columns
+     *
      * Written to implement comparable for sorting
      * purposes in GameBoard.addWord method
      */
