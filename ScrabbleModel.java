@@ -35,7 +35,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             System.exit(1);
         }
 
-        //this.setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
+        this.setLayout(new GridLayout(numRows, numColumns));
 
         //initialize board
         for (int row = 0; row < numRows; row++) {

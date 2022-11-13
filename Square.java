@@ -118,15 +118,31 @@ public class Square extends JComponent implements Comparable<Square>
         super.paintComponent(g);
         if (rowNum==7 && columnNum==7) {
             g.setColor(Color.red);
-            g.drawRect(0, 0, rowNum+1, columnNum-2);
+            g.drawRect(0, 0, 35+1, 35-2);
         } else {
             g.setColor(Color.black);
-            g.drawRect(0, 0, rowNum+1, columnNum-2);
+            g.drawRect(0, 0, 35+1, 35-2);
         }
         if (this.hasLetter()) {
             g.setColor(Color.black);
             g.setFont(new Font("Verdana", Font.PLAIN, 25));
-            g.drawString(Character.toString(letter), rowNum/3, rowNum-(rowNum/3));
+            g.drawString(Character.toString(letter), 35/3, 35-(35/3));
         }
+    }
+
+    /**
+     * see super class documentation
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(35, 35);
+    }
+
+    /**
+     * see super class documentation
+     */
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(35, 35);
     }
 }

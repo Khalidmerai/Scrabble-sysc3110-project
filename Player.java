@@ -161,8 +161,15 @@ public class Player extends JComponent {
         for (char c: rack) {
             g.drawString(Character.toString(c), index*35, (35/2));
         }
+    }
 
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(35*7, 35);
+    }
 
-
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(35*7, 35);
     }
 }

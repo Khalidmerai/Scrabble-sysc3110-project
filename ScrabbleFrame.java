@@ -13,20 +13,16 @@ import javax.swing.*;
 public class ScrabbleFrame implements ScrabbleView, Runnable{
 
     public void run() {
-        String name1 = getUsername("Player 1");
-        String name2 = getUsername("Player 2");
-
         JFrame frame = new JFrame("Scrabble");
-
-        frame.setLocation(500, 500);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
 
         //initialize game objects
         final Bag letterBag = new Bag();
 
+        String name1 = getUsername("Player 1");
+        String name2 = getUsername("Player 2");
         final Player p1 = new Player(name1, letterBag.drawTiles(7), true);
         final Player p2 = new Player(name2, letterBag.drawTiles(7), false);
-
 
         //score board panel
         final JPanel scoreBoard = new JPanel();
@@ -42,7 +38,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //variables to help with player input
         Square selectedLetter = new Square(-1, -1);
         List<Square> squaresToSubmit = new LinkedList<Square>();
-
 
         //interactive tile bench
         //click on letter to select it
@@ -85,7 +80,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
                 final Square sq = currBoard[row][col];
-                /*sq.addMouseListener(new MouseAdapter() {
+                sq.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if ((!sq.hasLetter()) && (selectedLetter.hasLetter())) {
@@ -95,7 +90,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                             selectedLetter.setLetter((char)-1);
                         }
                     }
-                });*/
+                });
             }
         }
 
@@ -329,7 +324,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //top level stuff
         frame.validate();
         frame.setResizable(true);
-        frame.setSize(670, 900);
+        frame.setSize(670, 700);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
