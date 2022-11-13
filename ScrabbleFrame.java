@@ -17,6 +17,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     private static final int numColumns = 15;
     /** The squares on the board. */
     public JButton[][] buttons;
+    public JButton[] playerRack;
 
     /**
      * Initalizes the different panels within the frame
@@ -30,6 +31,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         buttons = new JButton[numRows][numColumns];
+        playerRack = new JButton[10];
 
         model = new ScrabbleModel();
         model.addScrabbleView(this);
@@ -37,7 +39,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
 
         buildPanels();
         buildMenuBar();
-        setUpPlayerRack();
+        setUpPlayerOneRack();
         createCommandButtons();
 
         this.setSize(750,680);
@@ -133,19 +135,23 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         commandWordPanel.add(button);
     }
 
-    private void setUpPlayerRack(){
+    private void setUpPlayerOneRack(){
         Player player = model.getFirstPlayer();
+        int i = 0;
         for(Tile t: player.getRack()){
             JButton button = new JButton(String.valueOf(t.getLetter()).toUpperCase());
             button.setActionCommand(String.valueOf(t.getLetter()).toUpperCase());
+            playerRack[i] = button;
             button.addActionListener(controller);
             rackPanel.add(button, BorderLayout.SOUTH);
+            i++;
         }
     }
     @Override
     public void update(ScrabbleEvent e) {
         char label = e.getLetter();
         buttons[e.getX()][e.getY()].setText(String.valueOf(label));
+        buttons[e.getX()][e.getY()].setEnabled(false);
     }
 
     public static void main(String[] args) {

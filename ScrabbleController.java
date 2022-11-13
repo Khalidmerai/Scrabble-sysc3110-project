@@ -53,6 +53,7 @@ public class ScrabbleController implements ActionListener {
                 if(e.getActionCommand().equals(String.valueOf(c))){
                     letterSelected = e.getActionCommand();
                     System.out.println("Letter Selected: " + letterSelected);
+                    //model.removeLetterFromPlayerRack(letterSelected);
                 }
             }
             for(int i = 0; i < numRows; i++) {

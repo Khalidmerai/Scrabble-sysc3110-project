@@ -218,4 +218,13 @@ public class ScrabbleModel implements ScrabbleView{
     public void updateStatus(){
 
     }
+
+    public static void main(String[] args) {
+        ScrabbleModel model = new ScrabbleModel();
+
+        for (Tile tile: model.players.get(0).getRack()){
+            System.out.println(tile.getLetter());
+        }
+        model.removeLetterFromPlayerRack("W");
+    }
 }
