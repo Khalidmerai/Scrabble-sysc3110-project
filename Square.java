@@ -4,7 +4,7 @@
  *
  * @author Saad Eid
  */
-public abstract class Square
+public abstract class Square implements Comparable<Square>
 {
     /**
      * The tile to be placed in square.
@@ -111,5 +111,26 @@ public abstract class Square
         else{
             return " _ ";
         }
+    }
+
+    /**
+     * @param o - square to compare with
+     * @return 0 if same row and same col
+     * 1 if this.row > o.row
+     * -1 if this.row < o.row
+     * else if row=row check columns
+     * Written to implement comparable for sorting
+     * purposes in GameBoard.addWord method
+     */
+
+    @Override
+    public int compareTo(Square o) {
+        if (this.rowNum!=o.getRowNum()) {
+            if (this.rowNum > o.getRowNum()) return 1;
+            return -1;
+        } else if (this.columnNum != o.getColumnNum()) {
+            if (this.columnNum > o.getColumnNum()) return 1;
+            return -1;
+        } else { return 0;}
     }
 }

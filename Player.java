@@ -1,5 +1,6 @@
 //Marina Latif, 101149148
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player  {
     /**
@@ -11,7 +12,8 @@ public class Player  {
      */
     private int score;
 
-    public ArrayList<Tile> rack;
+    //public ArrayList<Tile> rack;
+    private List<Character> rack;
     /**
      * Player's turn
      */
@@ -23,16 +25,20 @@ public class Player  {
     /**
      * Contsructor of player requiring their name and letter bag
      * @param name The player's name.
-     * @param bag The player's letter bag
+     * @param startingRack The player's letter bag
+     * @param turn player's turn
      */
-    public Player (String name,Bag bag){
+    public Player (String name,List<Character> startingRack, boolean turn){
         this.name = name;
         this.score = 0;
-        this.turn = false;
+        this.turn = turn;
+        this.rack = new ArrayList<>(startingRack);
+        /*
         rack = new ArrayList<Tile>();
         for(int i =0; i< rackSize;i++){
             rack.add(bag.drag());
         }
+         */
     }
 
     /**
@@ -68,6 +74,14 @@ public class Player  {
     }
 
     /**
+     * Setter method for Player's turn
+     *Sets boolean to true if it's the player's turn
+     */
+    public boolean getTurn(){
+        return turn;
+    }
+
+    /**
      * This method ends the player's turn
      */
     public void endTurn(){
@@ -82,14 +96,14 @@ public class Player  {
     /**
      * Getter method for rack
      * @return rack
-     */
+     *
     public ArrayList<Tile> getRack() {
         return rack;
     }
 
     /**
      * Setter method for rack
-     */
+     *
     public void setRack( ArrayList<Tile> list) {
         rack = list;
     }
@@ -101,19 +115,74 @@ public class Player  {
 
     /**
      * add a specific tile to the rack
-     */
+     *
     public boolean addTileToRack(Tile t){
       return rack.add(t);
     }
 
     /**
      * Remove tile from the rack
-     */
+     *
     public boolean removeTileFromRack(Tile t){
         return rack.remove(t);
+    }*/
+
+    /**
+     * @param index
+     * @return letter at the specified index
+     */
+    public char getLetter(int index) {
+        return rack.get(index);
     }
 
-    public static void main(String[] args) {
-        Player player = new Player("Player 1", new Bag());
+    /**
+     *
+     * @return all current letters
+     */
+    public List<Character> getAll() {
+        return new ArrayList<Character>(rack);
+    }
+
+    /**
+     * clears player's letter rack
+     */
+    public void clear() {
+        rack.clear();
+    }
+
+    /**
+     *
+     * @return - size of bench
+     */
+    public int getBenchSize() {
+        return rack.size();
+    }
+
+    /**
+     *
+     * @param toUse letters to be "used"
+     * and deleted from current letter bench
+     */
+    public void useLetters(List<Character> toUse) {
+        for (char c : toUse) {
+            this.useLetter(c);
+        }
+
+    }
+    /**
+     *
+     * @param c char to "use"
+     * helper function for public method useLetters
+     */
+    private void useLetter(Character c) {
+        rack.remove(c);
+    }
+
+    /**
+     *
+     * @param toAdd letters to add to bench
+     */
+    public void addLetters(List<Character> toAdd) {
+        rack.addAll(toAdd);
     }
 }
