@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -205,5 +202,17 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
                                 " tiles left in the game",
                         "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
             }
-        }
     }
+
+    /*
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        if ((!scrabbleFrame.sq.hasLetter()) && (scrabbleFrame.selectedLetter.hasLetter())) {
+            scrabbleFrame.sq.setLetter(scrabbleFrame.selectedLetter.getLetter());
+            scrabbleFrame.sq.repaint();
+            scrabbleFrame.squaresToSubmit.add(scrabbleFrame.sq);
+            scrabbleFrame.selectedLetter.setLetter((char)-1);
+        }
+    }*/
+}

@@ -16,7 +16,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public Player p1, p2, currPlayer;
     public JPanel scoreBoard, tileBenchPanel, gameButtonPanel;
     public JLabel score1, score2, turn;
-    public Square selectedLetter;
+    public Square selectedLetter, sq;
     public List<Square> squaresToSubmit;
     public ScrabbleModel board, tempBoard;
     public ScrabbleController scrabbleController;
@@ -94,7 +94,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         Square[][] currBoard = tempBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
-                final Square sq = currBoard[row][col];
+                Square sq = currBoard[row][col];
+                sq.addMouseListener(scrabbleController);
                 sq.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -111,7 +112,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
         //undo resets the tileRack to the player's bench
         //also resets the game board
-
         undo.setActionCommand("Undo");
         undo.addActionListener(scrabbleController);
 
