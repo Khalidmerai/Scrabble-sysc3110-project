@@ -22,6 +22,7 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
     public ScrabbleController(ScrabbleModel tempModel, ScrabbleModel model) {
         this.tempModel = tempModel;
         this.model = model;
+        scrabbleFrame = new ScrabbleFrame();
     }
     
     /**
@@ -33,7 +34,29 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
         String input = e.getActionCommand();
         
         if(input.equals("Undo")){
+            scrabbleFrame.resetBoard(tempModel, model);
+            scrabbleFrame.selectedLetter.setLetter((char)-1);
+            scrabbleFrame.tileBenchPanel.removeAll();
+            scrabbleFrame.squaresToSubmit.clear();
+            Player currPlayer = (scrabbleFrame.p1.getTurn() ? scrabbleFrame.p1 : scrabbleFrame.p2);
+            for (int i = 0; i < currPlayer.getBenchSize(); i++) {
+                char c = currPlayer.getLetter(i);
+                final JButton b = new JButton(Character.toString(c));
+                scrabbleFrame.tileBenchPanel.add(b);
 
+                b.addActionListener( new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!(b.getText().equals("")) &&
+                                (!scrabbleFrame.selectedLetter.hasLetter())) {
+                            scrabbleFrame.selectedLetter.setLetter(b.getText().charAt(0));
+                            b.setText("");
+                        }
+                    }
+                });
+            }
+            scrabbleFrame.frame.getContentPane().validate();
+            scrabbleFrame.frame.getContentPane().repaint();
 
         }
         else if(input.equals("Pass")) {

@@ -111,7 +111,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //also resets the game board
         JButton undo = new JButton("Undo");
         undo.setActionCommand("Undo");
-        undo.addActionListener(scrabbleController);
+        undo.addActionListener(scrabbleController);/*
         undo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,9 +138,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 }
                 frame.getContentPane().validate();
                 frame.getContentPane().repaint();
-
             }
-        });
+        });*/
 
         //player can opt to pass instead of submitting a move
         JButton pass = new JButton("Pass");
