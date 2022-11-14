@@ -6,8 +6,9 @@ import java.awt.event.MouseListener;
 
 public class ScrabbleController extends MouseAdapter implements ActionListener {
 
-    private ScrabbleModel model;
+    private ScrabbleModel tempModel, model;
     private String letterSelected;
+    private ScrabbleFrame scrabbleFrame;
     /**
      * The number of rows in the board.
      */
@@ -18,7 +19,8 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
     private static final int numColumns = 15;
     private static final int numOfLetters = 26;
 
-    public ScrabbleController(ScrabbleModel model) {
+    public ScrabbleController(ScrabbleModel tempModel, ScrabbleModel model) {
+        this.tempModel = tempModel;
         this.model = model;
     }
     
@@ -28,46 +30,48 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        String[] input = e.getActionCommand().split(" ");
+        String input = e.getActionCommand();
         
-        if(e.getActionCommand().equals("Quit")){
-            var result = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
-            switch (result) {
-                case JOptionPane.YES_OPTION:
-                    System.exit(1);
-                    break;
-                case JOptionPane.NO_OPTION:
-                case JOptionPane.CANCEL_OPTION:
-                case JOptionPane.CLOSED_OPTION:
-                    JOptionPane.getRootFrame().dispose();
-                    break;
-            }
-        }/*
-        else if(e.getActionCommand().equals("Pass")) {
-            model.checkForCommandWords("Pass");
+        if(input.equals("Undo")){
+
+
         }
-        else if(e.getActionCommand().equals("Submit")){
-            model.checkForCommandWords("Submit");
-        }*/
-        else{
-            System.out.println("action command " + e.getActionCommand());
-            for(char c = 'A'; c <= 'Z'; ++c){
-                if(e.getActionCommand().equals(String.valueOf(c))){
-                    letterSelected = e.getActionCommand();
-                    System.out.println("Letter Selected: " + letterSelected);
-                    //model.removeLetterFromPlayerRack(letterSelected);
-                }
-            }
-            for(int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numColumns; j++) {
-                    if (e.getActionCommand().equals(i + " " + j)) {
-                        int x = Integer.parseInt(input[0]);
-                        int y = Integer.parseInt(input[1]);
-                        //model.play(x, y, letterSelected);
-                        letterSelected = " ";
+        else if(input.equals("Pass")) {
+            scrabbleFrame.resetBoard(tempModel, model);
+
+            scrabbleFrame.selectedLetter.setLetter((char)(-1));
+            Player currPlayer = (scrabbleFrame.p1.getTurn()) ? scrabbleFrame.p2 : scrabbleFrame.p1; //opposite
+            scrabbleFrame.p1.setTurn(!scrabbleFrame.p1.getTurn());
+            scrabbleFrame.p2.setTurn(!scrabbleFrame.p2.getTurn());
+            scrabbleFrame.turn.setText("It's " + currPlayer.getName() + "'s Turn");
+
+            scrabbleFrame.tileBenchPanel.removeAll();
+            for (int i = 0; i < currPlayer.getBenchSize(); i++) {
+                char c = currPlayer.getLetter(i);
+                final JButton b = new JButton(Character.toString(c));
+                scrabbleFrame.tileBenchPanel.add(b);
+
+                b.addActionListener( new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!(b.getText().equals("")) &&
+                                (!scrabbleFrame.selectedLetter.hasLetter())) {
+                            scrabbleFrame.selectedLetter.setLetter(b.getText().charAt(0));
+                            b.setText("");
+                        }
                     }
-                }
+                });
             }
+            //to repack and paint all changes
+            scrabbleFrame.frame.getContentPane().validate();
+            scrabbleFrame.frame.getContentPane().repaint();
+        }
+        else if(input.equals("Swap Tiles")){
+
+        } else if(input.equals("Submit")) {
+
+        } else if(input.equals("Tiles left")){
+
         }
     }
 }

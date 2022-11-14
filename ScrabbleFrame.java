@@ -19,6 +19,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public Square selectedLetter;
     public List<Square> squaresToSubmit;
     public ScrabbleModel board, tempBoard;
+    public ScrabbleController scrabbleController;
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -81,6 +82,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        scrabbleController = new ScrabbleController(tempBoard, board);
     }
     public void run() {
         buildScorePanel();
@@ -109,6 +111,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //also resets the game board
         JButton undo = new JButton("Undo");
         undo.setActionCommand("Undo");
+        undo.addActionListener(scrabbleController);
         undo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,6 +145,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //player can opt to pass instead of submitting a move
         JButton pass = new JButton("Pass");
         pass.setActionCommand("Pass");
+        pass.addActionListener(scrabbleController);/*
         pass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -174,11 +178,12 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 frame.getContentPane().validate();
                 frame.getContentPane().repaint();
             }
-        });
+        });*/
 
         //swap tiles, but give up your turn
         JButton swap = new JButton("Swap Tiles");
         swap.setActionCommand("Swap Tiles");
+        swap.addActionListener(scrabbleController);
         swap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,6 +225,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //submit button
         JButton submit = new JButton("Submit");
         submit.setActionCommand("Submit");
+        submit.addActionListener(scrabbleController);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -267,7 +273,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
                     lettersUsed.clear();
 
-                    //change the tilerack to the second player's
+                    //change the tile rack to the second player's
                     currPlayer = (p1.getTurn()) ? p2 : p1; //opposite
                     turn.setText("It's " + currPlayer.getName() + "'s Turn");
                     p1.setTurn(!p1.getTurn());
@@ -307,6 +313,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
 
         JButton checkTilesLeft = new JButton("Tiles Left");
+        submit.setActionCommand("Tiles Left");
+        checkTilesLeft.addActionListener(scrabbleController);
         checkTilesLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -342,7 +350,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
      * @param tempBoard - current state of board
      * @param actualBoard - board to reset to
      */
-    private void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
+    void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
         Square[][] currBoard = tempBoard.getCurrentBoard();
         Square[][] oldBoard = actualBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
