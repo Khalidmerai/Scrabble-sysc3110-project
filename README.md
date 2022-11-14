@@ -37,6 +37,7 @@ JBUTTONS
 5. Submit: This button makes sure that the inputted word is valid, if so, generates the players new score then the next player plays.
 
 BREAK DOWN OF TASKS FOR MILESTONE 1
+---------------------------------------
 
 Player.java and UML : Marina
 
@@ -47,6 +48,7 @@ Tile.java, bag.java, ScrabbleModel.java, and readme file. Assisted in Dictionary
 DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, ScrabbleModel.java and gameBoard.java. Also assisted in bag.java and tile.java : Saad
 
 BREAK DOWN OF TASKS FOR MILESTONE 2
+-----------------------------------------
 
 ScrabbleController.java, ScrabbleModel.java ,Player.java and UML and readMe file: Marina
 
