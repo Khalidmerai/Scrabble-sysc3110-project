@@ -204,7 +204,7 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
             }
     }
 
-    /*
+/*
     @Override
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
