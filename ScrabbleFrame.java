@@ -16,7 +16,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public Player p1, p2, currPlayer;
     public JPanel scoreBoard, tileBenchPanel, gameButtonPanel, gridPanel;
     public JLabel score1, score2, turn;
-    public Square selectedLetter;
+    public Square selectedLetter, sq;
     public List<Square> squaresToSubmit;
     public ScrabbleModel board, tempBoard;
     public ScrabbleController scrabbleController;
@@ -167,10 +167,10 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         Square[][] oldBoard = actualBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
-                Square sq = currBoard[row][col];
+                Square square = currBoard[row][col];
                 Square oldSq = oldBoard[row][col];
-                sq.setLetter(oldSq.getLetter());
-                sq.repaint();
+                square.setLetter(oldSq.getLetter());
+                square.repaint();
             }
         }
     }

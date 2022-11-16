@@ -203,16 +203,4 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
                         "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
             }
     }
-
-/*
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        super.mouseClicked(e);
-        if ((!scrabbleFrame.sq.hasLetter()) && (scrabbleFrame.selectedLetter.hasLetter())) {
-            scrabbleFrame.sq.setLetter(scrabbleFrame.selectedLetter.getLetter());
-            scrabbleFrame.sq.repaint();
-            scrabbleFrame.squaresToSubmit.add(scrabbleFrame.sq);
-            scrabbleFrame.selectedLetter.setLetter((char)-1);
-        }
-    }*/
 }
