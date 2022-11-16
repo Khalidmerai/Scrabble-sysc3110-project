@@ -21,7 +21,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public ScrabbleModel board, tempBoard;
     public ScrabbleController scrabbleController;
     JButton undo = new JButton("Undo");
-    public JButton[][] buttons;
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -31,7 +30,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         tileBenchPanel = new JPanel();
         gameButtonPanel = new JPanel();
         gridPanel = new JPanel(new GridLayout(15,15));
-        buttons = new JButton[15][15];
 
         //variables to help with player input
         selectedLetter = new Square(-1, -1);
@@ -148,7 +146,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //add panels to frame
         frame.add(scoreBoard);
         frame.add(tempBoard);
-        //frame.add(gridPanel);
         frame.add(tileBenchPanel);
         frame.add(gameButtonPanel);
 
@@ -158,19 +155,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         frame.setSize(670, 700);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
-
-
-    private void buildGridPanel() {
-        for(int i = 0; i < 15; i++){
-            for (int j = 0; j < 15; j++){
-                JButton b = new JButton(" ");
-                b.setActionCommand(i + " " + j);
-                buttons[i][j] = b;
-                b.addActionListener(scrabbleController);
-                gridPanel.add(b);
-            }
-        }
     }
 
     /**

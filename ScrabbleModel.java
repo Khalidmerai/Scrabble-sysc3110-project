@@ -65,107 +65,69 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             }
         }*/
         int i;
-        for(i = 0; i < 15; ++i) {
+        for (i = 0; i < 15; ++i) {
             if (i == 0 || i == 14) {
-                this.board[i][0] = new TripleLetterSquare(i, 0);
-                this.board[i][7] = new TripleLetterSquare(i, 7);
-                this.board[i][14] = new TripleLetterSquare(i, 14);
-//                this.add(board[i][0]);
-//                this.add(board[i][0]);
-//                this.add(board[i][0]);
+                this.board[i][0] = new TripleWordSquare(i, 0);
+                this.board[i][7] = new TripleWordSquare(i, 7);
+                this.board[i][14] = new TripleWordSquare(i, 14);
             }
 
             if (i == 7) {
-                this.board[i][0] = new TripleLetterSquare(i, 0);
-                this.board[i][14] = new TripleLetterSquare(i, 14);
-//                this.add();
-//                this.add();
+                this.board[i][0] = new TripleWordSquare(i, 0);
+                this.board[i][14] = new TripleWordSquare(i, 14);
             }
         }
 
-        for(i = 0; i < 15; ++i) {
+        for (i = 0; i < 15; ++i) {
             if (i == 1 || i == 13) {
-                this.board[i][0] = new TripleLetterSquare(i, 5);
-                this.board[i][7] = new TripleLetterSquare(i, 9);
                 this.board[i][5] = new TripleLetterSquare(i, 5);
                 this.board[i][9] = new TripleLetterSquare(i, 9);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 5 || i == 9) {
-                this.board[i][0] = new TripleLetterSquare(i, 1);
-                this.board[i][14] = new TripleLetterSquare(i, 5);
-                this.board[i][0] = new TripleLetterSquare(i, 9);
-                this.board[i][7] = new TripleLetterSquare(i, 13);
                 this.board[i][1] = new TripleLetterSquare(i, 1);
                 this.board[i][5] = new TripleLetterSquare(i, 5);
                 this.board[i][9] = new TripleLetterSquare(i, 9);
                 this.board[i][13] = new TripleLetterSquare(i, 13);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
         }
 
-        for(i = 0; i < 15; ++i) {
+        for (i = 0; i < 15; ++i) {
             if (i == 1 || i == 13) {
                 this.board[i][1] = new DoubleWordSquare(i, 1);
                 this.board[i][13] = new DoubleWordSquare(i, 13);
-//                this.add();
-//                this.add();
-
+            }
             if (i == 2 || i == 12) {
                 this.board[i][2] = new DoubleWordSquare(i, 2);
                 this.board[i][12] = new DoubleWordSquare(i, 12);
-//                this.add();
-//                this.add();
             }
 
             if (i == 3 || i == 11) {
                 this.board[i][3] = new DoubleWordSquare(i, 3);
                 this.board[i][11] = new DoubleWordSquare(i, 11);
-//                this.add();
-//                this.add();
             }
 
             if (i == 4 || i == 10) {
                 this.board[i][4] = new DoubleWordSquare(i, 4);
                 this.board[i][10] = new DoubleWordSquare(i, 10);
-//                this.add();
-//                this.add();
             }
         }
 
-        for(i = 0; i < 15; ++i) {
+        for (i = 0; i < 15; ++i) {
             if (i == 0 || i == 14) {
                 this.board[i][3] = new DoubleLetterSquare(i, 3);
                 this.board[i][11] = new DoubleLetterSquare(i, 11);
-//                this.add();
-//                this.add();
             }
 
             if (i == 2 || i == 12) {
                 this.board[i][6] = new DoubleLetterSquare(i, 6);
                 this.board[i][8] = new DoubleLetterSquare(i, 8);
-//                this.add();
-//                this.add();
             }
 
             if (i == 3 || i == 11) {
                 this.board[i][0] = new DoubleLetterSquare(i, 0);
                 this.board[i][7] = new DoubleLetterSquare(i, 7);
                 this.board[i][14] = new DoubleLetterSquare(i, 14);
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 6 || i == 8) {
@@ -173,21 +135,15 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][6] = new DoubleLetterSquare(i, 6);
                 this.board[i][8] = new DoubleLetterSquare(i, 8);
                 this.board[i][12] = new DoubleLetterSquare(i, 12);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 7) {
                 this.board[i][3] = new DoubleLetterSquare(i, 3);
                 this.board[i][11] = new DoubleLetterSquare(i, 11);
-//                this.add();
-//                this.add();
             }
         }
 
-        for(i = 0; i < 15; ++i) {
+        for (i = 0; i < 15; ++i) {
             if (i == 0 || i == 14) {
                 this.board[i][1] = new RegularSquare(i, 1);
                 this.board[i][2] = new RegularSquare(i, 2);
@@ -199,16 +155,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][10] = new RegularSquare(i, 10);
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][13] = new RegularSquare(i, 13);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 1 || i == 13) {
@@ -223,17 +169,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][11] = new RegularSquare(i, 11);
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][14] = new RegularSquare(i, 14);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 2 || i == 12) {
@@ -248,17 +183,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][11] = new RegularSquare(i, 11);
                 this.board[i][13] = new RegularSquare(i, 13);
                 this.board[i][14] = new RegularSquare(i, 14);
-                this.add(board[i][0]);
-                this.add(board[i][1]);
-                this.add(board[i][3]);
-                this.add(board[i][4]);
-                this.add(board[i][5]);
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
-//                this.add();
             }
 
             if (i == 3 || i == 11) {
@@ -272,16 +196,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][10] = new RegularSquare(i, 10);
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][13] = new RegularSquare(i, 13);
-//                this.add(board[i][1]);
-//                this.add(board[i][2]);
-//                this.add(board[i][4]);
-//                this.add(board[i][5]);
-//                this.add(board[i][6]);
-//                this.add(board[i][8]);
-//                this.add(board[i][9]);
-//                this.add(board[i][10]);
-//                this.add(board[i][12]);
-//                this.add(board[i][13]);
             }
 
             if (i == 4 || i == 10) {
@@ -298,19 +212,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][13] = new RegularSquare(i, 13);
                 this.board[i][14] = new RegularSquare(i, 14);
-//                this.add(board[i][0]);
-//                this.add(board[i][1]);
-//                this.add(board[i][2]);
-//                this.add(board[i][3]);
-//                this.add(board[i][5]);
-//                this.add(board[i][6]);
-//                this.add(board[i][7]);
-//                this.add(board[i][8]);
-//                this.add(board[i][9]);
-//                this.add(board[i][11]);
-//                this.add(board[i][12]);
-//                this.add(board[i][13]);
-//                this.add(board[i][14]);
             }
 
             if (i == 5 || i == 9) {
@@ -325,17 +226,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][11] = new RegularSquare(i, 11);
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][14] = new RegularSquare(i, 14);
-//                this.add(board[i][0]);
-//                this.add(board[i][2]);
-//                this.add(board[i][3]);
-//                this.add(board[i][4]);
-//                this.add(board[i][6]);
-//                this.add(board[i][7]);
-//                this.add(board[i][8]);
-//                this.add(board[i][10]);
-//                this.add(board[i][11]);
-//                this.add(board[i][12]);
-//                this.add(board[i][14]);
             }
 
             if (i == 6 || i == 8) {
@@ -350,17 +240,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][11] = new RegularSquare(i, 11);
                 this.board[i][13] = new RegularSquare(i, 13);
                 this.board[i][14] = new RegularSquare(i, 14);
-//                this.add(board[i][0]);
-//                this.add(board[i][1]);
-//                this.add(board[i][3]);
-//                this.add(board[i][4]);
-//                this.add(board[i][5]);
-//                this.add(board[i][7]);
-//                this.add(board[i][9]);
-//                this.add(board[i][10]);
-//                this.add(board[i][11]);
-//                this.add(board[i][13]);
-//                this.add(board[i][14]);
             }
 
             if (i == 7) {
@@ -375,25 +254,13 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
                 this.board[i][10] = new RegularSquare(i, 10);
                 this.board[i][12] = new RegularSquare(i, 12);
                 this.board[i][13] = new RegularSquare(i, 13);
-//                this.add(board[i][1]);
-//                this.add(board[i][2]);
-//                this.add(board[i][4]);
-//                this.add(board[i][5]);
-//                this.add(board[i][6]);
-//                this.add(board[i][7]);
-//                this.add(board[i][8]);
-//                this.add(board[i][9]);
-//                this.add(board[i][10]);
-//                this.add(board[i][12]);
-//                this.add(board[i][13]);
             }
         }
 
-
+        //Adding to panel
         for (int row = 0; row < numRows; row++) {
             for (int column = 0; column < numColumns; column++) {
-                //add to panel
-                this.add(this.board[row][column]);
+                this.add(board[row][column]);
             }
         }
     }

@@ -113,7 +113,6 @@ public class Square extends JComponent implements Comparable<Square>
     /**
      * see super class documentation
      */
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
