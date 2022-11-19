@@ -118,6 +118,7 @@ public class Square extends JComponent implements Comparable<Square>
         super.paintComponent(g);
         if (rowNum==7 && columnNum==7) {
             g.setColor(Color.red);
+            //g.fillRect(0, 0, 35+1, 35-2);
             g.drawRect(0, 0, 35+1, 35-2);
         } else {
             g.setColor(Color.black);

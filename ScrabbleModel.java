@@ -276,13 +276,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         views.add(view);
     }
 
-    /**TODO
-     * Updates status of the game
-     */
-    public void updateStatus(){
-
-    }
-
     /**
      *
      * @return pointer to the current board
@@ -680,8 +673,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             //vertical check
             //start horizontal word
         } else {
-
-
             for (int i = startCol; i < startCol + word.length; i++) {
                 String vertical = "" + word[i-startCol];
 
@@ -768,7 +759,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             }
             total += sum;
         }
-
         return total;
     }
 }
