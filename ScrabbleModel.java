@@ -54,16 +54,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * Creates the board with premium squares
      */
     private void initializeBoard() {
-        /*
-        for (int row = 0; row < numRows; row++) {
-            for (int column = 0; column < numColumns; column++) {
-                Square sq = new Square(row, column);
-                board[row][column] = sq;
-
-                //add to panel
-                this.add(sq);
-            }
-        }*/
         int i;
         for (i = 0; i < 15; ++i) {
             if (i == 0 || i == 14) {
