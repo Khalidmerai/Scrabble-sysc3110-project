@@ -14,11 +14,13 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public JFrame frame;
     public Bag letterBag;
     public Player p1, p2, currPlayer;
-    public JPanel scoreBoard, tileBenchPanel, gameButtonPanel;
+    public JPanel scoreBoard, tileBenchPanel, gameButtonPanel, gridPanel;
     public JLabel score1, score2, turn;
-    public Square selectedLetter;
+    public Square selectedLetter, sq;
     public List<Square> squaresToSubmit;
     public ScrabbleModel board, tempBoard;
+    public ScrabbleController scrabbleController;
+    JButton undo = new JButton("Undo");
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -27,8 +29,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         scoreBoard = new JPanel();
         tileBenchPanel = new JPanel();
         gameButtonPanel = new JPanel();
-        p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
-        p2 = new Player(getUsername("Player 2"), letterBag.drawTiles(7), false);
+        gridPanel = new JPanel(new GridLayout(15,15));
 
         //variables to help with player input
         selectedLetter = new Square(-1, -1);
@@ -81,16 +82,22 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        scrabbleController = new ScrabbleController(tempBoard, board, this);
     }
     public void run() {
+        p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
+        p2 = new Player("AI Player", letterBag.drawTiles(7), false);
+
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();
+        //buildGridPanel();
 
         Square[][] currBoard = tempBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
-                final Square sq = currBoard[row][col];
+                Square sq = currBoard[row][col];
+                sq.addMouseListener(scrabbleController);
                 sq.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -107,214 +114,27 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
         //undo resets the tileRack to the player's bench
         //also resets the game board
-        JButton undo = new JButton("Undo");
         undo.setActionCommand("Undo");
-        undo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetBoard(tempBoard, board);
-                selectedLetter.setLetter((char)-1);
-                tileBenchPanel.removeAll();
-                squaresToSubmit.clear();
-                Player currPlayer = (p1.getTurn() ? p1 : p2);
-                for (int i = 0; i < currPlayer.getBenchSize(); i++) {
-                    char c = currPlayer.getLetter(i);
-                    final JButton b = new JButton(Character.toString(c));
-                    tileBenchPanel.add(b);
-
-                    b.addActionListener( new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (!(b.getText().equals("")) &&
-                                    (!selectedLetter.hasLetter())) {
-                                selectedLetter.setLetter(b.getText().charAt(0));
-                                b.setText("");
-                            }
-                        }
-                    });
-                }
-                frame.getContentPane().validate();
-                frame.getContentPane().repaint();
-
-            }
-        });
+        undo.addActionListener(scrabbleController);
 
         //player can opt to pass instead of submitting a move
         JButton pass = new JButton("Pass");
         pass.setActionCommand("Pass");
-        pass.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetBoard(tempBoard, board);
-
-                selectedLetter.setLetter((char)(-1));
-                Player currPlayer = (p1.getTurn()) ? p2 : p1; //opposite
-                p1.setTurn(!p1.getTurn());
-                p2.setTurn(!p2.getTurn());
-                turn.setText("It's " + currPlayer.getName() + "'s Turn");
-
-                tileBenchPanel.removeAll();
-                for (int i = 0; i < currPlayer.getBenchSize(); i++) {
-                    char c = currPlayer.getLetter(i);
-                    final JButton b = new JButton(Character.toString(c));
-                    tileBenchPanel.add(b);
-
-                    b.addActionListener( new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (!(b.getText().equals("")) &&
-                                    (!selectedLetter.hasLetter())) {
-                                selectedLetter.setLetter(b.getText().charAt(0));
-                                b.setText("");
-                            }
-                        }
-                    });
-                }
-                //to repack and paint all changes
-                frame.getContentPane().validate();
-                frame.getContentPane().repaint();
-            }
-        });
+        pass.addActionListener(scrabbleController);
 
         //swap tiles, but give up your turn
         JButton swap = new JButton("Swap Tiles");
         swap.setActionCommand("Swap Tiles");
-        swap.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetBoard(tempBoard, board);
-                selectedLetter.setLetter((char)(-1));
-
-                Player currPlayer = (p1.getTurn()) ? p1 : p2;
-                List<Character> newLetters = letterBag.swapTiles(currPlayer.getAll());
-                currPlayer.clear();
-                currPlayer.addLetters(newLetters);
-
-                currPlayer = (p1.getTurn()) ? p2 : p1; //opposite
-                turn.setText("It's " + currPlayer.getName() + "'s Turn");
-                p1.setTurn(!p1.getTurn());
-                p2.setTurn(!p2.getTurn());
-                tileBenchPanel.removeAll();
-                selectedLetter.setLetter((char)-1);
-                for (int i = 0; i < currPlayer.getBenchSize(); i++) {
-                    char c = currPlayer.getLetter(i);
-                    final JButton b = new JButton(Character.toString(c));
-                    tileBenchPanel.add(b);
-
-                    b.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (!(b.getText().equals("")) &&
-                                    (!selectedLetter.hasLetter())) {
-                                selectedLetter.setLetter(b.getText().charAt(0));
-                                b.setText("");
-                            }
-                        }
-                    });
-                }
-                frame.getContentPane().validate();
-                frame.getContentPane().repaint();
-            }
-        });
+        swap.addActionListener(scrabbleController);
 
         //submit button
         JButton submit = new JButton("Submit");
         submit.setActionCommand("Submit");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (squaresToSubmit.isEmpty()) {
-                    JOptionPane.showMessageDialog(null,"Please Make a Move "
-                                    + "Before Submitting",
-                            "Invalid Move", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                boolean firstTurn = ((p1.getScore()==0 && p2.getScore()==0));
-                int pointsScored = board.addWord(squaresToSubmit, firstTurn);
-
-                if (pointsScored > 0) {
-                    //update scores and score board
-                    Player currPlayer = (p1.getTurn()) ? p1 : p2;
-
-                    currPlayer.addScore(pointsScored);
-                    score1.setText("\t" + p1.getName() + "'s Score is " + p1.getScore() + " points");
-                    score2.setText(p2.getName() + "'s Score is " + p2.getScore() + " points");
-
-                    List<Character> lettersUsed = new ArrayList<Character>();
-                    for (Square s: squaresToSubmit) {
-                        lettersUsed.add(s.getLetter());
-                    }
-
-                    squaresToSubmit.clear();
-                    selectedLetter.setLetter((char)(-1));
-                    currPlayer.useLetters(lettersUsed);
-                    currPlayer.addLetters(letterBag.drawTiles(lettersUsed.size()));
-
-                    //when the game ends
-                    if (currPlayer.getBenchSize()==0) {
-                        boolean pOneWinner = (p1.getScore()>p2.getScore());
-                        String winner = (pOneWinner) ? p1.getName() : p2.getName();
-                        winner = "The winner is " + winner + "!\n";
-                        winner += p1.getName() + " had " + p1.getScore() + " points \n"
-                                + p2.getName() + " had " + p2.getScore() + " points";
-
-                        JOptionPane.showMessageDialog(null, winner, "Game Over",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        System.exit(1);
-                    }
-
-                    lettersUsed.clear();
-
-                    //change the tilerack to the second player's
-                    currPlayer = (p1.getTurn()) ? p2 : p1; //opposite
-                    turn.setText("It's " + currPlayer.getName() + "'s Turn");
-                    p1.setTurn(!p1.getTurn());
-                    p2.setTurn(!p2.getTurn());
-
-                    tileBenchPanel.removeAll();
-                    for (int i = 0; i < currPlayer.getBenchSize(); i++) {
-                        char c = currPlayer.getLetter(i);
-                        final JButton b = new JButton(Character.toString(c));
-                        tileBenchPanel.add(b);
-
-                        b.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                if (!(b.getText().equals(""))&&
-                                        (!selectedLetter.hasLetter())) {
-                                    selectedLetter.setLetter(b.getText().charAt(0));
-                                    b.setText("");
-                                }
-                            }
-                        });
-                    }
-
-                    //repack and repaints
-                    frame.getContentPane().validate();
-                    frame.getContentPane().repaint();
-
-
-                } else {
-                    JOptionPane.showMessageDialog(null,"Invalid Move. Try Again",
-                            "Invalid Move", JOptionPane.ERROR_MESSAGE);
-                    //undoes everything if the move was invalid
-                    undo.doClick();
-                }
-            }
-        });
-
+        submit.addActionListener(scrabbleController);
 
         JButton checkTilesLeft = new JButton("Tiles Left");
-        checkTilesLeft.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"There are " + letterBag.getTilesLeft() +
-                                " tiles left in the game",
-                        "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+        checkTilesLeft.setActionCommand("Tiles Left");
+        checkTilesLeft.addActionListener(scrabbleController);
 
         //add all the buttons
         gameButtonPanel.add(undo);
@@ -342,15 +162,15 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
      * @param tempBoard - current state of board
      * @param actualBoard - board to reset to
      */
-    private void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
+    void resetBoard(ScrabbleModel tempBoard, ScrabbleModel actualBoard) {
         Square[][] currBoard = tempBoard.getCurrentBoard();
         Square[][] oldBoard = actualBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
             for (int col = 0; col < currBoard[row].length; col++) {
-                Square sq = currBoard[row][col];
+                Square square = currBoard[row][col];
                 Square oldSq = oldBoard[row][col];
-                sq.setLetter(oldSq.getLetter());
-                sq.repaint();
+                square.setLetter(oldSq.getLetter());
+                square.repaint();
             }
         }
     }

@@ -10,11 +10,6 @@ import java.awt.*;
  */
 public class Square extends JComponent implements Comparable<Square>
 {
-    /**
-     * The tile to be placed in square.
-     */
-    protected Tile tile;
-
     private char letter;
     /**
      * The square's name.
@@ -22,8 +17,14 @@ public class Square extends JComponent implements Comparable<Square>
     private String name;
 
     /**
+     * Points multiplied by letter if filled
+     */
+    private final static int pointMultiplier = 1;
+
+    /**
      * The square's row and column number.
      */
+
     private int rowNum; //x position
     private int columnNum; //y position
 
@@ -112,7 +113,6 @@ public class Square extends JComponent implements Comparable<Square>
     /**
      * see super class documentation
      */
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -145,4 +145,5 @@ public class Square extends JComponent implements Comparable<Square>
     public Dimension getMinimumSize() {
         return new Dimension(35, 35);
     }
+
 }

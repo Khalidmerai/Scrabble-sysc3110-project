@@ -27,4 +27,7 @@ public class DoubleWordSquare extends Square {
     public DoubleWordSquare(int rowNum, int columnNum, char letter){
         super(rowNum, columnNum, letter);
     }
+    public int getPointMultiplier(){
+        return pointMultiplier;
+    }
 }
