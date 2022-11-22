@@ -10,6 +10,7 @@ import java.util.*;
 public class Dictionary {
 
     public int length;
+
     private ArrayList<String> dictionaryList = new ArrayList<String>();
     private Set<String> allWords = new TreeSet<String>(); //all words
     private static final String wordList = "wordlist.10000.txt";
@@ -52,6 +53,10 @@ public class Dictionary {
         while (filename.hasNext()) {
             dictionaryList.add(filename.next());
         }
+    }
+
+    public ArrayList<String> getDictionaryList() {
+        return dictionaryList;
     }
 
     /**

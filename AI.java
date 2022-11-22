@@ -1,6 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
-public class AI extends Player implements FreePlay{
+public class AI extends Player {//implements FreePlay{
     private Map<Character, Integer> letterToAmountLeft = new TreeMap<Character, Integer>();
     boolean playerturn;
     private Player player;
@@ -8,7 +11,7 @@ public class AI extends Player implements FreePlay{
     private int turn;
     private int numRows;
     private int numColumns;
-    private TurnAwaiter turnAwaiter;
+    //private TurnAwaiter turnAwaiter;
     private Square[][] board = new Square[numRows][numColumns];
     private Dictionary dictionary;
     private int score;
@@ -21,14 +24,15 @@ public class AI extends Player implements FreePlay{
      * @param startingRack The player's letter bag
      * @param turn         player's turn
      */
-    public AI(String name, List<Character> startingRack, boolean turn) {
+    public AI(String name, List<Character> startingRack, boolean turn) throws IOException {
         super(name, startingRack, turn);
         letterstray = new ArrayList<Tile>();
         score = 0;
+        dictionary = new Dictionary(new TokenScanner(new FileReader("wordlist.10000.txt")));
         startingRack = new ArrayList<>();
         playerturn = false;
-        turnAwaiter = new TurnAwaiter();
-        turnAwaiter.start();
+        //turnAwaiter = new TurnAwaiter();
+        //turnAwaiter.start();
     }
     private char drawTile() {
         Random r = new Random();
@@ -102,10 +106,10 @@ public class AI extends Player implements FreePlay{
             characters[letterstray.size()] = letter;
         }
         /* For each word in dictionary */
-        for (int i = 0; i < dictionary.length; i++) {
+        for (int i = 0; i < dictionary.getNumWords(); i++) {
 
             char[] temp = characters.clone();
-            char[] word = dictionary[i].toCharArray();
+            char[] word = dictionary.getDictionaryList().get(i).toCharArray();
 
             /* For each char in word */
             for (int j = 0; j < word.length; j++) {
@@ -151,7 +155,7 @@ public class AI extends Player implements FreePlay{
         }
         return word;
     }
-
+/*
     @Override
     public void free() {
         endGame();
@@ -190,5 +194,5 @@ public class AI extends Player implements FreePlay{
         private void takeTurn() {
         }
     }
-
+*/
 }

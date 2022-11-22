@@ -86,8 +86,12 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     }
     public void run() {
         p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
-        p2 = new Player("AI Player", letterBag.drawTiles(7), false);
-
+        //p2 = new Player("AI Player", letterBag.drawTiles(7), false);
+        try {
+            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();

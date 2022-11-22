@@ -35,12 +35,6 @@ public class Player extends JComponent {
         this.score = 0;
         this.turn = turn;
         this.rack = new ArrayList<>(startingRack);
-        /*
-        rack = new ArrayList<Tile>();
-        for(int i =0; i< rackSize;i++){
-            rack.add(bag.drag());
-        }
-         */
     }
 
     /**
