@@ -54,16 +54,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * Creates the board with premium squares
      */
     private void initializeBoard() {
-        /*
-        for (int row = 0; row < numRows; row++) {
-            for (int column = 0; column < numColumns; column++) {
-                Square sq = new Square(row, column);
-                board[row][column] = sq;
-
-                //add to panel
-                this.add(sq);
-            }
-        }*/
         int i;
         for (i = 0; i < 15; ++i) {
             if (i == 0 || i == 14) {
@@ -274,13 +264,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
     public void addScrabbleView(ScrabbleView view) {
         views.add(view);
-    }
-
-    /**TODO
-     * Updates status of the game
-     */
-    public void updateStatus(){
-
     }
 
     /**
@@ -680,8 +663,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             //vertical check
             //start horizontal word
         } else {
-
-
             for (int i = startCol; i < startCol + word.length; i++) {
                 String vertical = "" + word[i-startCol];
 
@@ -768,7 +749,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             }
             total += sum;
         }
-
         return total;
     }
 }
