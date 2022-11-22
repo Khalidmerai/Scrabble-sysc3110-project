@@ -30,4 +30,8 @@ public class TripleWordSquare extends Square{
     public int getPointMultiplier(){
         return pointMultiplier;
     }
+
+    public String getName(){
+        return name;
+    }
 }

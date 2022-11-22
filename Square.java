@@ -90,6 +90,13 @@ public class Square extends JComponent implements Comparable<Square>
     {
         return columnNum;
     }
+    public int getPointMultiplier(){
+        return pointMultiplier;
+    }
+
+    public String toString(){
+        return getRowNum() + " " + getColumnNum();
+    }
 
     /**
      * @param o - square to compare with
@@ -98,7 +105,6 @@ public class Square extends JComponent implements Comparable<Square>
      * Written to implement comparable for sorting
      * purposes in GameBoard.addWord method
      */
-
     @Override
     public int compareTo(Square o) {
         if (this.rowNum!=o.getRowNum()) {

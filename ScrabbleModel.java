@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.*;
 
 public class ScrabbleModel extends JPanel implements ScrabbleView {
+    Map<Integer, Integer> coordinates = new HashMap<>();
     /**
      * The number of rows in the board.
      */
@@ -304,6 +305,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
     private void addSquareToBoard(Square s) {
         board[s.getRowNum()][s.getColumnNum()] = s;
+        board[s.getRowNum()][s.getColumnNum()].setLetter(s.getLetter());
     }
 
     /**
@@ -324,13 +326,13 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      */
 
     public int addWord(List<Square> sqs, boolean firstTurn) {
+
         for (Square sq: sqs) {
             int row = sq.getRowNum();
             int col = sq.getColumnNum();
             if (row < 0 || row >= numRows
-                    || col < 0 || col >= numColumns) return -1;
+                    || col < 0 || col >= numColumns){ return -1;}
         }
-
 
         //sort board to be in word reading order
         Collections.sort(sqs);
@@ -343,6 +345,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
         //collect indices of non-constant coordinate
         Set<Integer> indices = new TreeSet<Integer>();
+
         for (int i = 1; i < sqs.size(); i++ ) {
             int row = sqs.get(i).getRowNum();
             int col = sqs.get(i).getColumnNum();
@@ -378,14 +381,13 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
         } //end loop
 
-
         //check for one letter input
         //default call it horizontal
         if (sqs.size()==1) {
             sameRow = true;
             indices.add(firstCol);
         }
-
+        System.out.println(indices);
         //start building word
         String s = "";
         int index = -1;
@@ -433,9 +435,8 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         int startRow = (sameRow) ? firstRow : firstIndex;
         int startCol = (!sameRow) ? firstCol : firstIndex;
 
-
         //call helper function to do the dirty work
-        int result = addWordHelper(asChar, startRow, startCol, (!sameRow), firstTurn, indicesNoPoints);
+        int result = addWordHelper(asChar, startRow, startCol, (!sameRow), firstTurn, indicesNoPoints, sqs);
 
         //add word to board if the move was valid
         if (result > 0) {
@@ -457,7 +458,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * @return points scored, -1 if invalid move
      */
     private int addWordHelper(char[] word, int startRow, int startCol,
-                              boolean vertical, boolean firstTurn, Set<Integer> indicesNoPoints) {
+                              boolean vertical, boolean firstTurn, Set<Integer> indicesNoPoints, List<Square> sqs) {
 
         int startIndex = (vertical) ? startRow : startCol;
         int otherIndex = (!vertical) ? startRow : startCol;
@@ -585,9 +586,11 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         List<String> wordsToCheck = findWordsToCheck(word, startRow,
                 startCol, vertical, indicesNoPoints);
 
+        System.out.println(wordsToCheck);
         //check words in dictionary
         if (checkWords(new TreeSet<String>(wordsToCheck))) {
-            return getPoints(wordsToCheck); //if valid, return the points scored
+            //return getPoints(wordsToCheck); //if valid, return the points scored
+            return getPoints(wordsToCheck, sqs);
         } else {
             return -1; //invalid word found - not valid move
         }
@@ -750,5 +753,36 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             total += sum;
         }
         return total;
+    }
+
+    private int getPoints(List<String> wordsToCheck, List<Square> sqs) {
+        int total = 0, wordMultiplier = 0;
+        boolean wordMultiplierFlag = false;
+        for (String s: wordsToCheck) {
+            if (s.length() < 2) continue; //one letters words don't count
+            int sum = 0;
+
+            for (int i = 0; i < s.length(); i++) {
+                if (i != sqs.size()) {
+                    int row = sqs.get(i).getRowNum();
+                    int col = sqs.get(i).getColumnNum();
+                    if (board[row][col].getName().equals("Double Letter Square") || board[row][col].getName().equals("Triple Letter Square") || board[row][col].getName().equals("Regular Square")) {
+                        sum += bagOfTiles.getPointValue(s.charAt(i)) * board[row][col].getPointMultiplier();
+                    } else if(board[row][col].getName().equals("Double Word Square") || board[row][col].getName().equals("Triple Word Square") ) {
+                        wordMultiplierFlag = true;
+                        wordMultiplier = board[row][col].getPointMultiplier();
+                        sum += bagOfTiles.getPointValue(s.charAt(i));
+                    }
+                }
+
+            }
+            total += sum;
+        }
+
+        if(wordMultiplierFlag){
+            return total * wordMultiplier;
+        }else{
+            return total;
+        }
     }
 }

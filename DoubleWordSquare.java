@@ -30,4 +30,8 @@ public class DoubleWordSquare extends Square {
     public int getPointMultiplier(){
         return pointMultiplier;
     }
+
+    public String getName(){
+        return name;
+    }
 }
