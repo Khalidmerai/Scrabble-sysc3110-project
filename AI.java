@@ -4,6 +4,7 @@ public class AI extends Player implements FreePlay{
     private Map<Character, Integer> letterToAmountLeft = new TreeMap<Character, Integer>();
     boolean playerturn;
     private Player player;
+
     private int turn;
     private int numRows;
     private int numColumns;
