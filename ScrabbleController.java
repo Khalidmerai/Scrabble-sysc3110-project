@@ -197,10 +197,10 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
                 //undoes everything if the move was invalid
                 scrabbleFrame.undo.doClick();
             }
-            } else if (input.equals("Tiles left")) {
-                JOptionPane.showMessageDialog(null, "There are " + scrabbleFrame.letterBag.getTilesLeft() +
-                                " tiles left in the game",
-                        "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
-            }
+        }else if (input.equals("Tiles Left")) {
+            JOptionPane.showMessageDialog(null, "There are " + scrabbleFrame.letterBag.getTilesLeft() +
+                            " tiles left in the game",
+                    "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }
