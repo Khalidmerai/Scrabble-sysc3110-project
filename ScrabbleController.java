@@ -141,6 +141,10 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
 
                 List<Character> lettersUsed = new ArrayList<Character>();
                 for (Square s : scrabbleFrame.squaresToSubmit) {
+                    //Double check this to see if the letter is saved into board[][]
+//                    int row = s.getRowNum();
+//                    int col = s.getColumnNum();
+//                    model.board[row][col].setLetter(s.getLetter());
                     lettersUsed.add(s.getLetter());
                 }
 
