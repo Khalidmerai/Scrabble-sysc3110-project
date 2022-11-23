@@ -16,7 +16,7 @@ public class AI extends Player {//implements FreePlay{
     private Dictionary dictionary;
     private int score;
 
-    private ArrayList<Tile> letterstray ;
+    private ArrayList<Tile> letters ;
     /**
      * Contsructor of player requiring their name and letter bag
      *
@@ -26,7 +26,7 @@ public class AI extends Player {//implements FreePlay{
      */
     public AI(String name, List<Character> startingRack, boolean turn) throws IOException {
         super(name, startingRack, turn);
-        letterstray = new ArrayList<Tile>();
+        letters = new ArrayList<Tile>();
         score = 0;
         dictionary = new Dictionary(new TokenScanner(new FileReader("wordlist.10000.txt")));
         startingRack = new ArrayList<>();
@@ -67,7 +67,7 @@ public class AI extends Player {//implements FreePlay{
     }
 
     public void addLetter(Tile newLetter) {
-        letterstray.add(newLetter);
+        letters.add(newLetter);
     }
 
     public void addScore(int newScore) {
@@ -75,43 +75,42 @@ public class AI extends Player {//implements FreePlay{
     }
 
     public int getNumberOfLetters() {
-        return letterstray.size();
+        return letters.size();
     }
 
-    public ArrayList<Tile> getLettersTray() {
-        return letterstray;
+    public ArrayList<Tile> getLetter() {
+        return letters;
     }
 
 
     /**
-     * Finds all the anagrams of the letters in tray and one on the board in the
-     * dictionary.
+     * This method helps find all the combination from the rack and put it on the board
      **/
-    public ArrayList<String> findAnagrams(char letter) {
+    public ArrayList<String> letterCombo(char letter) {
 
         char[] characters;
         if (letter != ' ') {
-            characters = new char[letterstray.size() + 1];
+            characters = new char[letters.size() + 1];
         } else {
-            characters = new char[letterstray.size()];
+            characters = new char[letters.size()];
         }
 
-        ArrayList<String> anagrams = new ArrayList<String>();
+        ArrayList<String> combo = new ArrayList<String>();
 
-        /* Fills characters with the chars from tray and with letter */
-        for (int i = 0; i < letterstray.size(); i++) {
-            characters[i] = letterstray.get(i).getLetter();
+        // create the words from the rack
+        for (int i = 0; i < letters.size(); i++) {
+            characters[i] = letters.get(i).getLetter();
         }
         if (letter != ' ') {
-            characters[letterstray.size()] = letter;
+            characters[letters.size()] = letter;
         }
-        /* For each word in dictionary */
+        //checking if the word matches the list
         for (int i = 0; i < dictionary.getNumWords(); i++) {
 
             char[] temp = characters.clone();
             char[] word = dictionary.getDictionaryList().get(i).toCharArray();
 
-            /* For each char in word */
+            // create and return the words
             for (int j = 0; j < word.length; j++) {
                 int index = contains(temp, word[j]);
                 if (index != -1) {
@@ -122,18 +121,18 @@ public class AI extends Player {//implements FreePlay{
                 if (j == word.length - 1) {
                     String newWord = new String(word);
                     if (letter != ' ' && newWord.contains("" + letter)){
-                        anagrams.add(newWord);
+                        combo.add(newWord);
                     } else if (letter == ' '){
-                        anagrams.add(newWord);
+                        combo.add(newWord);
                     }
                 }
             }
         }
-        Collections.sort(anagrams);
-        return anagrams;
+        Collections.sort(combo);
+        return combo;
     }
 
-    /* Find score of a word */
+    //Find score of a word
     public int findScore(String word) {
         int score = 0;
         for (Character c : word.toCharArray()) {
@@ -142,11 +141,11 @@ public class AI extends Player {//implements FreePlay{
         return score;
     }
 
-    /* Finds the highest scoring anagram */
-    public String findBestWord(ArrayList<String> anagrams) {
+    //Finds the highest scoring combo and add to the score
+    public String findBestWord(ArrayList<String> wordcombo) {
         String word = "";
         int score = 0;
-        for (String s : anagrams) {
+        for (String s : wordcombo) {
             int temp = findScore(s);
             if (temp > score) {
                 score = temp;
