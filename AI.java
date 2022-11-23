@@ -94,7 +94,7 @@ public class AI extends Player {//implements FreePlay{
         } else {
             characters = new char[letters.size()];
         }
-
+        //creating an arraylist to store the combinations of the letter
         ArrayList<String> combo = new ArrayList<String>();
 
         // create the words from the rack
