@@ -22,7 +22,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
     private Dictionary dict;
     private Bag bagOfTiles;
     public static final int CENTER = 7;
-    private Square[][] board = new Square[numRows][numColumns];
+    public Square[][] board = new Square[numRows][numColumns];
     private Square[][] tempBoard = new Square[numRows][numColumns];
 
     public ScrabbleModel(String dictionaryFile, Bag letterBag) throws IOException {
@@ -438,6 +438,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         //call helper function to do the dirty work
         int result = addWordHelper(asChar, startRow, startCol, (!sameRow), firstTurn, indicesNoPoints, sqs);
 
+        System.out.println(sqs);
         //add word to board if the move was valid
         if (result > 0) {
             addToBoard(sqs);
