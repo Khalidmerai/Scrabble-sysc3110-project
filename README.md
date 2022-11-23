@@ -58,14 +58,13 @@ Tile.java, bag.java, UML,  ScrabbleModel.java, and readme file. Assisted in Dict
 
 DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, ScrabbleModel.java and gameBoard.java and TokenScanner.java, ScrabbleEvent, ScrabbleView, ScrabbleFrame and ScrabbleController. Also assisted in bag.java and tile.java : Saad
 
-Whats missing from Milestone 2 submission: The unit testing for the methods.
 
 BREAK DOWN OF TASKS FOR MILESTONE 3
 -----------------------------------------
 ScrabbleController.java, AI.java, ScrabbleModel.java ,Player.java and UML and readMe file: Marina
 Dictionary.java, bag.java, ScrabbleModel.java and ScrabbleFrame.java, AI.java: Scharara
 Tile.java, bag.java, UML,  ScrabbleModel.java, and readme file. Assisted in Dictionary.java and ScrabbleFrame.java, AI.java, FreePlay.java: Khalid (Macbook)
-DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, ScrabbleModel.java and gameBoard.java and TokenScanner.java, ScrabbleEvent, ScrabbleView, ScrabbleFrame and ScrabbleController. Also assisted in bag.java and tile.java, AI.java and updated the board with the premium tiles in the frame of the game : Saad
+DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, startingSquare, Square.java, ScrabbleModel.java and gameBoard.java and TokenScanner.java, ScrabbleEvent, ScrabbleView, ScrabbleFrame and ScrabbleController. Also assisted in bag.java and tile.java, AI.java and updated the board with the premium tiles in the frame of the game and unit testing for the model: Saad
 
 HOW TO RUN THE PROGRAM FOR SUBMISSION 1:
 1. Download a junit.framework package to ensure all test methods run and the whole code implementation runs. Can be downloaded from this link https://search.maven.org/search?q=g:junit%20AND%20a:junit
