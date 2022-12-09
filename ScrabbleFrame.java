@@ -213,6 +213,10 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         save.setActionCommand("Save Game");
         save.addActionListener(scrabbleController);
 
+        JButton customBoard = new JButton("Custom Board");
+        save.setActionCommand("Custom Board");
+        save.addActionListener(scrabbleController);
+
         //add all the buttons
         gameButtonPanel.add(undo);
         gameButtonPanel.add(submit);
@@ -220,6 +224,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         gameButtonPanel.add(swap);
         gameButtonPanel.add(checkTilesLeft);
         gameButtonPanel.add(save);
+        gameButtonPanel.add(customBoard);
 
         //add panels to frame
         frame.add(scoreBoard);
