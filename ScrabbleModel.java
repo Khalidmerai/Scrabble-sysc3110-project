@@ -911,18 +911,19 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
                 //System.out.println(qName);
                 curr = qName;
-                if (curr == "Double Letter Square") {
-                    square = new DoubleLetterSquare(0, 0);
-                } else if (curr == "Triple Letter Square") {
-                    square = new DoubleLetterSquare(0, 0);
+                if (curr == "DoubleLetterSquare") {
+                    square = new DoubleLetterSquare(-1, -1);
+                } else if (curr == "TripleLetterSquare") {
+                    square = new DoubleLetterSquare(-1, -1);
+                } else if (curr == "RegularSquare") {
+                    square = new RegularSquare(-1, -1);
                 }
-
             }
 
             public void endElement(String uri, String localName, String qName) throws SAXException {
                 //System.out.println(qName);
                 curr ="";
-                if(qName =="Double Letter Square" || qName =="Triple Letter Square")
+                if(qName =="DoubleLetterSquare" || qName =="TripleLetterSquare")
                 {
                     board[square.getRowNum()][square.getColumnNum()] = square;
                 }
@@ -943,4 +944,22 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         //handleViewUpdate("add");
         //handleViewUpdate("serialize");
     }
+
+    public void setCustomBoard(){
+        for(int i = 0; i < numRows; i++){
+            for(int j = 0; j < numColumns; j++){
+                board[i][j].setCustomBoard();
+                board[i][j].repaint();
+            }
+        }
+    }
+
+    public void setRegularBoard(){
+        for(int i = 0; i < numRows; i++){
+            for(int j = 0; j < numColumns; j++){
+                board[i][j].setReglarBoard();
+            }
+        }
+    }
+
 }

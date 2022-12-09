@@ -34,4 +34,17 @@ public class DoubleLetterSquare extends Square{
     public String getName(){
         return name;
     }
+
+    public String toXML()
+    {
+        String s= "";
+        s+="<DoubleLetterSquare>" + "\n";
+
+        //s+= "<Name>"+name+"</Name>"+"\n";
+        s+= "\t<rowNum>"+rowNum+"</rowNum>"+"\n";
+        s+= "\t<columnNum>"+columnNum+"</columnNum>"+"\n";
+
+        s+="</DoubleLetterSquare>";
+        return s;
+    }
 }

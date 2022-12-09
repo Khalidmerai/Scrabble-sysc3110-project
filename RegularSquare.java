@@ -35,4 +35,17 @@ public class RegularSquare extends Square{
     public String getName(){
         return name;
     }
+
+    public String toXML()
+    {
+        String s= "";
+        s+="<RegularSquare>" + "\n";
+
+        //s+= "<Name>"+name+"</Name>"+"\n";
+        s+= "\t<rowNum>"+rowNum+"</rowNum>"+"\n";
+        s+= "\t<columnNum>"+columnNum+"</columnNum>"+"\n";
+
+        s+="</RegularSquare>";
+        return s;
+    }
 }

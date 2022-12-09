@@ -25,8 +25,10 @@ public class Square extends JComponent implements Comparable<Square>
      * The square's row and column number.
      */
 
-    private int rowNum; //x position
-    private int columnNum; //y position
+    protected int rowNum; //x position
+    protected int columnNum; //y position
+
+    private boolean customBoard = false;
 
     /**
      * Constructs a new square with the specified name, row and column number.
@@ -102,6 +104,18 @@ public class Square extends JComponent implements Comparable<Square>
     {
         this.columnNum = rowNum;
     }
+
+    public boolean isCustomBoard(){
+        return customBoard;
+    }
+
+    public void setCustomBoard(){
+        this.customBoard = true;
+    }
+
+    public void setReglarBoard(){
+        this.customBoard = false;
+    }
     public String toString(){
         return getRowNum() + " " + getColumnNum();
     }
@@ -126,184 +140,349 @@ public class Square extends JComponent implements Comparable<Square>
 
     /**
      * see super class documentation
+     * Red: triple word
+     * Blue: triple letter
+     * Magenta: double word
+     * Cyan: double letter
+     * Pink: Starting square
      */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        //Red: triple word
-        //Blue: triple letter
-        //Magenta: double word
-        //Cyan: double letter
-        //Pink: Starting square
-
         int i;
-        for (i = 0; i < 15; ++i) {
-            if(rowNum == 0 || rowNum == 14){
-                if(columnNum == 0 || columnNum == 7 || columnNum == 14){
-                    g.setColor(Color.red);
-                    g.fillRect(0, 0, 36, 33);
+        if(!isCustomBoard()) {
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 0 || rowNum == 14) {
+                    if (columnNum == 0 || columnNum == 7 || columnNum == 14) {
+                        g.setColor(Color.red);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+
+                if (rowNum == 7) {
+                    if (columnNum == 0 || columnNum == 14) {
+                        g.setColor(Color.red);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 1 || rowNum == 13) {
+                    if (columnNum == 5 || columnNum == 9) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+
+                if (rowNum == 5 || rowNum == 9) {
+                    if (columnNum == 1 || columnNum == 5 || columnNum == 9 || columnNum == 13) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 1 || rowNum == 13) {
+                    if (columnNum == 1 || columnNum == 13) {
+                        g.setColor(Color.magenta);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 2 || rowNum == 12) {
+                    if (columnNum == 2 || columnNum == 12) {
+                        g.setColor(Color.magenta);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 3 || rowNum == 11) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.magenta);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 4 || rowNum == 10) {
+                    if (columnNum == 4 || columnNum == 10) {
+                        g.setColor(Color.magenta);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 0 || rowNum == 14) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 2 || rowNum == 12) {
+                    if (columnNum == 6 || columnNum == 8) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 3 || rowNum == 11) {
+                    if (columnNum == 0 || columnNum == 7 || columnNum == 14) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 6 || rowNum == 8) {
+                    if (columnNum == 2 || columnNum == 6 || columnNum == 8 || columnNum == 12) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 7) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            //Regular squares
+            if (rowNum == 0 || rowNum == 14) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 1 || rowNum == 13) {
+                if (columnNum == 0 || columnNum == 2 || columnNum == 3 || columnNum == 4 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 10 || columnNum == 11 || columnNum == 12 || columnNum == 14) {
+                    g.setColor(Color.black);
                     g.drawRect(0, 0, 36, 33);
                 }
             }
 
-            if(rowNum == 7){
-                if(columnNum == 0 || columnNum == 14){
-                    g.setColor(Color.red);
-                    g.fillRect(0, 0, 36, 33);
+            if (rowNum == 2 || rowNum == 12) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 3 || columnNum == 4 || columnNum == 5 || columnNum == 7 || columnNum == 9 || columnNum == 10 || columnNum == 11 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
                     g.drawRect(0, 0, 36, 33);
                 }
             }
-        }
+            if (rowNum == 3 || rowNum == 11) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 4 || rowNum == 10) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 2 || columnNum == 3 || columnNum == 5 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 9 || columnNum == 11 || columnNum == 12 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 5 || rowNum == 9) {
+                if (columnNum == 0 || columnNum == 2 || columnNum == 3 || columnNum == 4 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 10 || columnNum == 11 || columnNum == 12 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 6 || rowNum == 8) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 3 || columnNum == 4 || columnNum == 5 || columnNum == 7 || columnNum == 9 || columnNum == 10 || columnNum == 11 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
 
-        for (i = 0; i < 15; ++i) {
-            if(rowNum == 1 || rowNum == 13){
-                if(columnNum == 5 || columnNum == 9){
-                    g.setColor(Color.blue);
-                    g.fillRect(0, 0, 36, 33);
+            if (rowNum == 7) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
                     g.drawRect(0, 0, 36, 33);
                 }
             }
 
-            if(rowNum == 5 || rowNum == 9){
-                if(columnNum == 1 || columnNum == 5 || columnNum == 9 || columnNum == 13){
-                    g.setColor(Color.blue);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
+            if (rowNum == 7 && columnNum == 7) {
+                g.setColor(Color.pink);
+                g.fillRect(0, 0, 36, 33);
+                g.drawRect(0, 0, 36, 33);
             }
-        }
 
-        for (i = 0; i < 15; ++i) {
-            if(rowNum == 1 || rowNum == 13){
-                if(columnNum == 1 || columnNum == 13){
-                    g.setColor(Color.magenta);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
+        }else{
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 0 || rowNum == 14) {
+                    if (columnNum == 0 || columnNum == 7 || columnNum == 14) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
                 }
-            }
-            if(rowNum == 2 || rowNum == 12){
-                if(columnNum == 2 || columnNum == 12){
-                    g.setColor(Color.magenta);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-            if(rowNum == 3 || rowNum == 11){
-                if(columnNum == 3 || columnNum == 11){
-                    g.setColor(Color.magenta);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-            if(rowNum == 4 || rowNum == 10){
-                if(columnNum == 4 || columnNum == 10){
-                    g.setColor(Color.magenta);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-        }
 
-        for (i = 0; i < 15; ++i) {
-            if(rowNum == 0 || rowNum == 14){
-                if(columnNum == 3 || columnNum == 11){
-                    g.setColor(Color.cyan);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
+                if (rowNum == 7) {
+                    if (columnNum == 0 || columnNum == 14) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
                 }
             }
-            if(rowNum == 2 || rowNum == 12){
-                if(columnNum == 6 || columnNum == 8){
-                    g.setColor(Color.cyan);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-            if(rowNum == 3 || rowNum == 11){
-                if(columnNum == 0 || columnNum == 7|| columnNum == 14){
-                    g.setColor(Color.cyan);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-            if(rowNum == 6 || rowNum == 8){
-                if(columnNum == 2 || columnNum == 6|| columnNum == 8|| columnNum == 12){
-                    g.setColor(Color.cyan);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-            if(rowNum == 7){
-                if(columnNum == 3 || columnNum == 11){
-                    g.setColor(Color.cyan);
-                    g.fillRect(0, 0, 36, 33);
-                    g.drawRect(0, 0, 36, 33);
-                }
-            }
-        }
 
-        //Regular squares
-        if(rowNum == 0 || rowNum == 14){
-            if(columnNum == 1 ||columnNum == 2 || columnNum == 4 || columnNum == 5 ||columnNum == 6|| columnNum == 8|| columnNum == 9|| columnNum == 10|| columnNum == 12|| columnNum == 13){
-                g.setColor(Color.black);
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 1 || rowNum == 13) {
+                    if (columnNum == 5 || columnNum == 9) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+
+                if (rowNum == 5 || rowNum == 9) {
+                    if (columnNum == 1 || columnNum == 5 || columnNum == 9 || columnNum == 13) {
+                        g.setColor(Color.blue);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 1 || rowNum == 13) {
+                    if (columnNum == 1 || columnNum == 13) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 2 || rowNum == 12) {
+                    if (columnNum == 2 || columnNum == 12) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 3 || rowNum == 11) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 4 || rowNum == 10) {
+                    if (columnNum == 4 || columnNum == 10) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            for (i = 0; i < 15; ++i) {
+                if (rowNum == 0 || rowNum == 14) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 2 || rowNum == 12) {
+                    if (columnNum == 6 || columnNum == 8) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 3 || rowNum == 11) {
+                    if (columnNum == 0 || columnNum == 7 || columnNum == 14) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 6 || rowNum == 8) {
+                    if (columnNum == 2 || columnNum == 6 || columnNum == 8 || columnNum == 12) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+                if (rowNum == 7) {
+                    if (columnNum == 3 || columnNum == 11) {
+                        g.setColor(Color.cyan);
+                        g.fillRect(0, 0, 36, 33);
+                        g.drawRect(0, 0, 36, 33);
+                    }
+                }
+            }
+
+            //Regular squares
+            if (rowNum == 0 || rowNum == 14) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 1 || rowNum == 13) {
+                if (columnNum == 0 || columnNum == 2 || columnNum == 3 || columnNum == 4 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 10 || columnNum == 11 || columnNum == 12 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+
+            if (rowNum == 2 || rowNum == 12) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 3 || columnNum == 4 || columnNum == 5 || columnNum == 7 || columnNum == 9 || columnNum == 10 || columnNum == 11 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 3 || rowNum == 11) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 4 || rowNum == 10) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 2 || columnNum == 3 || columnNum == 5 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 9 || columnNum == 11 || columnNum == 12 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 5 || rowNum == 9) {
+                if (columnNum == 0 || columnNum == 2 || columnNum == 3 || columnNum == 4 || columnNum == 6 || columnNum == 7 || columnNum == 8 || columnNum == 10 || columnNum == 11 || columnNum == 12 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+            if (rowNum == 6 || rowNum == 8) {
+                if (columnNum == 0 || columnNum == 1 || columnNum == 3 || columnNum == 4 || columnNum == 5 || columnNum == 7 || columnNum == 9 || columnNum == 10 || columnNum == 11 || columnNum == 13 || columnNum == 14) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+
+            if (rowNum == 7) {
+                if (columnNum == 1 || columnNum == 2 || columnNum == 4 || columnNum == 5 || columnNum == 6 || columnNum == 8 || columnNum == 9 || columnNum == 10 || columnNum == 12 || columnNum == 13) {
+                    g.setColor(Color.black);
+                    g.drawRect(0, 0, 36, 33);
+                }
+            }
+
+            if (rowNum == 7 && columnNum == 7) {
+                g.setColor(Color.pink);
+                g.fillRect(0, 0, 36, 33);
                 g.drawRect(0, 0, 36, 33);
             }
         }
-        if(rowNum == 1 || rowNum == 13){
-            if(columnNum == 0 ||columnNum == 2 || columnNum == 3 ||columnNum == 4 ||columnNum == 6|| columnNum == 7 ||columnNum == 8|| columnNum == 10|| columnNum == 11 ||columnNum == 12|| columnNum == 14){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
 
-        if(rowNum == 2 || rowNum == 12){
-            if(columnNum == 0 || columnNum == 1 || columnNum == 3 ||columnNum == 4 || columnNum == 5 || columnNum == 7 ||columnNum == 9 || columnNum == 10|| columnNum == 11 ||columnNum == 13|| columnNum == 14){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-        if(rowNum == 3 || rowNum == 11){
-            if(columnNum == 1 || columnNum == 2 ||columnNum == 4 || columnNum == 5 || columnNum == 6 ||columnNum == 8 ||columnNum == 9 || columnNum == 10|| columnNum == 12 ||columnNum == 13){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-        if(rowNum == 4 || rowNum == 10){
-            if(columnNum == 0 ||columnNum == 1 || columnNum == 2 ||columnNum == 3 || columnNum == 5 || columnNum == 6 ||columnNum == 7 ||columnNum == 8 ||columnNum == 9 || columnNum == 11|| columnNum == 12 ||columnNum == 13||columnNum == 14){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-        if(rowNum == 5 || rowNum == 9){
-            if(columnNum == 0 || columnNum == 2 ||columnNum == 3 || columnNum == 4 || columnNum == 6 ||columnNum == 7 ||columnNum == 8 ||columnNum == 10 || columnNum == 11|| columnNum == 12 ||columnNum == 14){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-        if(rowNum == 6 || rowNum == 8){
-            if(columnNum == 0 ||columnNum == 1 ||columnNum == 3 || columnNum == 4 || columnNum == 5 ||columnNum == 7 ||columnNum == 9 ||columnNum == 10 || columnNum == 11|| columnNum == 13 ||columnNum == 14){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-
-        if(rowNum == 7){
-            if(columnNum == 1 ||columnNum == 2 || columnNum == 4 || columnNum == 5 ||columnNum == 6 ||columnNum == 8 ||columnNum == 9 ||columnNum == 10 || columnNum == 12|| columnNum == 13){
-                g.setColor(Color.black);
-                g.drawRect(0, 0, 36, 33);
-            }
-        }
-
-        if (rowNum==7 && columnNum==7) {
-            g.setColor(Color.pink);
-            g.fillRect(0, 0, 36, 33);
-            g.drawRect(0, 0, 36, 33);
-        }
         if (this.hasLetter()) {
             g.setColor(Color.black);
             g.setFont(new Font("Verdana", Font.PLAIN, 25));
-            g.drawString(Character.toString(letter), 35/3, 35-(35/3));
+            g.drawString(Character.toString(letter), 35 / 3, 35 - (35 / 3));
         }
     }
 
@@ -323,4 +502,16 @@ public class Square extends JComponent implements Comparable<Square>
         return new Dimension(35, 35);
     }
 
+    public String toXML()
+    {
+        String s= "";
+        s+="<Square>" + "\n";
+
+        //s+= "<Name>"+name+"</Name>"+"\n";
+        s+= "<rowNum>"+rowNum+"</rowNum>"+"\n";
+        s+= "<columnNum>"+columnNum+"</columnNum>"+"\n";
+
+        s+="<Square>";
+        return s;
+    }
 }

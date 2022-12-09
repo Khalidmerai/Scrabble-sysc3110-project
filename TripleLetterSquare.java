@@ -35,4 +35,17 @@ public class TripleLetterSquare extends Square{
     public String getName(){
         return name;
     }
+
+    public String toXML()
+    {
+        String s= "";
+        s+="<TripleLetterSquare>" + "\n";
+
+        //s+= "<Name>"+name+"</Name>"+"\n";
+        s+= "\t<rowNum>"+rowNum+"</rowNum>"+"\n";
+        s+= "\t<columnNum>"+columnNum+"</columnNum>"+"\n";
+
+        s+="</TripleLetterSquare>";
+        return s;
+    }
 }

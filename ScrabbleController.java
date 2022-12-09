@@ -1,5 +1,9 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -208,6 +212,14 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
         } else if (input.equals("Save game")) {
             JOptionPane.showMessageDialog(null, "Saved");
 
+        }else if (input.equals("Custom Board")){
+            try {
+                model.readSaxCustomBoard(new File("CustomBoard.xml"));
+                model.setCustomBoard();
+                scrabbleFrame.customBoard.setEnabled(false);
+            } catch (ParserConfigurationException | SAXException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
