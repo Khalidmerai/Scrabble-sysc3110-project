@@ -215,8 +215,10 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
         }else if (input.equals("Custom Board")){
             try {
                 model.readSaxCustomBoard(new File("CustomBoard.xml"));
-                model.setCustomBoard();
+                model.handleCustomBoard();
                 scrabbleFrame.customBoard.setEnabled(false);
+                scrabbleFrame.frame.getContentPane().validate();
+                scrabbleFrame.frame.getContentPane().repaint();
             } catch (ParserConfigurationException | SAXException | IOException ex) {
                 throw new RuntimeException(ex);
             }

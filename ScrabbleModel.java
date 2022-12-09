@@ -941,15 +941,14 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             }
         };
         s.parse(f,dh);
-        //handleViewUpdate("add");
-        //handleViewUpdate("serialize");
     }
 
-    public void setCustomBoard(){
+    public void handleCustomBoard(){
+        initializeCustomBoard();
         for(int i = 0; i < numRows; i++){
             for(int j = 0; j < numColumns; j++){
                 board[i][j].setCustomBoard();
-                board[i][j].repaint();
+                System.out.println(board[i][j].isCustomBoard());
             }
         }
     }
@@ -962,4 +961,210 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         }
     }
 
+    /**
+     * Creates a custom board with premium squares
+     */
+    private void initializeCustomBoard() {
+        int i;
+        for (i = 0; i < 15; ++i) {
+            if (i == 0 || i == 14) {
+                this.board[i][0] = new TripleLetterSquare(i, 0);
+                this.board[i][7] = new TripleLetterSquare(i, 7);
+                this.board[i][14] = new TripleLetterSquare(i, 14);
+            }
+
+            if (i == 7) {
+                this.board[i][0] = new TripleLetterSquare(i, 0);
+                this.board[i][14] = new TripleLetterSquare(i, 14);
+            }
+        }
+
+        for (i = 0; i < 15; ++i) {
+            if (i == 1 || i == 13) {
+                this.board[i][5] = new TripleLetterSquare(i, 5);
+                this.board[i][9] = new TripleLetterSquare(i, 9);
+            }
+
+            if (i == 5 || i == 9) {
+                this.board[i][1] = new TripleLetterSquare(i, 1);
+                this.board[i][5] = new TripleLetterSquare(i, 5);
+                this.board[i][9] = new TripleLetterSquare(i, 9);
+                this.board[i][13] = new TripleLetterSquare(i, 13);
+            }
+        }
+
+        for (i = 0; i < 15; ++i) {
+            if (i == 1 || i == 13) {
+                this.board[i][1] = new DoubleLetterSquare(i, 1);
+                this.board[i][13] = new DoubleLetterSquare(i, 13);
+            }
+            if (i == 2 || i == 12) {
+                this.board[i][2] = new DoubleLetterSquare(i, 2);
+                this.board[i][12] = new DoubleLetterSquare(i, 12);
+            }
+
+            if (i == 3 || i == 11) {
+                this.board[i][3] = new DoubleLetterSquare(i, 3);
+                this.board[i][11] = new DoubleLetterSquare(i, 11);
+            }
+
+            if (i == 4 || i == 10) {
+                this.board[i][4] = new DoubleLetterSquare(i, 4);
+                this.board[i][10] = new DoubleLetterSquare(i, 10);
+            }
+        }
+
+        for (i = 0; i < 15; ++i) {
+            if (i == 0 || i == 14) {
+                this.board[i][3] = new DoubleLetterSquare(i, 3);
+                this.board[i][11] = new DoubleLetterSquare(i, 11);
+            }
+
+            if (i == 2 || i == 12) {
+                this.board[i][6] = new DoubleLetterSquare(i, 6);
+                this.board[i][8] = new DoubleLetterSquare(i, 8);
+            }
+
+            if (i == 3 || i == 11) {
+                this.board[i][0] = new DoubleLetterSquare(i, 0);
+                this.board[i][7] = new DoubleLetterSquare(i, 7);
+                this.board[i][14] = new DoubleLetterSquare(i, 14);
+            }
+
+            if (i == 6 || i == 8) {
+                this.board[i][2] = new DoubleLetterSquare(i, 2);
+                this.board[i][6] = new DoubleLetterSquare(i, 6);
+                this.board[i][8] = new DoubleLetterSquare(i, 8);
+                this.board[i][12] = new DoubleLetterSquare(i, 12);
+            }
+
+            if (i == 7) {
+                this.board[i][3] = new DoubleLetterSquare(i, 3);
+                this.board[i][11] = new DoubleLetterSquare(i, 11);
+            }
+        }
+
+        for (i = 0; i < 15; ++i) {
+            if (i == 0 || i == 14) {
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][13] = new RegularSquare(i, 13);
+            }
+
+            if (i == 1 || i == 13) {
+                this.board[i][0] = new RegularSquare(i, 0);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][3] = new RegularSquare(i, 3);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][11] = new RegularSquare(i, 11);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][14] = new RegularSquare(i, 14);
+            }
+
+            if (i == 2 || i == 12) {
+                this.board[i][0] = new RegularSquare(i, 0);
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][3] = new RegularSquare(i, 3);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][11] = new RegularSquare(i, 11);
+                this.board[i][13] = new RegularSquare(i, 13);
+                this.board[i][14] = new RegularSquare(i, 14);
+            }
+
+            if (i == 3 || i == 11) {
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][13] = new RegularSquare(i, 13);
+            }
+
+            if (i == 4 || i == 10) {
+                this.board[i][0] = new RegularSquare(i, 0);
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][3] = new RegularSquare(i, 3);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][11] = new RegularSquare(i, 11);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][13] = new RegularSquare(i, 13);
+                this.board[i][14] = new RegularSquare(i, 14);
+            }
+
+            if (i == 5 || i == 9) {
+                this.board[i][0] = new RegularSquare(i, 0);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][3] = new RegularSquare(i, 3);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][11] = new RegularSquare(i, 11);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][14] = new RegularSquare(i, 14);
+            }
+
+            if (i == 6 || i == 8) {
+                this.board[i][0] = new RegularSquare(i, 0);
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][3] = new RegularSquare(i, 3);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][11] = new RegularSquare(i, 11);
+                this.board[i][13] = new RegularSquare(i, 13);
+                this.board[i][14] = new RegularSquare(i, 14);
+            }
+
+            if (i == 7) {
+                this.board[i][1] = new RegularSquare(i, 1);
+                this.board[i][2] = new RegularSquare(i, 2);
+                this.board[i][4] = new RegularSquare(i, 4);
+                this.board[i][5] = new RegularSquare(i, 5);
+                this.board[i][6] = new RegularSquare(i, 6);
+                this.board[i][7] = new RegularSquare(i, 7);
+                this.board[i][8] = new RegularSquare(i, 8);
+                this.board[i][9] = new RegularSquare(i, 9);
+                this.board[i][10] = new RegularSquare(i, 10);
+                this.board[i][12] = new RegularSquare(i, 12);
+                this.board[i][13] = new RegularSquare(i, 13);
+            }
+        }
+
+        //Adding to panel
+        for (int row = 0; row < numRows; row++) {
+            for (int column = 0; column < numColumns; column++) {
+                this.add(board[row][column]);
+            }
+        }
+    }
+
 }
+

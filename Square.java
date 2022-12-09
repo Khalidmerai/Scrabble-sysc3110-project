@@ -5,7 +5,6 @@ import java.awt.*;
  * Square is the superclass of the different types of
  * square on the ScrabbleModel game board.
  *
- * Removed the abstract for now
  * @author Saad Eid
  */
 public class Square extends JComponent implements Comparable<Square>
@@ -28,7 +27,7 @@ public class Square extends JComponent implements Comparable<Square>
     protected int rowNum; //x position
     protected int columnNum; //y position
 
-    private boolean customBoard = false;
+    private static boolean customBoard;
 
     /**
      * Constructs a new square with the specified name, row and column number.
@@ -42,6 +41,7 @@ public class Square extends JComponent implements Comparable<Square>
         this.rowNum = rowNum;
         this.columnNum = columnNum;
         this.letter = (char)-1; //set it to null
+        this.customBoard = false;
     }
 
     public Square(int rowNum, int columnNum, char letter)
@@ -106,7 +106,7 @@ public class Square extends JComponent implements Comparable<Square>
     }
 
     public boolean isCustomBoard(){
-        return customBoard;
+        return this.customBoard;
     }
 
     public void setCustomBoard(){
@@ -150,6 +150,7 @@ public class Square extends JComponent implements Comparable<Square>
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int i;
+
         if(!isCustomBoard()) {
             for (i = 0; i < 15; ++i) {
                 if (rowNum == 0 || rowNum == 14) {
@@ -318,6 +319,7 @@ public class Square extends JComponent implements Comparable<Square>
             for (i = 0; i < 15; ++i) {
                 if (rowNum == 0 || rowNum == 14) {
                     if (columnNum == 0 || columnNum == 7 || columnNum == 14) {
+                        System.out.println("Custom board");
                         g.setColor(Color.blue);
                         g.fillRect(0, 0, 36, 33);
                         g.drawRect(0, 0, 36, 33);
