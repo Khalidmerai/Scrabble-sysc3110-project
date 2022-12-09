@@ -25,6 +25,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public JButton undo = new JButton("Undo");
     public JButton customBoard;
     private ArrayList<ScrabbleView> views;
+    public static final String[] SAVE_LOCATIONS = {"file1.ser", "file2.ser"};
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -43,67 +44,40 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
      * Method that starts a new game or loads a previously saved game
      */
     public static void newGameOrLoad() {
-        JFrame newGameOrLoad = new JFrame("Start Window");
-        newGameOrLoad.setSize(new Dimension(250, 250));
-        newGameOrLoad.getContentPane().setLayout(new GridLayout(2,1));
-
-        JLabel q = new JLabel("Would you like to start a new game, load an international version, or load a previously saved game?", SwingConstants.CENTER);
-        q.setSize(new Dimension(250, 150));
-
-        JLabel buttons = new JLabel();
-        buttons.setSize(new Dimension(250, 75));
-        buttons.setLayout(new GridLayout(1,2));
-
-        JButton newGame = new JButton(" New ");
-        newGame.setSize(new Dimension(125, 75));
-        JButton load = new JButton(" Load ");
-        load.setSize(new Dimension(125, 75));
-
-        newGame.addActionListener(new ActionListener() {
-
-            /**
-             * method that decrements the number of players
-             * @param actionEvent
-             */
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                newGameOrLoad.dispose();
-            }
-        });
-
-        load.addActionListener(new ActionListener() {
-            /**
-             * method that increments the number of players
-             * @param actionEvent
-             */
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-                try {
-
-                    String path = JOptionPane.showInputDialog("Path to game version or load a saved file");
-                    ScrabbleModel game = ScrabbleModel.readSAX(new File(path));
-                    ScrabbleFrame sf = new ScrabbleFrame();
-                    newGameOrLoad.dispose();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+        boolean isInputValid = false;
+        ScrabbleModel board = null;
+        int reply = JOptionPane.showConfirmDialog(null, "Load a saved game?",
+                "Start Game", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            String filepath;
+            LinkedList<String> validSlots = new LinkedList<>();
+            for (String slot : ScrabbleFrame.SAVE_LOCATIONS) {
+                File saveFile = new File(slot);
+                if (saveFile.exists()) {
+                    validSlots.add(slot);
                 }
             }
-        });
-
-
-        buttons.add(newGame);
-        buttons.add(load);
-
-        newGameOrLoad.add(q);
-        newGameOrLoad.add(buttons);
-
-        newGameOrLoad.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        newGameOrLoad.setVisible(true);
-
+            if (validSlots.size() == 0) {
+                JOptionPane.showMessageDialog(null, "There are no save files. Exiting.");
+                System.exit(0);
+            }
+            String[] saveSlots = validSlots.toArray(new String[validSlots.size()]);
+            filepath = (String) JOptionPane.showInputDialog(null, "Select a save slot",
+                    "Save Game", JOptionPane.PLAIN_MESSAGE, null,
+                    saveSlots, saveSlots[0]);
+            if (filepath == null) {
+                JOptionPane.showMessageDialog(null, "No save file was selected. Exiting.");
+                System.exit(0);
+            }
+            try {
+                board = ScrabbleModel.importBoard(filepath);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Could not load the game. Exiting.");
+                System.exit(1);
+            }
+        }
     }
-
     public void buildScorePanel(){
         scoreBoard.setLayout(new GridLayout(1, 3));
         score1 = new JLabel("\t\t\t\t"+ p1.getName() + "'s Score is " + p1.getScore() + " points");
@@ -304,7 +278,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     }
 
     public static void main(String[] args) throws IOException {
-        SwingUtilities.invokeLater(new ScrabbleFrame());
         newGameOrLoad();
+        SwingUtilities.invokeLater(new ScrabbleFrame());
+
     }
 }
