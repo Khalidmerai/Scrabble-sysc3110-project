@@ -94,6 +94,14 @@ public class Square extends JComponent implements Comparable<Square>
         return pointMultiplier;
     }
 
+    public void setRowNum(int rowNum)
+    {
+        this.rowNum = rowNum;
+    }
+    public void setColumnNum(int columnNum)
+    {
+        this.columnNum = rowNum;
+    }
     public String toString(){
         return getRowNum() + " " + getColumnNum();
     }

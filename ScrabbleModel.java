@@ -1,4 +1,5 @@
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.awt.*;
@@ -6,6 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -816,8 +818,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<Square> squares = new ArrayList<>();
 
-
-
         DefaultHandler dh = new DefaultHandler(){
             boolean checkPlayer=false,  checkTurn = false;
             String currentAttribute = "";
@@ -899,5 +899,48 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         out.flush();
         out.close();
         this.views = v;
+    }
+
+    public void readSaxCustomBoard(File f) throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        SAXParser s = spf.newSAXParser();
+        DefaultHandler dh = new DefaultHandler() {
+            Square square;
+            String curr;
+            public void startElement(String u, String ln, String qName, Attributes a) {
+
+                //System.out.println(qName);
+                curr = qName;
+                if (curr == "Double Letter Square") {
+                    square = new DoubleLetterSquare(0, 0);
+                } else if (curr == "Triple Letter Square") {
+                    square = new DoubleLetterSquare(0, 0);
+                }
+
+            }
+
+            public void endElement(String uri, String localName, String qName) throws SAXException {
+                //System.out.println(qName);
+                curr ="";
+                if(qName =="Double Letter Square" || qName =="Triple Letter Square")
+                {
+                    board[square.getRowNum()][square.getColumnNum()] = square;
+                }
+            }
+            public void characters(char[] ch, int start,int length)
+            {
+                if(curr=="rowNum")
+                {
+                    square.setRowNum(Integer.parseInt(new String(ch,start,length)));
+                }
+                if (curr=="columnNum")
+                {
+                    square.setColumnNum(Integer.parseInt(new String(ch,start,length)));
+                }
+            }
+        };
+        s.parse(f,dh);
+        //handleViewUpdate("add");
+        //handleViewUpdate("serialize");
     }
 }
