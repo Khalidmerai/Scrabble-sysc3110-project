@@ -22,7 +22,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public static ScrabbleModel board;
     public ScrabbleModel tempBoard;
     public ScrabbleController scrabbleController;
-    JButton undo = new JButton("Undo");
+    public JButton undo = new JButton("Undo");
+    public JButton customBoard;
     private ArrayList<ScrabbleView> views;
 
     public ScrabbleFrame(){
@@ -213,9 +214,9 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         save.setActionCommand("Save Game");
         save.addActionListener(scrabbleController);
 
-        JButton customBoard = new JButton("Custom Board");
-        save.setActionCommand("Custom Board");
-        save.addActionListener(scrabbleController);
+        customBoard = new JButton("Custom Board");
+        customBoard.setActionCommand("Custom Board");
+        customBoard.addActionListener(scrabbleController);
 
         //add all the buttons
         gameButtonPanel.add(undo);
@@ -249,7 +250,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 for(Tile tiles: p2.getLetter()){
                     if(tiles.getLetter() == chars[i]){
                         //we need to fix the remove part
-                        tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
+                        //tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
                         word.add(board.getSquare(7,7+i));
                         break;
                     }
