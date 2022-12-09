@@ -86,12 +86,14 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     }
     public void run() {
         p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
-        p2 = new Player("AI Player", letterBag.drawTiles(7), false);
-//        try {
-//            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
+        } catch (IOException e) {
+            p1.setTurn(false);
+            p2.setTurn(true);
+            makeMove((AI) p2);
+            throw new RuntimeException(e);
+        }
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();
@@ -159,6 +161,38 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         frame.setSize(670, 700);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+    private void makeMove(AI p2) {
+        boolean ai = false;
+
+        if(board.coordinates.isEmpty()){
+            char[] chars = p2.findBestWord(p2.letterCombo(' ')).toCharArray();
+            ArrayList<Square> word = new ArrayList<Square>();
+            for(int i = 0; i<chars.length; i++){
+                for(Tile tiles: p2.getLetter()){
+                    if(tiles.getLetter() == chars[i]){
+                        //we need to fix the remove part
+                        tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
+                        word.add(board.getSquare(7,7+i));
+                        break;
+                    }
+                }
+            }
+            ArrayList<ArrayList<Square>> allWord = new ArrayList<>();
+            allWord.add(word);
+            p2.addScore(p2.getScore());
+        }else{
+            for(int x = 0; x<15; x++){
+                for(int y =0; y<15; y++){
+                    Square temp = board.getSquare(x,y);
+                    if(p2.getLetter() != null){
+                        p2.findBestWord(p2.letterCombo(temp.getLetter()));
+                    }
+                }
+            }
+            //we want them to play the...
+            //what is the function for that
+        }
     }
 
     /**

@@ -1,12 +1,20 @@
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
 import java.awt.*;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class ScrabbleModel extends JPanel implements ScrabbleView {
+
+    private static ScrabbleModel scrabbleModel;
+    private static Bag letterbag;
     Map<Integer, Integer> coordinates = new HashMap<>();
+    private Player p1;
     /**
      * The number of rows in the board.
      */
@@ -15,17 +23,19 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * The number of columns in the board.
      */
     private static final int numColumns = 15;
-    private ArrayList<ScrabbleView> views;
+    private static ArrayList<ScrabbleView> views;
+
     private char[][] grid;
     private String wordCheckString = "", letter = "";
     private int rowNumber, columnNumber;
-    private Dictionary dict;
+    private static Dictionary dict;
     private Bag bagOfTiles;
     public static final int CENTER = 7;
     public Square[][] board = new Square[numRows][numColumns];
     private Square[][] tempBoard = new Square[numRows][numColumns];
 
-    public ScrabbleModel(String dictionaryFile, Bag letterBag) throws IOException {
+    public ScrabbleModel(ArrayList<ScrabbleView> views, String dictionaryFile, Bag letterBag) throws IOException {
+        this.views = views;
 
         if (dictionaryFile == null || letterBag == null) {
             JOptionPane.showMessageDialog(null,"File Not Found",
@@ -785,5 +795,109 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         }else{
             return total;
         }
+    }
+
+    public void saveGame(String fileName) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(this.toXML());
+
+        writer.flush();
+        writer.close();
+    }
+    /**
+     * Method to read the SAX
+     * @param fileName of type String for FileName
+     * @return a loaded game
+     */
+    public static ScrabbleModel readSAX(File fileName) throws Exception {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        SAXParser s = spf.newSAXParser();
+        ScrabbleModel loadedGame = new ScrabbleModel( views, scrabbleModel.letter, letterbag);
+        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<Square> squares = new ArrayList<>();
+
+
+
+        DefaultHandler dh = new DefaultHandler(){
+            boolean checkPlayer=false,  checkTurn = false;
+            String currentAttribute = "";
+            private Player player;
+            private Square square;
+            private Dictionary bag;
+
+            public void startElement(String u, String ln, String qName, Attributes a) {
+                if(qName.equals("turn")){
+                    checkTurn = false;
+                }
+                else{
+                    currentAttribute = qName;
+                }
+                System.out.println("StartElement: " + qName);
+            }
+            public void endElement(String uri, String localName, String qName) {
+
+                if(qName.equals("Player")){
+                    checkPlayer = false;
+                }
+            }
+            private void playerCase(String s, String s1) {
+                switch (s) {
+                    case "Turn":
+                        players.get(players.size() - 1).setTurn(true);
+                        players.get(players.size() - 1).setTurn(false);
+                        currentAttribute = "";
+                        break;
+                    case "Name":
+                        players.get(players.size() - 1).setName(String.valueOf(Integer.parseInt(s1)));
+                        currentAttribute = "";
+                        break;
+                    case "AI":
+                        players.get(players.size() - 1).setAI(Boolean.parseBoolean(s1));
+                        currentAttribute = "";
+                        break;
+                }
+
+            }
+
+        };
+
+        s.parse(fileName, dh);
+
+        return loadedGame;
+    }
+
+    private int toXML() {
+        return 0;
+    }
+
+
+    /**
+     * Gets a saved state of the Scrabble Game from a file
+     * @param filepath
+     * @return The Scrabble that saves the game was playing on
+     * @throws IOException if the class is interrupted while reading the file
+     * @throws ClassNotFoundException if file does not contain a class
+     */
+
+    public static ScrabbleModel importBoard(String filepath) throws IOException, ClassNotFoundException{
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(filepath));
+        ScrabbleModel model = (ScrabbleModel) in.readObject();
+        in.close();
+        return  model;
+    }
+
+    /**
+     * saves the current state of the board to a file
+     * @param filepath String representation of the path to the file
+     * @throws IOException if the class is
+     */
+    public void exportBoard(String filepath) throws IOException{
+        ArrayList<ScrabbleView> v = this.views;
+        this.views = new ArrayList<ScrabbleView>();
+        OutputStream out = new ObjectOutputStream(new FileOutputStream(filepath, false));
+        ((ObjectOutputStream) out).writeObject(this);
+        out.flush();
+        out.close();
+        this.views = v;
     }
 }

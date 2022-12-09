@@ -1,9 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
-public class AI extends Player {//implements FreePlay{
+public class AI extends Player implements Serializable {//implements FreePlay{
     private Map<Character, Integer> letterToAmountLeft = new TreeMap<Character, Integer>();
     boolean playerturn;
     private Player player;

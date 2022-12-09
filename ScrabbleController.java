@@ -201,6 +201,9 @@ public class ScrabbleController extends MouseAdapter implements ActionListener {
             JOptionPane.showMessageDialog(null, "There are " + scrabbleFrame.letterBag.getTilesLeft() +
                             " tiles left in the game",
                     "Tiles Left", JOptionPane.INFORMATION_MESSAGE);
+        } else if (input.equals("Save game")) {
+            JOptionPane.showMessageDialog(null, "Saved");
+
         }
     }
 }
