@@ -22,9 +22,8 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public static ScrabbleModel board;
     public ScrabbleModel tempBoard;
     public ScrabbleController scrabbleController;
-    public JButton undo = new JButton("Undo");
+    JButton undo = new JButton("Undo");
     private ArrayList<ScrabbleView> views;
-    public JButton customBoard;
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -39,7 +38,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         selectedLetter = new Square(-1, -1);
         squaresToSubmit = new LinkedList<Square>();
     }
-
     /**
      * Method that starts a new game or loads a previously saved game
      */
@@ -92,6 +90,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 }
             }
         });
+
 
         buttons.add(newGame);
         buttons.add(load);
@@ -162,10 +161,10 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
             makeMove((AI) p2);
             throw new RuntimeException(e);
         }
-
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();
+        //buildGridPanel();
 
         Square[][] currBoard = tempBoard.getCurrentBoard();
         for (int row = 0; row < currBoard.length; row++) {
@@ -214,10 +213,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         save.setActionCommand("Save Game");
         save.addActionListener(scrabbleController);
 
-        customBoard = new JButton("Custom Board");
-        customBoard.setActionCommand("Custom Board");
-        customBoard.addActionListener(scrabbleController);
-
         //add all the buttons
         gameButtonPanel.add(undo);
         gameButtonPanel.add(submit);
@@ -225,7 +220,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         gameButtonPanel.add(swap);
         gameButtonPanel.add(checkTilesLeft);
         gameButtonPanel.add(save);
-        gameButtonPanel.add(customBoard);
 
         //add panels to frame
         frame.add(scoreBoard);
@@ -240,7 +234,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
     private void makeMove(AI p2) {
         boolean ai = false;
 
@@ -251,7 +244,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 for(Tile tiles: p2.getLetter()){
                     if(tiles.getLetter() == chars[i]){
                         //we need to fix the remove part
-                        //tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
+                        tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
                         word.add(board.getSquare(7,7+i));
                         break;
                     }
@@ -306,6 +299,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
     public static void main(String[] args) throws IOException {
         SwingUtilities.invokeLater(new ScrabbleFrame());
-        //newGameOrLoad();
+        newGameOrLoad();
     }
 }
