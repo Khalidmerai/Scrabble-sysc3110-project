@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
  * Author: Scharara Islam 101149731 and Khalid Merai 101159203
  * This class shows that there are 26 letters in a bag.
  */
-public class Bag {
+public class Bag implements Serializable{
     public ArrayList<Tile> letter; //  initial words
 
     private Map<Character, Integer> letterToAmountLeft = new TreeMap<Character, Integer>();

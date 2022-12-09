@@ -1,10 +1,11 @@
 //Marina Latif, 101149148
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends JComponent {
+public class Player extends JComponent implements Serializable {
     /**
      * Name of player
      */
@@ -165,5 +166,8 @@ public class Player extends JComponent {
     @Override
     public Dimension getMinimumSize() {
         return new Dimension(35*7, 35);
+    }
+    public boolean setAI(boolean parseBoolean) {
+        return parseBoolean;
     }
 }

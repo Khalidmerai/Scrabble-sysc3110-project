@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,9 +19,11 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public JLabel score1, score2, turn;
     public Square selectedLetter, sq;
     public List<Square> squaresToSubmit;
-    public ScrabbleModel board, tempBoard;
+    public static ScrabbleModel board;
+    public ScrabbleModel tempBoard;
     public ScrabbleController scrabbleController;
     JButton undo = new JButton("Undo");
+    private ArrayList<ScrabbleView> views;
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -34,6 +37,70 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         //variables to help with player input
         selectedLetter = new Square(-1, -1);
         squaresToSubmit = new LinkedList<Square>();
+    }
+    /**
+     * Method that starts a new game or loads a previously saved game
+     */
+    public static void newGameOrLoad() {
+        JFrame newGameOrLoad = new JFrame("Start Window");
+        newGameOrLoad.setSize(new Dimension(250, 250));
+        newGameOrLoad.getContentPane().setLayout(new GridLayout(2,1));
+
+        JLabel q = new JLabel("Would you like to start a new game, load an international version, or load a previously saved game?", SwingConstants.CENTER);
+        q.setSize(new Dimension(250, 150));
+
+        JLabel buttons = new JLabel();
+        buttons.setSize(new Dimension(250, 75));
+        buttons.setLayout(new GridLayout(1,2));
+
+        JButton newGame = new JButton(" New ");
+        newGame.setSize(new Dimension(125, 75));
+        JButton load = new JButton(" Load ");
+        load.setSize(new Dimension(125, 75));
+
+        newGame.addActionListener(new ActionListener() {
+
+            /**
+             * method that decrements the number of players
+             * @param actionEvent
+             */
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                newGameOrLoad.dispose();
+            }
+        });
+
+        load.addActionListener(new ActionListener() {
+            /**
+             * method that increments the number of players
+             * @param actionEvent
+             */
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                try {
+
+                    String path = JOptionPane.showInputDialog("Path to game version or load a saved file");
+                    ScrabbleModel game = ScrabbleModel.readSAX(new File(path));
+                    ScrabbleFrame sf = new ScrabbleFrame();
+                    newGameOrLoad.dispose();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        buttons.add(newGame);
+        buttons.add(load);
+
+        newGameOrLoad.add(q);
+        newGameOrLoad.add(buttons);
+
+        newGameOrLoad.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        newGameOrLoad.setVisible(true);
+
     }
 
     public void buildScorePanel(){
@@ -72,13 +139,13 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
      */
     public void createScrabbleModels(){
         try {
-            board = new ScrabbleModel("wordlist.10000.txt", letterBag);
+            board = new ScrabbleModel(views, "wordlist.10000.txt", letterBag);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            tempBoard = new ScrabbleModel("wordlist.10000.txt", letterBag);
+            tempBoard = new ScrabbleModel(views, "wordlist.10000.txt", letterBag);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,12 +153,14 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     }
     public void run() {
         p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
-        p2 = new Player("AI Player", letterBag.drawTiles(7), false);
-//        try {
-//            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
+        } catch (IOException e) {
+            p1.setTurn(false);
+            p2.setTurn(true);
+            makeMove((AI) p2);
+            throw new RuntimeException(e);
+        }
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();
@@ -140,12 +209,17 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         checkTilesLeft.setActionCommand("Tiles Left");
         checkTilesLeft.addActionListener(scrabbleController);
 
+        JButton save = new JButton("Save Game");
+        save.setActionCommand("Save Game");
+        save.addActionListener(scrabbleController);
+
         //add all the buttons
         gameButtonPanel.add(undo);
         gameButtonPanel.add(submit);
         gameButtonPanel.add(pass);
         gameButtonPanel.add(swap);
         gameButtonPanel.add(checkTilesLeft);
+        gameButtonPanel.add(save);
 
         //add panels to frame
         frame.add(scoreBoard);
@@ -160,6 +234,39 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+    private void makeMove(AI p2) {
+        boolean ai = false;
+
+        if(board.coordinates.isEmpty()){
+            char[] chars = p2.findBestWord(p2.letterCombo(' ')).toCharArray();
+            ArrayList<Square> word = new ArrayList<Square>();
+            for(int i = 0; i<chars.length; i++){
+                for(Tile tiles: p2.getLetter()){
+                    if(tiles.getLetter() == chars[i]){
+                        //we need to fix the remove part
+                        tempBoard.addWord(p2.getLetter().remove(), 7, 7 + i);
+                        word.add(board.getSquare(7,7+i));
+                        break;
+                    }
+                }
+            }
+            ArrayList<ArrayList<Square>> allWord = new ArrayList<>();
+            allWord.add(word);
+            p2.addScore(p2.getScore());
+        }else{
+            for(int x = 0; x<15; x++){
+                for(int y =0; y<15; y++){
+                    Square temp = board.getSquare(x,y);
+                    if(p2.getLetter() != null){
+                        p2.findBestWord(p2.letterCombo(temp.getLetter()));
+                    }
+                }
+            }
+            //we want them to play the...
+            //what is the function for that
+        }
+    }
+
 
     /**
      *
@@ -192,5 +299,6 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
 
     public static void main(String[] args) throws IOException {
         SwingUtilities.invokeLater(new ScrabbleFrame());
+        newGameOrLoad();
     }
 }
