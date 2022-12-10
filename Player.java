@@ -129,8 +129,8 @@ public class Player extends JComponent implements Serializable {
         for (char c : toUse) {
             this.useLetter(c);
         }
-
     }
+
     /**
      *
      * @param c char to "use"
