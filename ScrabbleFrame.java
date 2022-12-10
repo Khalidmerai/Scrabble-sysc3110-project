@@ -1,11 +1,25 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 /**
  * The ScrabbleFrame class initializes the scrabble board by building its different squares
  * and creating buttons for the user to use
@@ -25,7 +39,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     public JButton undo = new JButton("Undo");
     public JButton customBoard;
     private ArrayList<ScrabbleView> views;
-    public static final String[] SAVE_LOCATIONS = {"file1.ser", "file2.ser"};
+    public static final String[] SAVE_LOCATIONS = {"file1.ser"};
 
     public ScrabbleFrame(){
         frame = new JFrame("Scrabble");
@@ -76,6 +90,64 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
                 JOptionPane.showMessageDialog(null, "Could not load the game. Exiting.");
                 System.exit(1);
             }
+        }
+    }
+
+    public void saveGameToXMLFile() {
+        try {
+            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = df.newDocumentBuilder();
+            Document doc = db.newDocument();
+
+            Element root = doc.createElement("Scrabble");
+            doc.appendChild(root);
+
+            Element currentPlayer = doc.createElement("currentPlayer");
+            currentPlayer.appendChild(doc.createTextNode(currPlayer.toXML()));
+            root.appendChild(currentPlayer);
+
+            Element occupiedTiles = doc.createElement("occupiedTiles");
+            String input = Arrays.deepToString(board.getCopyOfBoard());
+            input = input.replace("\0", "0");
+            occupiedTiles.appendChild(doc.createTextNode(input));
+            root.appendChild(occupiedTiles);
+
+
+            ArrayList<Player> players = new ArrayList<>();
+            for (int i = 0; i < players.size(); i++) {
+                Element player = doc.createElement("Player");
+                root.appendChild(player);
+
+                Element playerName = doc.createElement("playerName");
+                playerName.appendChild(doc.createTextNode(players.get(i).getName()));
+                player.appendChild(playerName);
+
+                Element totalScore = doc.createElement("totalScore");
+                totalScore.appendChild(doc.createTextNode(Integer.toString(players.get(i).getScore())));
+                player.appendChild(totalScore);
+
+                Element playerRack = doc.createElement("playerRack");
+               // playerRack.appendChild(doc.createTextNode(String.join(", ", players.get(i).getLetter(playerName.getNodeType()))));
+                player.appendChild(playerRack);
+
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+
+            DOMSource domSource = new DOMSource(doc);
+            String xmlFilePath = null;
+            StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+
+            transformer.transform(domSource, streamResult);
+
+            System.out.println("Done creating XML File");
+
+        } catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        } catch (TransformerException tfe) {
+            tfe.printStackTrace();
         }
     }
     public void buildScorePanel(){
