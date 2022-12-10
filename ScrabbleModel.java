@@ -15,7 +15,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
     private static ScrabbleModel scrabbleModel;
     private static Bag letterbag;
-    Map<Integer, Integer> coordinates = new HashMap<>();
+    public Map<Integer, Integer> coordinates = new HashMap<>();
     private Player p1;
     /**
      * The number of rows in the board.
@@ -29,7 +29,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
 
     private char[][] grid;
     private String wordCheckString = "", letter = "";
-    private int rowNumber, columnNumber;
     private static Dictionary dict;
     private Bag bagOfTiles;
     public static final int CENTER = 7;
@@ -336,7 +335,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
      * @param firstTurn - true if first turn of game, false otherwise
      * @return point value of move, -1 if move is invalid for any reason
      */
-
     public int addWord(List<Square> sqs, boolean firstTurn) {
 
         for (Square sq: sqs) {
