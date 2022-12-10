@@ -329,7 +329,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         }
     }
 
-
     /** Public Method for adding a word to the Game board
      * @param sqs - ArrayList<Square> of filled board to add
      * @param firstTurn - true if first turn of game, false otherwise
@@ -397,7 +396,7 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
             sameRow = true;
             indices.add(firstCol);
         }
-        System.out.println(indices);
+
         //start building word
         String s = "";
         int index = -1;
@@ -448,12 +447,10 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         //call helper function to do the dirty work
         int result = addWordHelper(asChar, startRow, startCol, (!sameRow), firstTurn, indicesNoPoints, sqs);
 
-        System.out.println(sqs);
         //add word to board if the move was valid
         if (result > 0) {
             addToBoard(sqs);
             return result;
-
         } else return -1;
     }
 

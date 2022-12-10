@@ -128,14 +128,15 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
     }
     public void run() {
         p1 = new Player(getUsername("Player 1"), letterBag.drawTiles(7), true);
-        try {
-            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
-        } catch (IOException e) {
-            p1.setTurn(false);
-            p2.setTurn(true);
-            makeMove((AI) p2);
-            throw new RuntimeException(e);
-        }
+        p2 = new Player(getUsername("Player 2"), letterBag.drawTiles(7), true);
+//        try {
+//            p2 = new AI("AI Player", letterBag.drawTiles(7), false);
+//        } catch (IOException e) {
+//            p1.setTurn(false);
+//            p2.setTurn(true);
+//            makeMove((AI) p2);
+//            throw new RuntimeException(e);
+//        }
         buildScorePanel();
         buildTileBenchPanel();
         createScrabbleModels();
