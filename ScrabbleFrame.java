@@ -93,7 +93,7 @@ public class ScrabbleFrame implements ScrabbleView, Runnable{
         }
     }
 
-    public void saveGameToXMLFile() {
+    public void saveGame() {
         try {
             DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = df.newDocumentBuilder();
