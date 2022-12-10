@@ -170,4 +170,15 @@ public class Player extends JComponent implements Serializable {
     public boolean setAI(boolean parseBoolean) {
         return parseBoolean;
     }
+    public String toXML()
+    {
+        String s= "";
+        s+="<Player>" + "\n";
+
+        s+= "<Name>"+name+"</Name>"+"\n";
+        s+= "\t<StartingRack>"+rack+"</StartingRack>"+"\n";
+        s+= "\t<Turn>"+name+"</Turn>"+"\n";
+        s+="</Player";
+        return s;
+    }
 }
