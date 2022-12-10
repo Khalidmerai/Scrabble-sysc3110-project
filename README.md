@@ -69,8 +69,11 @@ DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, sta
 BREAK DOWN OF TASKS FOR MILESTONE 4
 -----------------------------------------
 ScrabbleFrame.java and UML and readMe file: Marina
+
 ScrabbleFrame.java, Player.java, and readMe file: Scharara
+
 ScrabbleFrame.java, Player.java: Khalid (Macbook)
+
 ScrabbleModel.java, ScrabbleFrame.java, Sqaure.java: Saad
 
 HOW TO RUN THE PROGRAM FOR SUBMISSION 1:
