@@ -68,13 +68,13 @@ DoubleLetterSquare, DoubleWordSquare, trippleLetterSquare, TripleWordSquare, sta
 
 BREAK DOWN OF TASKS FOR MILESTONE 4
 -----------------------------------------
-ScrabbleFrame.java and UML and readMe file: Marina
+ScrabbleFrame.java and UML and readMe file, Worked on the save and toXML: Marina
 
-ScrabbleFrame.java, Player.java, and readMe file: Scharara
+ScrabbleFrame.java, Player.java, and readMe file, Worked on the save and toXML: Scharara
 
-ScrabbleFrame.java, Player.java: Khalid (Macbook)
+ScrabbleFrame.java, Player.java, Worked on the save and toXML: Khalid (Macbook)
 
-ScrabbleModel.java, ScrabbleFrame.java, Sqaure.java: Saad
+ScrabbleModel.java, ScrabbleFrame.java, Sqaure.java, Worked on the custom, save and toXML: Saad
 
 HOW TO RUN THE PROGRAM FOR SUBMISSION 1:
 1. Download a junit.framework package to ensure all test methods run and the whole code implementation runs. Can be downloaded from this link https://search.maven.org/search?q=g:junit%20AND%20a:junit
