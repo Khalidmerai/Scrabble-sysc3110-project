@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-/*
+
 public class ScrabbleModelTest {
 
     @org.junit.Test
     public void addingWordOnBoard1() throws IOException {
         Bag letterBag = new Bag();
-        ScrabbleModel board = new ScrabbleModel("wordlist.10000.txt", letterBag);
+        ArrayList<ScrabbleView> views = new ArrayList<>();
+        ScrabbleModel board = new ScrabbleModel(views, "wordlist.10000.txt", letterBag);
         Player p1 = new Player("Player 1", letterBag.drawTiles(7), true);
         Player p2 = new Player("Player 2", letterBag.drawTiles(7), false);
         Player currPlayer = (p1.getTurn()) ? p1 : p2;
@@ -44,7 +45,8 @@ public class ScrabbleModelTest {
     @org.junit.Test
     public void addingWordOnBoard2() throws IOException {
         Bag letterBag = new Bag();
-        ScrabbleModel board = new ScrabbleModel("wordlist.10000.txt", letterBag);
+        ArrayList<ScrabbleView> views = new ArrayList<>();
+        ScrabbleModel board = new ScrabbleModel(views, "wordlist.10000.txt", letterBag);
         Player p1 = new Player("Player 1", letterBag.drawTiles(7), true);
         Player p2 = new Player("Player 2", letterBag.drawTiles(7), false);
         Player currPlayer = (p1.getTurn()) ? p1 : p2;
@@ -85,6 +87,4 @@ public class ScrabbleModelTest {
         assertEquals(board.board[6][7].getLetter(), square1.getLetter());
         assertEquals(board.board[8][7].getLetter(), square3.getLetter());
     }
-
 }
- */

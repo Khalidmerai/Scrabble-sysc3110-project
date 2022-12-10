@@ -948,7 +948,6 @@ public class ScrabbleModel extends JPanel implements ScrabbleView {
         for(int i = 0; i < numRows; i++){
             for(int j = 0; j < numColumns; j++){
                 board[i][j].setCustomBoard();
-                System.out.println(board[i][j].isCustomBoard());
             }
         }
     }
